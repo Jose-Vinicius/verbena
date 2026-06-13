@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam Result - Obsidian</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#a1a1aa",
+                        "on-surface": "#fafafa",
+                        "surface": "#0c0c0f",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "inverse-primary": "#5b21b6",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "on-secondary-container": "#a1a1aa",
+                        "tertiary-container": "#065f46",
+                        "primary-container": "#7c3aed",
+                        "tertiary": "#34d399",
+                        "surface-container-highest": "#1e1e22",
+                        "error-container": "#3b1111",
+                        "surface-container-low": "#0f0f12",
+                        "surface-container": "#121215",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "on-error": "#1a0000",
+                        "tertiary-fixed": "#bbf7d0",
+                        "surface-tint": "#a78bfa",
+                        "surface-bright": "#18181b",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-high": "#18181b",
+                        "on-tertiary": "#001a12",
+                        "primary": "#a78bfa",
+                        "on-secondary-fixed": "#18181b",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "background": "#09090b",
+                        "surface-variant": "#18181b",
+                        "surface-dim": "#0c0c0f",
+                        "on-secondary": "#09090b",
+                        "error": "#ef4444",
+                        "secondary-fixed-dim": "#71717a",
+                        "secondary-container": "#27272a",
+                        "on-tertiary-fixed": "#003318",
+                        "secondary": "#71717a",
+                        "outline": "#52525b",
+                        "on-surface-variant": "#a1a1aa",
+                        "inverse-surface": "#fafafa",
+                        "primary-fixed": "#ede9fe",
+                        "outline-variant": "#27272a",
+                        "on-primary": "#0a0012",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "on-background": "#fafafa",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-error-container": "#fca5a5",
+                        "on-primary-container": "#ede9fe",
+                        "on-primary-fixed": "#2e1065",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Geist"],
+                        "display": ["Geist"],
+                        "body": ["Geist"],
+                        "label": ["Geist"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-primary font-body text-on-surface h-screen w-64 border-r border-outline-variant border-r border-outline-variant flex flex-col h-full py-6 px-4 hidden md:flex shrink-0">
+<!-- Header -->
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex items-center justify-center">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close-up studio portrait of a confident young tech professional, bathed in high-contrast dramatic lighting with deep shadows. The background is a sleek near-black studio setting, reflecting the Obsidian brand's developer-grade dark mode aesthetic. Subtle violet and emerald highlights hit the edges of their face, tying into the primary color palette. The mood is focused and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA27ma8ToRFFrV4iNsizi9Qu-a4lrKETZcgQIcglQNqRYSslOQt3JqUHVfmhhhwxk6fUJp9J2hNZEaVkULzYN6KEFEywb89fDYbvmYgopf9cw04B7XVJa5SPi1-XC8VNptfDvg5Uc-_ESE77hoY-mFgrNslrWsqdXAYAzJoSCkhObZ47OUAVfbdnL35gSpTNIwA6BjP0SfqYxMeO33OFe4yS5-hn0XGjw2YmPITFHFu0TDH3CwuL7L7TUXOPUFrgpn5NXhzc_i1asU"/>
+</div>
+<div>
+<h1 class="text-xl font-headline font-black tracking-tighter text-on-surface dark:text-on-surface leading-tight">Obsidian</h1>
+<p class="text-xs text-on-surface-variant font-medium">Study Platform</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-medium text-sm">Study</span>
+</a>
+<!-- Intent: Exam Result is part of History/Past performance -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-bold bg-surface-container-high hover:bg-surface-container transition-colors duration-200 Active: opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-medium text-sm">History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-bold py-2.5 rounded-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="text-sm">Generate Questions</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 h-full overflow-y-auto bg-surface-container-lowest relative">
+<!-- Top App Bar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full h-16 px-6 bg-background border-b border-outline-variant sticky top-0 z-10">
+<h1 class="text-lg font-headline font-bold text-on-surface tracking-tighter">Obsidian</h1>
+<div class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVul6V18kptUV1J-xi1rd1oPN2UP4n-3YszayA_Bol6AeoDAUgUFwFvJX6TnROsg2eNw8nh50eWe-hgMYR3TsNpZnhIzNE1CCZ2uCy0aLurVzelKwro9EwktddFdwyziz2yEHghGv7SCAi_sqrAafUWFKou9NA8zmXQkyzZ0bJb-D-cAV5ClD66T3fJsbQN7d3iIQnv1ETlnnjUjshc3mP6rvLUC-octTteexFR1EwxZy_ZUrq_BpZZfHRZjYPKzmw3UHXgT95BpU"/>
+</div>
+</header>
+<div class="max-w-5xl mx-auto px-6 py-12 md:py-16">
+<!-- Header Section -->
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-outline-variant text-primary text-xs font-bold uppercase tracking-wider mb-4">
+<span class="material-symbols-outlined text-sm">task_alt</span>
+                        Exam Completed
+                    </div>
+<h2 class="text-4xl md:text-5xl font-headline font-black tracking-tighter text-on-surface mb-2">Advanced Data Structures</h2>
+<p class="text-on-surface-variant text-lg">Completed on Oct 24, 2023 • 45m duration</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-lg border border-outline-variant text-on-surface font-medium hover:bg-surface-container transition-colors flex items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                        Review All Questions
+                    </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-bold hover:opacity-90 transition-opacity flex items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                        Back to Dashboard
+                    </button>
+</div>
+</div>
+<!-- Score Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Main Score Card -->
+<div class="md:col-span-2 bg-surface-container rounded-xl border border-outline-variant p-8 flex flex-col justify-center relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+<h3 class="text-on-surface-variant text-sm font-medium uppercase tracking-wider mb-2">Final Score</h3>
+<div class="flex items-baseline gap-4">
+<span class="text-7xl font-black text-on-surface tracking-tighter">8<span class="text-4xl text-on-surface-variant font-bold">/10</span></span>
+<span class="text-tertiary font-bold text-xl flex items-center gap-1">
+<span class="material-symbols-outlined">trending_up</span>
+                            80%
+                        </span>
+</div>
+<p class="text-on-surface-variant mt-4 max-w-md">Great job. You demonstrated a solid understanding of graph algorithms and tree traversals. Review the hash table questions to improve further.</p>
+</div>
+<!-- Stats Stack -->
+<div class="flex flex-col gap-6">
+<div class="bg-surface-container rounded-xl border border-outline-variant p-6 flex-1 flex flex-col justify-center">
+<h3 class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Correct Answers</h3>
+<div class="text-3xl font-bold text-tertiary">8</div>
+</div>
+<div class="bg-surface-container rounded-xl border border-outline-variant p-6 flex-1 flex flex-col justify-center">
+<h3 class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Incorrect Answers</h3>
+<div class="text-3xl font-bold text-error">2</div>
+</div>
+</div>
+</div>
+<!-- Detailed Results List -->
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-6 border-b border-outline-variant pb-4">Detailed Breakdown</h3>
+<div class="space-y-4">
+<!-- Correct Question -->
+<div class="bg-surface-container rounded-lg border border-outline-variant p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0 border border-tertiary/20">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div>
+<h4 class="text-on-surface font-medium text-lg leading-snug mb-1">What is the time complexity of a binary search tree lookup in the worst case?</h4>
+<p class="text-on-surface-variant text-sm font-mono bg-surface-container-lowest px-2 py-1 rounded inline-block border border-outline-variant">O(n)</p>
+</div>
+</div>
+<span class="text-xs font-bold text-tertiary uppercase tracking-wider bg-tertiary/10 px-2 py-1 rounded">Correct</span>
+</div>
+</div>
+<!-- Incorrect Question -->
+<div class="bg-surface-container rounded-lg border border-outline-variant p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-error/10 text-error flex items-center justify-center shrink-0 border border-error/20">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</div>
+<div>
+<h4 class="text-on-surface font-medium text-lg leading-snug mb-3">Which collision resolution technique involves a secondary hash function?</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<span class="text-xs text-on-surface-variant w-16 uppercase tracking-wider">Your Answer</span>
+<div class="flex-1 p-3 rounded bg-error/5 border border-error/20 text-error font-medium text-sm flex items-center justify-between">
+                                                Linear Probing
+                                                <span class="material-symbols-outlined text-[16px]">close</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs text-on-surface-variant w-16 uppercase tracking-wider">Correct</span>
+<div class="flex-1 p-3 rounded bg-tertiary/5 border border-tertiary/20 text-tertiary font-medium text-sm flex items-center justify-between">
+                                                Double Hashing
+                                                <span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Correct Question -->
+<div class="bg-surface-container rounded-lg border border-outline-variant p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0 border border-tertiary/20">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div>
+<h4 class="text-on-surface font-medium text-lg leading-snug mb-1">In a Max-Heap, the root node always contains the minimum value.</h4>
+<p class="text-on-surface-variant text-sm font-mono bg-surface-container-lowest px-2 py-1 rounded inline-block border border-outline-variant">False</p>
+</div>
+</div>
+<span class="text-xs font-bold text-tertiary uppercase tracking-wider bg-tertiary/10 px-2 py-1 rounded">Correct</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#a1a1aa",
+                      "on-surface": "#fafafa",
+                      "surface": "#0c0c0f",
+                      "on-primary-fixed-variant": "#5b21b6",
+                      "inverse-primary": "#5b21b6",
+                      "primary-fixed-dim": "#c4b5fd",
+                      "on-secondary-container": "#a1a1aa",
+                      "tertiary-container": "#065f46",
+                      "primary-container": "#7c3aed",
+                      "tertiary": "#34d399",
+                      "surface-container-highest": "#1e1e22",
+                      "error-container": "#3b1111",
+                      "surface-container-low": "#0f0f12",
+                      "surface-container": "#121215",
+                      "on-tertiary-fixed-variant": "#047857",
+                      "on-error": "#1a0000",
+                      "tertiary-fixed": "#bbf7d0",
+                      "surface-tint": "#a78bfa",
+                      "surface-bright": "#18181b",
+                      "surface-container-lowest": "#09090b",
+                      "surface-container-high": "#18181b",
+                      "on-tertiary": "#001a12",
+                      "primary": "#a78bfa",
+                      "on-secondary-fixed": "#18181b",
+                      "tertiary-fixed-dim": "#6ee7b7",
+                      "background": "#09090b",
+                      "surface-variant": "#18181b",
+                      "surface-dim": "#0c0c0f",
+                      "on-secondary": "#09090b",
+                      "error": "#ef4444",
+                      "secondary-fixed-dim": "#71717a",
+                      "secondary-container": "#27272a",
+                      "on-tertiary-fixed": "#003318",
+                      "secondary": "#71717a",
+                      "outline": "#52525b",
+                      "on-surface-variant": "#a1a1aa",
+                      "inverse-surface": "#fafafa",
+                      "primary-fixed": "#ede9fe",
+                      "outline-variant": "#27272a",
+                      "on-primary": "#0a0012",
+                      "on-secondary-fixed-variant": "#3f3f46",
+                      "on-background": "#fafafa",
+                      "on-tertiary-container": "#bbf7d0",
+                      "on-error-container": "#fca5a5",
+                      "on-primary-container": "#ede9fe",
+                      "on-primary-fixed": "#2e1065",
+                      "inverse-on-surface": "#09090b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Geist"
+                      ],
+                      "display": [
+                              "Geist"
+                      ],
+                      "body": [
+                              "Geist"
+                      ],
+                      "label": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {}
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(18, 18, 21, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid theme('colors.outline-variant');
+        }
+
+        .input-glow:focus {
+            box-shadow: 0 0 0 2px theme('colors.primary'), 0 0 0 4px rgba(167, 139, 250, 0.2);
+            outline: none;
+        }
+        
+        .hero-pattern {
+            background-image: radial-gradient(theme('colors.outline-variant') 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden font-body text-on-surface bg-background">
+<!-- Subtle Background Pattern -->
+<div class="absolute inset-0 hero-pattern z-0 pointer-events-none"></div>
+<!-- Main Content Container -->
+<main class="w-full max-w-md p-6 z-10 relative">
+<!-- Logo Header -->
+<div class="text-center mb-10 flex flex-col items-center justify-center space-y-3">
+<div class="h-12 w-12 bg-surface-container-high rounded-xl border border-outline-variant flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<h1 class="text-3xl font-headline font-black tracking-tighter text-on-surface">Obsidian Study</h1>
+<p class="text-on-surface-variant text-sm font-medium">Precision learning platform</p>
+</div>
+<!-- Login Form Card -->
+<div class="glass-panel rounded-xl p-8 shadow-2xl relative overflow-hidden">
+<!-- Decorative accent line -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+<form action="#" class="space-y-6" method="POST">
+<!-- Email Field -->
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-2" for="email">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="mail">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg bg-surface-container text-on-surface placeholder-on-surface-variant/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 input-glow" id="email" name="email" placeholder="developer@obsidian.io" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block text-sm font-medium text-on-surface-variant" for="password">Password</label>
+<a class="text-xs text-primary hover:text-primary-fixed-dim transition-colors font-medium" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="lock">lock</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg bg-surface-container text-on-surface placeholder-on-surface-variant/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 input-glow" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-on-primary bg-primary hover:bg-primary-fixed-dim focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-background transition-all duration-200 group relative overflow-hidden" type="submit">
+<span class="relative z-10 flex items-center gap-2">
+                        Sign In
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</span>
+<!-- Button hover effect layer -->
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+</button>
+</form>
+<!-- Divider -->
+<div class="mt-8 relative">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-2 bg-surface-container-high text-on-surface-variant glass-panel rounded-full">Or continue with</span>
+</div>
+</div>
+<!-- Social Logins -->
+<div class="mt-6 grid grid-cols-2 gap-3">
+<button class="flex justify-center items-center py-2.5 px-4 border border-outline-variant rounded-lg bg-surface-container hover:bg-surface-container-high hover:border-primary/50 text-sm font-medium text-on-surface transition-all duration-200" type="button">
+<svg class="h-5 w-5 mr-2" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"></path>
+</svg>
+                    Google
+                </button>
+<button class="flex justify-center items-center py-2.5 px-4 border border-outline-variant rounded-lg bg-surface-container hover:bg-surface-container-high hover:border-primary/50 text-sm font-medium text-on-surface transition-all duration-200" type="button">
+<svg class="h-5 w-5 mr-2" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path>
+</svg>
+                    GitHub
+                </button>
+</div>
+</div>
+<!-- Footer Links -->
+<p class="mt-8 text-center text-sm text-on-surface-variant">
+            Don't have an account?
+            <a class="font-medium text-primary hover:text-primary-fixed-dim transition-colors ml-1 border-b border-transparent hover:border-primary-fixed-dim pb-0.5" href="#">Create account</a>
+</p>
+</main>
+<script>
+        // Simple ambient subtle glow effect that follows mouse slightly
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Subtle background shift based on mouse position
+            document.body.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, theme('colors.surface-container'), theme('colors.background') 60%)`;
+        });
+    </script>
+</body></html>

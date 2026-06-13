@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian - Exam Configuration</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#a1a1aa",
+                        "on-surface": "#fafafa",
+                        "surface": "#0c0c0f",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "inverse-primary": "#5b21b6",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "on-secondary-container": "#a1a1aa",
+                        "tertiary-container": "#065f46",
+                        "primary-container": "#7c3aed",
+                        "tertiary": "#34d399",
+                        "surface-container-highest": "#1e1e22",
+                        "error-container": "#3b1111",
+                        "surface-container-low": "#0f0f12",
+                        "surface-container": "#121215",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "on-error": "#1a0000",
+                        "tertiary-fixed": "#bbf7d0",
+                        "surface-tint": "#a78bfa",
+                        "surface-bright": "#18181b",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-high": "#18181b",
+                        "on-tertiary": "#001a12",
+                        "primary": "#a78bfa",
+                        "on-secondary-fixed": "#18181b",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "background": "#09090b",
+                        "surface-variant": "#18181b",
+                        "surface-dim": "#0c0c0f",
+                        "on-secondary": "#09090b",
+                        "error": "#ef4444",
+                        "secondary-fixed-dim": "#71717a",
+                        "secondary-container": "#27272a",
+                        "on-tertiary-fixed": "#003318",
+                        "secondary": "#71717a",
+                        "outline": "#52525b",
+                        "on-surface-variant": "#a1a1aa",
+                        "inverse-surface": "#fafafa",
+                        "primary-fixed": "#ede9fe",
+                        "outline-variant": "#27272a",
+                        "on-primary": "#0a0012",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "on-background": "#fafafa",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-error-container": "#fca5a5",
+                        "on-primary-container": "#ede9fe",
+                        "on-primary-fixed": "#2e1065",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Geist Font Import fallback */
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+        
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface dark:bg-surface text-primary dark:text-primary font-body text-on-surface text-xl font-headline font-black tracking-tighter text-on-surface dark:text-on-surface h-screen w-64 border-r border-outline-variant border-r border-outline-variant flat no shadows flex flex-col h-full py-6 px-4 shrink-0 hidden md:flex z-10">
+<!-- Header -->
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApkTowXMk3VqTfpPXabAomF0eGsPJO_HctvllBU5dzDi4gfCiEE_M0YIUTMi1oti-k1w5SrqHySR6OugRSgk9wXbUuLHdEPtDEPsA4zRHIBYOaoYSTYzGOGQLsdFupiB8cNLZE3bXozf5Zp1BtWI-COHCNlem1U4hutEJyuUE-4nW0QPECYht8wL05jCi-a5CjhijomC-8k83eiU-u_zUAUOpB-__SjeN7aEMJ7Da6-yC0mtaG6us3e-_Vh5CLbwW9kc9Kjzf7Nak"/>
+</div>
+<div>
+<h1 class="text-xl font-headline font-black tracking-tighter text-on-surface leading-tight">Obsidian</h1>
+<p class="text-xs text-on-surface-variant font-normal tracking-normal">Study Platform</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 Active: opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Study (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-primary font-bold bg-surface-container-high transition-colors duration-200 Active: opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span>Study</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 Active: opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span>History</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 Active: opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- CTA -->
+<div class="mt-auto pt-6">
+<button class="w-full py-3 px-4 bg-primary text-on-primary font-bold rounded-lg text-sm transition-transform active:scale-95 flex items-center justify-center gap-2 hover:bg-primary-fixed hover:opacity-90">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                Generate Questions
+            </button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto relative">
+<!-- Top App Bar (Mobile Only for shell completeness, hidden on md+) -->
+<header class="md:hidden bg-background dark:bg-background text-primary dark:text-primary font-body text-on-surface text-lg font-headline font-bold text-on-surface docked full-width top-0 border-b border-outline-variant border-b border-outline-variant flat no shadows flex justify-between items-center w-full h-16 px-8 z-10 sticky">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-lg font-headline font-bold tracking-tight">Obsidian</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBNjHzbvb-nf8qAKRNWG774fQF5AbtVwBswjURe6ZOkg0u6Vditl1CgDkLyALGx_x3GSA2pFiVxZP4ggauxtJbiKgJhAqHPYdVWLMRdKjCc7haAXPlE3Wfzr6qmL1cbc9gEHL_psPwE7R6C46GQ_9Ti7ZjhinKL3AuTyhlfKdFG5XUxnkC04MMMRHo2FRzjxvx7c-0PoEF_A7Z80kAfG7fhbuHfIENOLYsubY4QWeeNfWzOEQKCowb-W0_k4Yl3wplhwrdsbei0L0"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 flex items-center justify-center p-4 md:p-8 relative">
+<!-- Subtle background accent for focus -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+<div class="w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] opacity-50 mix-blend-screen"></div>
+</div>
+<!-- Configuration Card -->
+<div class="w-full max-w-lg bg-surface-container border border-outline-variant rounded-xl p-8 relative z-10 shadow-2xl shadow-black/50 backdrop-blur-sm">
+<header class="mb-8 text-center">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant mb-4 text-primary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h2 class="text-2xl font-headline font-bold tracking-tight mb-2 text-on-surface">Exam Configuration</h2>
+<p class="text-sm text-on-surface-variant">Set up your study session parameters.</p>
+</header>
+<form class="space-y-6">
+<!-- Subject Selection -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-on-surface-variant flex justify-between" for="subject">
+<span>Subject Domain</span>
+<span class="text-xs text-primary opacity-80">Required</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 px-4 text-on-surface text-sm focus:ring-2 focus:ring-primary focus:border-primary appearance-none hover:border-outline transition-colors cursor-pointer" id="subject" name="subject">
+<option disabled="" selected="" value="">Select a subject...</option>
+<option value="sysarch">System Architecture</option>
+<option value="algorithms">Advanced Algorithms</option>
+<option value="networks">Network Protocols</option>
+<option value="db">Database Management</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Question Count Input -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-on-surface-variant flex justify-between" for="questions">
+<span>Number of Questions</span>
+</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 px-4 text-on-surface text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-colors hover:border-outline" id="questions" max="50" min="1" name="questions" placeholder="e.g. 10" type="number" value="10"/>
+<!-- Validation Message (Dynamic visual) -->
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<span class="text-xs font-medium text-tertiary bg-tertiary/10 px-2 py-1 rounded border border-tertiary/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    15 available
+                                </span>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant/70 pt-1">Select between 1 and 50 questions based on available pool.</p>
+</div>
+<!-- Difficulty Toggle (Extra detail to avoid Standard List look) -->
+<div class="pt-2">
+<label class="block text-sm font-medium text-on-surface-variant mb-3">Intensity Level</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="intensity" type="radio" value="standard"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg text-sm text-on-surface-variant peer-checked:bg-surface-container-highest peer-checked:border-primary/50 peer-checked:text-primary transition-all hover:bg-surface-container-highest">
+                                    Standard
+                                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="intensity" type="radio" value="hard"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg text-sm text-on-surface-variant peer-checked:bg-surface-container-highest peer-checked:border-primary/50 peer-checked:text-primary transition-all hover:bg-surface-container-highest">
+                                    Hard
+                                </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="intensity" type="radio" value="expert"/>
+<div class="text-center py-2 px-3 border border-outline-variant rounded-lg text-sm text-on-surface-variant peer-checked:bg-surface-container-highest peer-checked:border-primary/50 peer-checked:text-primary transition-all hover:bg-surface-container-highest">
+                                    Expert
+                                </div>
+</label>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px w-full bg-outline-variant my-6"></div>
+<!-- Action Button -->
+<button class="w-full bg-primary text-on-primary font-bold rounded-lg py-4 px-6 text-sm flex items-center justify-center gap-2 hover:bg-primary-fixed transition-all duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(167,139,250,0.1)] hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]" type="button">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+                        Start Exam
+                    </button>
+</form>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for the number input to simulate dynamic validation check
+        const questionInput = document.getElementById('questions');
+        const subjectSelect = document.getElementById('subject');
+        
+        subjectSelect.addEventListener('change', (e) => {
+            // In a real app, this would fetch the available pool count
+            const parent = questionInput.parentElement;
+            const validationTag = parent.querySelector('.text-tertiary');
+            
+            // Brief loading flash
+            validationTag.style.opacity = '0.5';
+            setTimeout(() => {
+                validationTag.style.opacity = '1';
+                // Randomize available just for UI demo feel
+                const counts = [15, 42, 8, 120];
+                const rand = counts[Math.floor(Math.random() * counts.length)];
+                validationTag.innerHTML = `<span class="material-symbols-outlined text-[14px]">check_circle</span> ${rand} available`;
+            }, 300);
+        });
+    </script>
+</body></html>

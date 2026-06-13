@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400;
+        }
+        
+        /* Custom scrollbar for developer aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#a1a1aa",
+                    "on-surface": "#fafafa",
+                    "surface": "#0c0c0f",
+                    "on-primary-fixed-variant": "#5b21b6",
+                    "inverse-primary": "#5b21b6",
+                    "primary-fixed-dim": "#c4b5fd",
+                    "on-secondary-container": "#a1a1aa",
+                    "tertiary-container": "#065f46",
+                    "primary-container": "#7c3aed",
+                    "tertiary": "#34d399",
+                    "surface-container-highest": "#1e1e22",
+                    "error-container": "#3b1111",
+                    "surface-container-low": "#0f0f12",
+                    "surface-container": "#121215",
+                    "on-tertiary-fixed-variant": "#047857",
+                    "on-error": "#1a0000",
+                    "tertiary-fixed": "#bbf7d0",
+                    "surface-tint": "#a78bfa",
+                    "surface-bright": "#18181b",
+                    "surface-container-lowest": "#09090b",
+                    "surface-container-high": "#18181b",
+                    "on-tertiary": "#001a12",
+                    "primary": "#a78bfa",
+                    "on-secondary-fixed": "#18181b",
+                    "tertiary-fixed-dim": "#6ee7b7",
+                    "background": "#09090b",
+                    "surface-variant": "#18181b",
+                    "surface-dim": "#0c0c0f",
+                    "on-secondary": "#09090b",
+                    "error": "#ef4444",
+                    "secondary-fixed-dim": "#71717a",
+                    "secondary-container": "#27272a",
+                    "on-tertiary-fixed": "#003318",
+                    "secondary": "#71717a",
+                    "outline": "#52525b",
+                    "on-surface-variant": "#a1a1aa",
+                    "inverse-surface": "#fafafa",
+                    "primary-fixed": "#ede9fe",
+                    "outline-variant": "#27272a",
+                    "on-primary": "#0a0012",
+                    "on-secondary-fixed-variant": "#3f3f46",
+                    "on-background": "#fafafa",
+                    "on-tertiary-container": "#bbf7d0",
+                    "on-error-container": "#fca5a5",
+                    "on-primary-container": "#ede9fe",
+                    "on-primary-fixed": "#2e1065",
+                    "inverse-on-surface": "#09090b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Geist", "sans-serif"],
+                    "display": ["Geist", "sans-serif"],
+                    "body": ["Geist", "sans-serif"],
+                    "label": ["Geist", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body h-screen flex overflow-hidden antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Desktop Side Navigation -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant bg-surface dark:bg-surface py-6 px-4 flex-shrink-0 z-20">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="Abstract digital network pattern" class="w-full h-full object-cover opacity-80 mix-blend-luminosity" data-alt="A macro photograph of an abstract digital network or circuit board pattern. The image features a strict monochrome palette with predominantly deep black background surfaces intersected by glowing, precise white lines representing data pathways. High-contrast, sharp focus, with subtle vignette edges to maintain a dark, developer-grade aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEz7Z0pCAZSeFiNdYJRRsgU-TZU8bOR0pv1lo4F739Gvcvsj0qgr2V1E0RITeJpqmDO0IWYsDPMcVrtWVF-Nu2M19W9UEcIMJhL6880ewD4YuPRkk67vay9Aj1F356Kd6iQG_zyxqEt7Rp5tmqvISpFwEVJGhDtxkdVu8etsxkocWIVyYvEGyRTdbs0jkyF2_eb_CHbAOkzf5WbtL8_iZBp5CkpE7NM0JnNNSxIJGehoRKRMQ2SZRRyp5VSrJfptGuleAYwOFxAVk"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xl font-headline font-black tracking-tighter text-on-surface dark:text-on-surface leading-tight">Obsidian</span>
+<span class="text-xs text-secondary-fixed-dim font-label uppercase tracking-widest mt-0.5">Study Platform</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-1 flex-1">
+<!-- Active Item: Dashboard -->
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-primary font-bold bg-surface-container-high transition-all opacity-100" href="#">
+<span class="material-symbols-outlined icon-fill text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+</li>
+<!-- Inactive Items -->
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="text-sm">Study</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="text-sm">History</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</li>
+</ul>
+<!-- CTA Action -->
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<button class="w-full py-2.5 px-4 bg-primary text-on-primary font-headline font-semibold text-sm rounded-lg hover:bg-primary-fixed-dim transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-container-lowest flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                Generate Questions
+            </button>
+</div>
+</nav>
+<!-- Main Content Layout -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<!-- Mobile Top Navigation Fallback -->
+<header class="md:hidden flex justify-between items-center w-full h-16 px-6 border-b border-outline-variant bg-background dark:bg-background z-20 flex-shrink-0">
+<div class="text-lg font-headline font-bold text-on-surface tracking-tighter">Obsidian</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden cursor-pointer hover:border-primary transition-colors">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A moody, high-contrast portrait of a professional developer in a dimly lit workspace. The lighting is dominated by cool blue and subtle purple hues originating from a computer monitor, casting dramatic shadows. The subject is focused, minimalist, fitting perfectly within a dark-mode tech application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBQugrdWwLrMAZz-mAdmoETBj9T4Z20uDUEbH0ghKRIQQphWZ22dNWLniwpX5RcKSMgkeR1x1bkZoqU0ag12mnrTE3r3cuW_PVUTdfu4Cg2iSREGh5up-3ElQCnuAI8B_a7T7lxcSgEiuadzAxEIntv0qZUOvZoalHmQkNcMbC1NXg1XYZX9YW7pMDReLe7kCdXEH9rcsXn2oXPtmScelSCXZ-QxjjYhSzuGtmLJl22HfRgMN7ZRocsGw7dZdxyNP7LE5IeV2LeuI"/>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto px-6 py-8 md:px-10 lg:px-16 lg:py-12 w-full max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<h1 class="text-3xl font-headline font-black tracking-tighter text-on-surface mb-2">Overview</h1>
+<p class="text-sm text-secondary-fixed font-body">Track your study progress and recent performance metrics.</p>
+</div>
+<div class="flex items-center gap-2 text-sm text-secondary border border-outline-variant rounded-lg px-3 py-1.5 bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Last synced: Just now</span>
+</div>
+</div>
+<!-- Subjects Grid -->
+<section class="mb-14">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-lg font-headline font-bold text-on-surface tracking-tight">Active Subjects</h2>
+<a class="text-sm font-medium text-primary hover:text-primary-fixed-dim transition-colors flex items-center gap-1" href="#">
+                        View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Subject Card 1 -->
+<div class="group relative bg-surface-container border border-outline-variant rounded-xl p-6 hover:bg-surface-container-high hover:border-outline transition-all duration-300 cursor-pointer flex flex-col h-full">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined icon-fill">schema</span>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-surface-container-highest text-secondary-fixed">
+                                Core
+                            </span>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-headline font-bold text-on-surface mb-1 group-hover:text-primary-fixed-dim transition-colors">System Design</h3>
+<div class="flex items-center justify-between mt-4 border-t border-outline-variant pt-4">
+<div class="flex flex-col">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Questions</span>
+<span class="text-sm font-medium text-on-surface-variant">342 available</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Last Studied</span>
+<span class="text-sm font-medium text-on-surface-variant">2h ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Subject Card 2 -->
+<div class="group relative bg-surface-container border border-outline-variant rounded-xl p-6 hover:bg-surface-container-high hover:border-outline transition-all duration-300 cursor-pointer flex flex-col h-full">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined icon-fill">account_tree</span>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-surface-container-highest text-secondary-fixed">
+                                Active
+                            </span>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-headline font-bold text-on-surface mb-1 group-hover:text-primary-fixed-dim transition-colors">Advanced Algorithms</h3>
+<div class="flex items-center justify-between mt-4 border-t border-outline-variant pt-4">
+<div class="flex flex-col">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Questions</span>
+<span class="text-sm font-medium text-on-surface-variant">156 available</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Last Studied</span>
+<span class="text-sm font-medium text-on-surface-variant">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Subject Card 3 -->
+<div class="group relative bg-surface-container border border-outline-variant rounded-xl p-6 hover:bg-surface-container-high hover:border-outline transition-all duration-300 cursor-pointer flex flex-col h-full">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+<div class="flex justify-between items-start mb-8">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest border border-outline flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined icon-fill">dns</span>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-surface-container-highest text-secondary-fixed">
+                                Review
+                            </span>
+</div>
+<div class="mt-auto">
+<h3 class="text-lg font-headline font-bold text-on-surface mb-1 group-hover:text-primary-fixed-dim transition-colors">Network Protocols</h3>
+<div class="flex items-center justify-between mt-4 border-t border-outline-variant pt-4">
+<div class="flex flex-col">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Questions</span>
+<span class="text-sm font-medium text-on-surface-variant">89 available</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-xs font-label text-secondary uppercase tracking-wider mb-0.5">Last Studied</span>
+<span class="text-sm font-medium text-on-surface-variant">4d ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity List -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-lg font-headline font-bold text-on-surface tracking-tight">Recent Mock Exams</h2>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Activity Item 1 (High Score) -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-tertiary-container/10 border border-tertiary-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">System Design Comprehensive</h4>
+<p class="text-xs text-secondary-fixed mt-0.5">Completed Today at 10:45 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<span class="block text-sm font-bold text-tertiary">92%</span>
+<span class="block text-xs text-secondary">Score</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-primary hover:text-primary-fixed-dim transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Activity Item 2 (Average Score) -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-surface-container-high border border-outline flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">article</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Algorithms: Dynamic Programming</h4>
+<p class="text-xs text-secondary-fixed mt-0.5">Completed Yesterday</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface">78%</span>
+<span class="block text-xs text-secondary">Score</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-primary hover:text-primary-fixed-dim transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-surface-container-high border border-outline flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">article</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">TCP/IP Subnetting Quiz</h4>
+<p class="text-xs text-secondary-fixed mt-0.5">Completed Oct 12, 2023</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<span class="block text-sm font-bold text-on-surface">85%</span>
+<span class="block text-xs text-secondary">Score</span>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-primary hover:text-primary-fixed-dim transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom spacer for scrolling -->
+<div class="h-12 w-full"></div>
+</main>
+</div>
+</body></html>

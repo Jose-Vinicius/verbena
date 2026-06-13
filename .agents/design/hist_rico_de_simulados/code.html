@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam History - Obsidian</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#a1a1aa",
+                        "on-surface": "#fafafa",
+                        "surface": "#0c0c0f",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "inverse-primary": "#5b21b6",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "on-secondary-container": "#a1a1aa",
+                        "tertiary-container": "#065f46",
+                        "primary-container": "#7c3aed",
+                        "tertiary": "#34d399",
+                        "surface-container-highest": "#1e1e22",
+                        "error-container": "#3b1111",
+                        "surface-container-low": "#0f0f12",
+                        "surface-container": "#121215",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "on-error": "#1a0000",
+                        "tertiary-fixed": "#bbf7d0",
+                        "surface-tint": "#a78bfa",
+                        "surface-bright": "#18181b",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-high": "#18181b",
+                        "on-tertiary": "#001a12",
+                        "primary": "#a78bfa",
+                        "on-secondary-fixed": "#18181b",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "background": "#09090b",
+                        "surface-variant": "#18181b",
+                        "surface-dim": "#0c0c0f",
+                        "on-secondary": "#09090b",
+                        "error": "#ef4444",
+                        "secondary-fixed-dim": "#71717a",
+                        "secondary-container": "#27272a",
+                        "on-tertiary-fixed": "#003318",
+                        "secondary": "#71717a",
+                        "outline": "#52525b",
+                        "on-surface-variant": "#a1a1aa",
+                        "inverse-surface": "#fafafa",
+                        "primary-fixed": "#ede9fe",
+                        "outline-variant": "#27272a",
+                        "on-primary": "#0a0012",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "on-background": "#fafafa",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-error-container": "#fca5a5",
+                        "on-primary-container": "#ede9fe",
+                        "on-primary-fixed": "#2e1065",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Geist"],
+                        "display": ["Geist"],
+                        "body": ["Geist"],
+                        "label": ["Geist"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface dark:bg-surface h-screen w-64 border-r border-outline-variant flex flex-col py-6 px-4 hidden md:flex shrink-0">
+<!-- Header -->
+<div class="flex items-center gap-3 mb-8 px-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a young professional in a dark, moody environment. The lighting is dramatic, emphasizing high contrast with deep near-black shadows and precise white highlights, aligning with a sleek, developer-grade aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPgBes71_KNOgS4aScKmj1etnHOeel3eyIddg21IxO49fD-ZGmHzUv-ZKZzFhMdbO51npd4nrJaEiiq86krfhybWpqhVTIh2Ch8sA9VYu1rKA8RNmOawiOYL1uUw2WYX9Y6vyD6oJrsyOfS1V9xPRPVIqiwNKYDq9sgOW_3cXnSZQyCmd8wPsYdYrJ-NxDSxmW24W6SZyFJRH1QYG4wnmh-NRHr4PNlUpVyJ3s4flTv7DUSxz21CcQ6thGPLWrivixhPjWOEJZKTM"/>
+</div>
+<div>
+<h1 class="text-xl font-headline font-black tracking-tighter text-on-surface dark:text-on-surface">Obsidian</h1>
+<p class="text-xs text-on-surface-variant">Study Platform</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-body">Study</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-surface-container-high opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-body">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body">Settings</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto px-2">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-bold hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+                Generate Questions
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Mobile Header (Visible only on small screens) -->
+<header class="md:hidden flex items-center justify-between p-4 border-b border-outline-variant bg-surface">
+<h1 class="text-xl font-headline font-black tracking-tighter text-on-surface">Obsidian</h1>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<div class="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
+<div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-headline font-bold tracking-tight mb-2">Exam History</h2>
+<p class="text-on-surface-variant">Review your past performance and track improvements over time.</p>
+</div>
+<!-- Filters / Search -->
+<div class="flex items-center gap-3">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container border border-outline-variant text-on-surface text-sm rounded-lg pl-9 pr-3 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search subject or date..." type="text"/>
+</div>
+<button class="bg-surface-container border border-outline-variant p-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:border-outline transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Bento-style Summary Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<div class="bg-surface-container rounded-lg border border-outline-variant p-5 flex flex-col">
+<div class="flex items-center gap-2 text-on-surface-variant mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="monitoring">monitoring</span>
+<span class="text-sm font-medium">Average Score</span>
+</div>
+<div class="text-4xl font-headline font-bold mt-auto">84%</div>
+<div class="text-tertiary text-xs mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="arrow_upward">arrow_upward</span>
+                        +2.4% this month
+                    </div>
+</div>
+<div class="bg-surface-container rounded-lg border border-outline-variant p-5 flex flex-col">
+<div class="flex items-center gap-2 text-on-surface-variant mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="library_books">library_books</span>
+<span class="text-sm font-medium">Exams Completed</span>
+</div>
+<div class="text-4xl font-headline font-bold mt-auto">27</div>
+<div class="text-on-surface-variant text-xs mt-2">Across 4 subjects</div>
+</div>
+<div class="bg-surface-container rounded-lg border border-outline-variant p-5 flex flex-col relative overflow-hidden group cursor-pointer hover:border-primary transition-colors">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between mb-3 relative z-10">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="workspace_premium">workspace_premium</span>
+<span class="text-sm font-medium">Top Subject</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="text-2xl font-headline font-bold mt-auto relative z-10">Advanced Data Structures</div>
+<div class="text-on-surface-variant text-xs mt-2 relative z-10">92% average</div>
+</div>
+</div>
+<!-- List View (Replacing standard table with a more structured card list) -->
+<div class="space-y-3">
+<h3 class="text-sm font-medium text-on-surface-variant mb-4 uppercase tracking-wider">Recent Results</h3>
+<!-- Row Item 1 -->
+<a class="block bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="code">code</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Algorithms Design</h4>
+<div class="flex items-center gap-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Oct 24, 2023</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>Midterm Prep</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-medium text-tertiary">Passed</div>
+<div class="text-xs text-on-surface-variant">45/50 Questions</div>
+</div>
+<div class="w-16 text-right">
+<span class="text-xl font-bold">90%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</a>
+<!-- Row Item 2 -->
+<a class="block bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Computer Architecture</h4>
+<div class="flex items-center gap-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Oct 18, 2023</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>Practice Test 3</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-medium text-on-surface-variant">Review Needed</div>
+<div class="text-xs text-on-surface-variant">36/50 Questions</div>
+</div>
+<div class="w-16 text-right">
+<span class="text-xl font-bold text-on-surface-variant">72%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</a>
+<!-- Row Item 3 -->
+<a class="block bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="dns">dns</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Operating Systems</h4>
+<div class="flex items-center gap-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Oct 12, 2023</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>Final Exam Mock</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-medium text-tertiary">Passed</div>
+<div class="text-xs text-on-surface-variant">96/100 Questions</div>
+</div>
+<div class="w-16 text-right">
+<span class="text-xl font-bold">96%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</a>
+<!-- Row Item 4 -->
+<a class="block bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container transition-all group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="code">code</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Algorithms Design</h4>
+<div class="flex items-center gap-3 text-xs text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="calendar_today">calendar_today</span> Sep 28, 2023</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span>Initial Assessment</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-medium text-error">Failed</div>
+<div class="text-xs text-on-surface-variant">29/50 Questions</div>
+</div>
+<div class="w-16 text-right">
+<span class="text-xl font-bold text-error">58%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</a>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="px-4 py-2 border border-outline-variant rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">
+                    Load More History
+                </button>
+</div>
+</div>
+</main>
+</body></html>

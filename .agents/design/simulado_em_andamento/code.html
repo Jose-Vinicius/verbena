@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian - Exam Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#a1a1aa",
+                    "on-surface": "#fafafa",
+                    "surface": "#0c0c0f",
+                    "on-primary-fixed-variant": "#5b21b6",
+                    "inverse-primary": "#5b21b6",
+                    "primary-fixed-dim": "#c4b5fd",
+                    "on-secondary-container": "#a1a1aa",
+                    "tertiary-container": "#065f46",
+                    "primary-container": "#7c3aed",
+                    "tertiary": "#34d399",
+                    "surface-container-highest": "#1e1e22",
+                    "error-container": "#3b1111",
+                    "surface-container-low": "#0f0f12",
+                    "surface-container": "#121215",
+                    "on-tertiary-fixed-variant": "#047857",
+                    "on-error": "#1a0000",
+                    "tertiary-fixed": "#bbf7d0",
+                    "surface-tint": "#a78bfa",
+                    "surface-bright": "#18181b",
+                    "surface-container-lowest": "#09090b",
+                    "surface-container-high": "#18181b",
+                    "on-tertiary": "#001a12",
+                    "primary": "#a78bfa",
+                    "on-secondary-fixed": "#18181b",
+                    "tertiary-fixed-dim": "#6ee7b7",
+                    "background": "#09090b",
+                    "surface-variant": "#18181b",
+                    "surface-dim": "#0c0c0f",
+                    "on-secondary": "#09090b",
+                    "error": "#ef4444",
+                    "secondary-fixed-dim": "#71717a",
+                    "secondary-container": "#27272a",
+                    "on-tertiary-fixed": "#003318",
+                    "secondary": "#71717a",
+                    "outline": "#52525b",
+                    "on-surface-variant": "#a1a1aa",
+                    "inverse-surface": "#fafafa",
+                    "primary-fixed": "#ede9fe",
+                    "outline-variant": "#27272a",
+                    "on-primary": "#0a0012",
+                    "on-secondary-fixed-variant": "#3f3f46",
+                    "on-background": "#fafafa",
+                    "on-tertiary-container": "#bbf7d0",
+                    "on-error-container": "#fca5a5",
+                    "on-primary-container": "#ede9fe",
+                    "on-primary-fixed": "#2e1065",
+                    "inverse-on-surface": "#09090b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Geist", "sans-serif"],
+                    "display": ["Geist", "sans-serif"],
+                    "body": ["Geist", "sans-serif"],
+                    "label": ["Geist", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;900&display=swap');
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex h-screen overflow-hidden">
+<!-- Simplified SideNavBar -->
+<aside aria-label="Sidebar" class="w-20 border-r border-outline-variant bg-surface flex flex-col items-center py-6 h-full flex-shrink-0 transition-all duration-300 z-10">
+<!-- Logo -->
+<div class="mb-10 text-xl font-headline font-black tracking-tighter text-on-surface flex items-center justify-center w-10 h-10 bg-primary-container rounded-lg">
+            O
+        </div>
+<!-- Nav Tabs -->
+<nav class="flex flex-col gap-6 w-full items-center flex-1">
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#" title="Dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-lg text-primary bg-surface-container-high opacity-80 transition-all" href="#" title="Study">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#" title="History">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200" href="#" title="Settings">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative h-full w-full">
+<!-- TopNavBar Structure -->
+<header class="flex justify-between items-center w-full h-16 px-8 border-b border-outline-variant bg-background shrink-0 z-10">
+<div class="flex items-center gap-6">
+<span class="text-lg font-headline font-bold tracking-tight text-on-surface">Obsidian</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body text-sm" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-body text-sm font-medium" href="#">Exam Mode</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:scale-95 duration-100 flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:scale-95 duration-100 flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Exam Canvas Area -->
+<div class="flex-1 overflow-y-auto w-full p-4 md:p-8 flex justify-center items-start">
+<div class="w-full max-w-4xl relative">
+<!-- Progress Header -->
+<div class="mb-8 flex justify-between items-end pb-4 border-b border-outline-variant">
+<div>
+<h2 class="text-xs font-semibold tracking-wider text-secondary uppercase mb-1">Computer Science Basics</h2>
+<h1 class="text-2xl font-headline font-bold text-on-surface">Question 4 of 10</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-on-surface-variant">40% Complete</span>
+<div class="w-32 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="w-[40%] h-full bg-primary transition-all duration-500 ease-out"></div>
+</div>
+</div>
+</div>
+<!-- Question Area -->
+<div class="bg-surface-container rounded-lg border border-outline-variant p-6 md:p-8 mb-6 shadow-sm">
+<div class="mb-6">
+<p class="text-lg md:text-xl font-body text-on-surface leading-relaxed">
+                            Which of the following data structures is typically used to implement a Breadth-First Search (BFS) algorithm on a graph?
+                        </p>
+<div class="mt-4 p-4 bg-surface-container-lowest rounded-md border border-outline-variant font-mono text-sm text-secondary-fixed">
+<span class="text-primary-fixed-dim">function</span> <span class="text-tertiary">bfs</span>(graph, startNode) {<br/>
+                              <span class="text-secondary-fixed-dim">// ... initialization ...</span><br/>
+                              <span class="text-primary-fixed-dim">let</span> dataStructure = <span class="text-on-surface">new</span> ???();<br/>
+                              <span class="text-secondary-fixed-dim">// ... loop logic ...</span><br/>
+                            }
+                        </div>
+</div>
+<!-- Options Grid -->
+<div class="grid grid-cols-1 gap-3" id="options-container">
+<!-- Option A -->
+<button class="option-btn group flex w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" onclick="selectOption(this, false)">
+<div class="flex items-center gap-4 w-full">
+<div class="flex-shrink-0 w-8 h-8 rounded-md bg-surface-variant border border-outline-variant flex items-center justify-center font-bold text-sm text-on-surface-variant group-hover:text-on-surface">A</div>
+<span class="text-base text-on-surface font-body">Stack</span>
+<span class="material-symbols-outlined ml-auto opacity-0 transition-opacity status-icon"></span>
+</div>
+</button>
+<!-- Option B (Correct) -->
+<button class="option-btn group flex w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" onclick="selectOption(this, true, 'correct-explanation')">
+<div class="flex items-center gap-4 w-full">
+<div class="flex-shrink-0 w-8 h-8 rounded-md bg-surface-variant border border-outline-variant flex items-center justify-center font-bold text-sm text-on-surface-variant group-hover:text-on-surface">B</div>
+<span class="text-base text-on-surface font-body">Queue</span>
+<span class="material-symbols-outlined ml-auto opacity-0 transition-opacity status-icon"></span>
+</div>
+</button>
+<!-- Option C (Wrong Example Selection) -->
+<button class="option-btn group flex w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" onclick="selectOption(this, false, 'wrong-explanation')">
+<div class="flex items-center gap-4 w-full">
+<div class="flex-shrink-0 w-8 h-8 rounded-md bg-surface-variant border border-outline-variant flex items-center justify-center font-bold text-sm text-on-surface-variant group-hover:text-on-surface">C</div>
+<span class="text-base text-on-surface font-body">Priority Queue</span>
+<span class="material-symbols-outlined ml-auto opacity-0 transition-opacity status-icon"></span>
+</div>
+</button>
+<!-- Option D -->
+<button class="option-btn group flex w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" onclick="selectOption(this, false)">
+<div class="flex items-center gap-4 w-full">
+<div class="flex-shrink-0 w-8 h-8 rounded-md bg-surface-variant border border-outline-variant flex items-center justify-center font-bold text-sm text-on-surface-variant group-hover:text-on-surface">D</div>
+<span class="text-base text-on-surface font-body">Linked List</span>
+<span class="material-symbols-outlined ml-auto opacity-0 transition-opacity status-icon"></span>
+</div>
+</button>
+<!-- Option E -->
+<button class="option-btn group flex w-full text-left bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background" onclick="selectOption(this, false)">
+<div class="flex items-center gap-4 w-full">
+<div class="flex-shrink-0 w-8 h-8 rounded-md bg-surface-variant border border-outline-variant flex items-center justify-center font-bold text-sm text-on-surface-variant group-hover:text-on-surface">E</div>
+<span class="text-base text-on-surface font-body">Binary Tree</span>
+<span class="material-symbols-outlined ml-auto opacity-0 transition-opacity status-icon"></span>
+</div>
+</button>
+</div>
+</div>
+<!-- Explanations Area (Hidden by default) -->
+<div class="hidden flex flex-col gap-4 mb-8" id="explanation-area">
+<!-- Correct Explanation -->
+<div class="hidden p-4 rounded-lg bg-tertiary-container/20 border border-tertiary/30" id="correct-explanation">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary mt-0.5" data-icon="check_circle">check_circle</span>
+<div>
+<h3 class="text-sm font-bold text-tertiary mb-1">Correct!</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                    A Queue operates on a First-In-First-Out (FIFO) principle, which is essential for BFS to explore nodes layer by layer horizontally before moving deeper.
+                                </p>
+</div>
+</div>
+</div>
+<!-- Wrong Explanation -->
+<div class="hidden p-4 rounded-lg bg-error-container/40 border border-error/30" id="wrong-explanation">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5" data-icon="cancel">cancel</span>
+<div>
+<h3 class="text-sm font-bold text-error mb-1">Incorrect</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                    While you selected C (Priority Queue), the correct answer is B. A Priority Queue is typically used in algorithms like Dijkstra's, not standard unweighted BFS.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex justify-between items-center py-4 border-t border-outline-variant">
+<button class="text-on-surface-variant hover:text-on-surface font-medium text-sm flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="flag">flag</span>
+                        Flag for Review
+                    </button>
+<button class="bg-primary hover:bg-primary-fixed text-on-primary font-bold py-2.5 px-6 rounded-md transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Next Question
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        let answered = false;
+
+        function selectOption(btn, isCorrect, explanationId) {
+            if (answered) return;
+            answered = true;
+
+            const allBtns = document.querySelectorAll('.option-btn');
+            const explanationArea = document.getElementById('explanation-area');
+            
+            // Disable all buttons visually and functionally
+            allBtns.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('hover:bg-surface-container-high');
+                b.classList.add('opacity-70');
+            });
+
+            // Highlight selected
+            btn.classList.remove('opacity-70', 'bg-surface-container-lowest', 'border-outline-variant');
+            
+            const iconSpan = btn.querySelector('.status-icon');
+            iconSpan.classList.remove('opacity-0');
+
+            if (isCorrect) {
+                btn.classList.add('bg-tertiary-container/10', 'border-tertiary', 'ring-1', 'ring-tertiary');
+                iconSpan.textContent = 'check_circle';
+                iconSpan.dataset.icon = 'check_circle';
+                iconSpan.classList.add('text-tertiary');
+                
+                // Show Correct Explanation
+                explanationArea.classList.remove('hidden');
+                document.getElementById('correct-explanation').classList.remove('hidden');
+            } else {
+                btn.classList.add('bg-error-container/20', 'border-error', 'ring-1', 'ring-error');
+                iconSpan.textContent = 'cancel';
+                iconSpan.dataset.icon = 'cancel';
+                iconSpan.classList.add('text-error');
+
+                // Also highlight correct answer softly
+                const correctBtn = document.querySelectorAll('.option-btn')[1]; // Hardcoded for demo (Option B)
+                correctBtn.classList.remove('opacity-70', 'border-outline-variant');
+                correctBtn.classList.add('border-tertiary', 'bg-tertiary-container/5');
+                const correctIcon = correctBtn.querySelector('.status-icon');
+                correctIcon.classList.remove('opacity-0');
+                correctIcon.textContent = 'check';
+                correctIcon.dataset.icon = 'check';
+                correctIcon.classList.add('text-tertiary');
+
+                // Show Wrong Explanation
+                explanationArea.classList.remove('hidden');
+                if(explanationId) document.getElementById(explanationId).classList.remove('hidden');
+                document.getElementById('correct-explanation').classList.remove('hidden'); // Show correct reasoning too
+            }
+        }
+    </script>
+</body></html>

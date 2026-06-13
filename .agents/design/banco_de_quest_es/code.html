@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian - Question Bank</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Design System -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#a1a1aa",
+                      "on-surface": "#fafafa",
+                      "surface": "#0c0c0f",
+                      "on-primary-fixed-variant": "#5b21b6",
+                      "inverse-primary": "#5b21b6",
+                      "primary-fixed-dim": "#c4b5fd",
+                      "on-secondary-container": "#a1a1aa",
+                      "tertiary-container": "#065f46",
+                      "primary-container": "#7c3aed",
+                      "tertiary": "#34d399",
+                      "surface-container-highest": "#1e1e22",
+                      "error-container": "#3b1111",
+                      "surface-container-low": "#0f0f12",
+                      "surface-container": "#121215",
+                      "on-tertiary-fixed-variant": "#047857",
+                      "on-error": "#1a0000",
+                      "tertiary-fixed": "#bbf7d0",
+                      "surface-tint": "#a78bfa",
+                      "surface-bright": "#18181b",
+                      "surface-container-lowest": "#09090b",
+                      "surface-container-high": "#18181b",
+                      "on-tertiary": "#001a12",
+                      "primary": "#a78bfa",
+                      "on-secondary-fixed": "#18181b",
+                      "tertiary-fixed-dim": "#6ee7b7",
+                      "background": "#09090b",
+                      "surface-variant": "#18181b",
+                      "surface-dim": "#0c0c0f",
+                      "on-secondary": "#09090b",
+                      "error": "#ef4444",
+                      "secondary-fixed-dim": "#71717a",
+                      "secondary-container": "#27272a",
+                      "on-tertiary-fixed": "#003318",
+                      "secondary": "#71717a",
+                      "outline": "#52525b",
+                      "on-surface-variant": "#a1a1aa",
+                      "inverse-surface": "#fafafa",
+                      "primary-fixed": "#ede9fe",
+                      "outline-variant": "#27272a",
+                      "on-primary": "#0a0012",
+                      "on-secondary-fixed-variant": "#3f3f46",
+                      "on-background": "#fafafa",
+                      "on-tertiary-container": "#bbf7d0",
+                      "on-error-container": "#fca5a5",
+                      "on-primary-container": "#ede9fe",
+                      "on-primary-fixed": "#2e1065",
+                      "inverse-on-surface": "#09090b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": ["Geist", "sans-serif"],
+                      "display": ["Geist", "sans-serif"],
+                      "body": ["Geist", "sans-serif"],
+                      "label": ["Geist", "sans-serif"]
+              },
+              "fontSize": {}
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Accordion transition styles */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.2s ease-out;
+        }
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+        }
+        .accordion-inner {
+            overflow: hidden;
+        }
+        .accordion-icon {
+            transition: transform 0.2s ease-out;
+        }
+        .accordion-trigger[aria-expanded="true"] .accordion-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex h-screen overflow-hidden antialiased selection:bg-primary/30 selection:text-primary">
+<!-- Shared Component: SideNavBar -->
+<aside class="flex flex-col h-full py-6 px-4 bg-surface dark:bg-surface h-screen w-64 border-r border-outline-variant shrink-0">
+<!-- Brand Header -->
+<div class="mb-8 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined icon-fill text-xl" data-icon="token">token</span>
+</div>
+<div>
+<h1 class="text-xl font-headline font-black tracking-tighter text-on-surface dark:text-on-surface">Obsidian</h1>
+<p class="text-xs text-on-surface-variant font-label">Study Platform</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 group font-body text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-on-surface transition-colors" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<!-- Active (Questions fall under Study) -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-primary font-bold bg-surface-container-high transition-colors duration-200 group font-body text-sm" href="#">
+<span class="material-symbols-outlined text-lg icon-fill" data-icon="menu_book">menu_book</span>
+                Study
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 group font-body text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-on-surface transition-colors" data-icon="history">history</span>
+                History
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors duration-200 group font-body text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-on-surface transition-colors" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- CTA -->
+<div class="mt-auto px-2">
+<button class="w-full bg-primary text-on-primary hover:bg-primary/90 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                Generate Questions
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header & Search -->
+<header class="px-10 py-8 border-b border-outline-variant bg-background shrink-0 z-10">
+<div class="max-w-5xl mx-auto">
+<div class="flex items-end justify-between mb-6">
+<div>
+<h2 class="text-3xl font-headline font-bold text-on-surface tracking-tight mb-1">Question Bank</h2>
+<p class="text-on-surface-variant text-sm">Review, analyze, and master generated questions grouped by subject area.</p>
+</div>
+<div class="text-sm font-mono text-on-surface-variant bg-surface-container px-3 py-1 rounded border border-outline-variant">
+                        Total: 1,402
+                    </div>
+</div>
+<!-- Search/Filter Bar -->
+<div class="flex gap-4 items-center w-full">
+<div class="relative flex-1 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant text-on-surface text-sm rounded-lg pl-11 pr-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/50" placeholder="Search questions, concepts, or keywords..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="tune">tune</span>
+                        Filters
+                    </button>
+<button class="flex items-center gap-2 bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface px-4 py-2.5 rounded-lg text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="sort">sort</span>
+                        Subject
+                    </button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-10 py-8">
+<div class="max-w-5xl mx-auto space-y-12">
+<!-- Subject Group 1 -->
+<section>
+<div class="flex items-center gap-3 border-b border-outline-variant pb-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="memory">memory</span>
+<h3 class="text-xl font-headline font-semibold text-on-surface tracking-tight">Computer Architecture</h3>
+<span class="ml-auto text-xs font-mono text-secondary-fixed-dim bg-surface-container px-2 py-0.5 rounded">45 Items</span>
+</div>
+<div class="space-y-3">
+<!-- Accordion Item 1 -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
+<button aria-expanded="false" class="accordion-trigger w-full flex items-start justify-between p-5 text-left hover:bg-surface-container/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
+<div class="pr-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">Hard</span>
+<span class="text-xs font-mono text-on-surface-variant">ID: CA-902</span>
+</div>
+<p class="text-on-surface font-medium leading-relaxed">In a modern superscalar processor pipeline, which specific hazard is most directly mitigated by implementing a Reorder Buffer (ROB)?</p>
+</div>
+<span class="material-symbols-outlined accordion-icon text-on-surface-variant mt-1" data-icon="expand_more">expand_more</span>
+</button>
+<div class="accordion-content border-t border-outline-variant/50 bg-surface-container-low">
+<div class="accordion-inner p-5 space-y-4">
+<!-- Options List -->
+<div class="space-y-2">
+<!-- Incorrect Option -->
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">A</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Structural hazards in the Execution units.</p>
+</div>
+<!-- Correct Option -->
+<div class="flex items-start gap-3 p-3 rounded border border-tertiary/40 bg-tertiary-container/10 relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center bg-tertiary text-on-tertiary text-xs font-mono font-bold">B</div>
+<div class="flex-1">
+<p class="text-sm text-on-surface pt-0.5">Write-After-Write (WAW) and Write-After-Read (WAR) pseudo-hazards, enabling out-of-order execution with in-order commit.</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-lg shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+</div>
+<!-- Incorrect Option -->
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">C</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Control hazards resulting from deeply nested branch instructions.</p>
+</div>
+</div>
+<!-- Explanation Area -->
+<div class="mt-6 pt-4 border-t border-outline-variant/50">
+<h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="lightbulb">lightbulb</span>
+                                            Rationale
+                                        </h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                            The Reorder Buffer (ROB) allows instructions to commit their results in programmatic order, despite executing out of order. By holding results temporarily before committing to the architectural register file, it resolves WAW and WAR dependencies (name dependencies) through register renaming, ensuring precise exceptions and correct state management.
+                                        </p>
+</div>
+<!-- Action Bar -->
+<div class="flex justify-end gap-3 mt-4">
+<button class="text-xs font-medium text-on-surface-variant hover:text-on-surface transition-colors px-3 py-1.5 rounded hover:bg-surface border border-transparent hover:border-outline-variant">Report Error</button>
+<button class="text-xs font-medium text-primary hover:text-primary-fixed-dim transition-colors px-3 py-1.5 rounded hover:bg-primary/10 border border-transparent">Edit Question</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Accordion Item 2 -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
+<button aria-expanded="false" class="accordion-trigger w-full flex items-start justify-between p-5 text-left hover:bg-surface-container/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
+<div class="pr-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-mono text-tertiary bg-tertiary/10 px-2 py-0.5 rounded">Easy</span>
+<span class="text-xs font-mono text-on-surface-variant">ID: CA-104</span>
+</div>
+<p class="text-on-surface font-medium leading-relaxed">What is the primary architectural difference between Harvard and von Neumann architectures?</p>
+</div>
+<span class="material-symbols-outlined accordion-icon text-on-surface-variant mt-1" data-icon="expand_more">expand_more</span>
+</button>
+<div class="accordion-content border-t border-outline-variant/50 bg-surface-container-low">
+<div class="accordion-inner p-5 space-y-4">
+<div class="space-y-2">
+<div class="flex items-start gap-3 p-3 rounded border border-tertiary/40 bg-tertiary-container/10 relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center bg-tertiary text-on-tertiary text-xs font-mono font-bold">A</div>
+<div class="flex-1">
+<p class="text-sm text-on-surface pt-0.5">Harvard architecture has separate memory and bus structures for data and instructions.</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-lg shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">B</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Von Neumann architecture utilizes multiple processing cores on a single die.</p>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/50">
+<h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="lightbulb">lightbulb</span>
+                                            Rationale
+                                        </h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                            The von Neumann architecture uses a unified memory space and bus system for both instructions and data, leading to the "von Neumann bottleneck." Harvard architecture separates these, allowing simultaneous fetching of instructions and data.
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Subject Group 2 -->
+<section>
+<div class="flex items-center gap-3 border-b border-outline-variant pb-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="database">database</span>
+<h3 class="text-xl font-headline font-semibold text-on-surface tracking-tight">Database Systems</h3>
+<span class="ml-auto text-xs font-mono text-secondary-fixed-dim bg-surface-container px-2 py-0.5 rounded">128 Items</span>
+</div>
+<div class="space-y-3">
+<!-- Accordion Item 3 -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest overflow-hidden">
+<button aria-expanded="false" class="accordion-trigger w-full flex items-start justify-between p-5 text-left hover:bg-surface-container/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
+<div class="pr-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 px-2 py-0.5 rounded">Medium</span>
+<span class="text-xs font-mono text-on-surface-variant">ID: DB-411</span>
+</div>
+<p class="text-on-surface font-medium leading-relaxed">In the context of transaction isolation levels, what concurrency phenomenon occurs when a transaction reads uncommitted changes made by another transaction?</p>
+</div>
+<span class="material-symbols-outlined accordion-icon text-on-surface-variant mt-1" data-icon="expand_more">expand_more</span>
+</button>
+<div class="accordion-content border-t border-outline-variant/50 bg-surface-container-low">
+<div class="accordion-inner p-5 space-y-4">
+<div class="space-y-2">
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">A</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Non-repeatable Read</p>
+</div>
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">B</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Phantom Read</p>
+</div>
+<div class="flex items-start gap-3 p-3 rounded border border-tertiary/40 bg-tertiary-container/10 relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center bg-tertiary text-on-tertiary text-xs font-mono font-bold">C</div>
+<div class="flex-1">
+<p class="text-sm text-on-surface pt-0.5">Dirty Read</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-lg shrink-0 mt-0.5" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex items-start gap-3 p-3 rounded border border-outline-variant bg-surface-container-lowest hover:border-outline transition-colors cursor-default">
+<div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-outline-variant text-xs font-mono text-on-surface-variant">D</div>
+<p class="text-sm text-on-surface-variant pt-0.5">Lost Update</p>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/50">
+<h4 class="text-xs font-bold text-on-surface uppercase tracking-wider mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="lightbulb">lightbulb</span>
+                                            Rationale
+                                        </h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                            A Dirty Read happens specifically under the READ UNCOMMITTED isolation level. If Transaction A updates a row, and Transaction B reads that row before A commits, B has performed a dirty read. If A subsequently rolls back, B is left with data that "never existed" in the committed database state.
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Spacer for scrolling -->
+<div class="h-12"></div>
+</div>
+</div>
+</main>
+<!-- Script for simple interactive elements (Accordions) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const triggers = document.querySelectorAll('.accordion-trigger');
+            
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                    const content = trigger.nextElementSibling;
+                    
+                    // Close others (optional, comment out for independent accordions)
+                    /*
+                    triggers.forEach(t => {
+                        if (t !== trigger) {
+                            t.setAttribute('aria-expanded', 'false');
+                            t.nextElementSibling.classList.remove('open');
+                        }
+                    });
+                    */
+                    
+                    // Toggle current
+                    trigger.setAttribute('aria-expanded', !isExpanded);
+                    if (!isExpanded) {
+                        content.classList.add('open');
+                    } else {
+                        content.classList.remove('open');
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>
