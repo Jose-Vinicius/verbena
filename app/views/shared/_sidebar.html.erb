@@ -22,10 +22,10 @@
     </li>
     <!-- Inactive Items (Placeholders) -->
     <li>
-      <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
-        <span class="material-symbols-outlined text-[20px]">menu_book</span>
+      <%= link_to new_summary_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/summaries') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= request.path.starts_with?('/summaries') ? 'icon-fill' : '' %> text-[20px]">menu_book</span>
         <span class="text-sm">Study</span>
-      </a>
+      <% end %>
     </li>
     <li>
       <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
@@ -50,9 +50,9 @@
 
   <!-- CTA Action -->
   <div class="mt-auto pt-6 border-t border-[#27272a]">
-    <button class="w-full py-2.5 px-4 bg-[#a78bfa] text-[#0a0012] font-headline font-semibold text-sm rounded-lg hover:bg-[#c4b5fd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-[#09090b] flex items-center justify-center gap-2">
+    <%= link_to new_summary_path, class: "w-full py-2.5 px-4 bg-[#a78bfa] text-[#0a0012] font-headline font-semibold text-sm rounded-lg hover:bg-[#c4b5fd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-[#09090b] flex items-center justify-center gap-2" do %>
       <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
       Generate Questions
-    </button>
+    <% end %>
   </div>
 </nav>

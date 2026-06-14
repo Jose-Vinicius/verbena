@@ -1,0 +1,8 @@
+<main class="flex-1 h-full relative flex items-center justify-center p-6 sm:p-12 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0f0f12] via-[#09090b] to-[#09090b]">
+  <%= turbo_stream_from [current_user, "summaries"] %>
+
+  <!-- Subtle Grid Background Overlay -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none mix-blend-overlay"></div>
+  
+  <%= render "status", summary: @summary %>
+</main>
