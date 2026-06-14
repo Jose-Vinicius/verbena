@@ -1,0 +1,60 @@
+<!-- Header & Search -->
+<header class="px-10 py-8 border-b border-[#27272a] bg-[#09090b] shrink-0 z-10">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <h2 class="text-3xl font-headline font-bold text-[#fafafa] tracking-tight mb-1">Matérias</h2>
+        <p class="text-[#a1a1aa] text-sm">Gerencie seus domínios e áreas de estudo.</p>
+      </div>
+      <div class="flex gap-4">
+        <div class="text-sm font-mono text-[#a1a1aa] bg-[#121215] px-3 py-1.5 rounded border border-[#27272a] flex items-center">
+          Total: <%= @subjects.size %>
+        </div>
+        <%= link_to new_subject_path, class: "flex items-center gap-2 bg-[#a78bfa] text-[#0a0012] px-4 py-1.5 rounded text-sm font-bold hover:bg-[#c4b5fd] transition-colors" do %>
+          <span class="material-symbols-outlined text-[18px]">add</span>
+          Nova Matéria
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-10 py-8">
+  <div class="max-w-5xl mx-auto">
+    <% if @subjects.empty? %>
+      <div class="text-center py-20 bg-[#121215] border border-[#27272a] rounded-xl">
+        <span class="material-symbols-outlined text-6xl text-[#27272a] mb-4">category</span>
+        <h3 class="text-xl font-headline text-[#fafafa] font-bold">Nenhuma matéria cadastrada</h3>
+        <p class="text-[#a1a1aa] mt-2">Crie sua primeira matéria para começar a organizar suas questões.</p>
+        <%= link_to new_subject_path, class: "inline-flex items-center gap-2 bg-[#a78bfa] text-[#0a0012] font-bold py-2.5 px-6 rounded-lg mt-6 hover:bg-[#c4b5fd] transition-colors" do %>
+          <span class="material-symbols-outlined">add</span> Criar Matéria
+        <% end %>
+      </div>
+    <% else %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <% @subjects.each do |subject| %>
+          <%= link_to questions_path(subject_id: subject.id), class: "group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 flex flex-col justify-between hover:border-[#52525b] hover:bg-[#18181b] transition-all duration-300 cursor-pointer block" do %>
+            <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="material-symbols-outlined text-[#a78bfa] group-hover:scale-110 transition-transform">folder_open</span>
+                <span class="text-xs font-mono text-[#a1a1aa] bg-[#09090b] px-2 py-1 rounded border border-[#27272a]">
+                  <%= subject.questions.size %> Questões
+                </span>
+              </div>
+              <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors"><%= subject.name %></h3>
+            </div>
+            <div class="mt-4 pt-4 border-t border-[#27272a] flex justify-between items-center relative z-10">
+              <span class="text-xs text-[#71717a]">Criado em <%= subject.created_at.strftime("%d/%m/%Y") %></span>
+              <span class="material-symbols-outlined text-[#a78bfa] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-sm">arrow_forward</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <!-- Spacer for scrolling -->
+    <div class="h-12"></div>
+  </div>
+</div>

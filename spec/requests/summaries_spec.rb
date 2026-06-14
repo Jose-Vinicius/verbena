@@ -53,7 +53,7 @@ RSpec.describe 'Summaries', type: :request do
       it 'does not create a new Summary' do
         expect {
           post summaries_path, params: invalid_params
-        }.to change(Summary, :count).by(0)
+        }.not_to change(Summary, :count)
       end
 
       it 'returns a 422 Unprocessable Entity status' do

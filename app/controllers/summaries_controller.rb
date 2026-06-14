@@ -10,7 +10,7 @@ class SummariesController < ApplicationController
 
     if @summary.save
       GenerateQuestionsJob.perform_later(@summary.id)
-      redirect_to summary_path(@summary), notice: 'Summary was successfully submitted.'
+      redirect_to summary_path(@summary), notice: "Resumo enviado com sucesso para processamento."
     else
       render :new, status: :unprocessable_entity
     end

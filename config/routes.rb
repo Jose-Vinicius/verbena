@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   get "dashboard/index"
   devise_for :users
 
-  resources :summaries, only: [:new, :create, :show]
+  resources :summaries, only: [ :new, :create, :show ]
+  resources :subjects, only: [ :index, :new, :create ]
+  resources :questions, only: [ :index ]
+  resources :exams, only: [ :new, :create, :show ]
+  resources :exam_questions, only: [ :show, :update ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

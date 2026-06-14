@@ -24,26 +24,44 @@
     <li>
       <%= link_to new_summary_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/summaries') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
         <span class="material-symbols-outlined <%= request.path.starts_with?('/summaries') ? 'icon-fill' : '' %> text-[20px]">menu_book</span>
-        <span class="text-sm">Study</span>
+        <span class="text-sm">Estudar</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to questions_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{current_page?(questions_path) ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= current_page?(questions_path) ? 'icon-fill' : '' %> text-[20px]">inventory_2</span>
+        <span class="text-sm">Banco de Questões</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to subjects_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/subjects') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= request.path.starts_with?('/subjects') ? 'icon-fill' : '' %> text-[20px]">category</span>
+        <span class="text-sm">Matérias</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to new_exam_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/exams') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= request.path.starts_with?('/exams') ? 'icon-fill' : '' %> text-[20px]">assignment</span>
+        <span class="text-sm">Simulados</span>
       <% end %>
     </li>
     <li>
       <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
         <span class="material-symbols-outlined text-[20px]">history</span>
-        <span class="text-sm">History</span>
+        <span class="text-sm">Histórico</span>
       </a>
     </li>
     <li>
       <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
         <span class="material-symbols-outlined text-[20px]">settings</span>
-        <span class="text-sm">Settings</span>
+        <span class="text-sm">Configurações</span>
       </a>
     </li>
     
     <li class="mt-4">
       <%= button_to destroy_user_session_path, method: :delete, class: "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fca5a5] hover:bg-[#121215] transition-colors duration-200" do %>
         <span class="material-symbols-outlined text-[20px]">logout</span>
-        <span class="text-sm">Logout</span>
+        <span class="text-sm">Sair</span>
       <% end %>
     </li>
   </ul>
@@ -52,7 +70,7 @@
   <div class="mt-auto pt-6 border-t border-[#27272a]">
     <%= link_to new_summary_path, class: "w-full py-2.5 px-4 bg-[#a78bfa] text-[#0a0012] font-headline font-semibold text-sm rounded-lg hover:bg-[#c4b5fd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-[#09090b] flex items-center justify-center gap-2" do %>
       <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
-      Generate Questions
+      Gerar Questões
     <% end %>
   </div>
 </nav>

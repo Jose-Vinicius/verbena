@@ -73,3 +73,8 @@ end
 gem "tailwindcss-rails", "~> 4.4"
 
 gem "devise", "~> 5.0"
+
+gem "shoulda-matchers", "~> 8.0", group: :test
+
+gem "rails-i18n", "~> 8.1"
+gem "devise-i18n", "~> 1.16"

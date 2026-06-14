@@ -1,0 +1,132 @@
+<!-- TopNavBar Structure -->
+<header class="flex justify-between items-center w-full h-16 px-8 border-b border-[#27272a] bg-[#09090b] shrink-0 z-10">
+  <div class="flex items-center gap-6">
+    <span class="text-lg font-headline font-bold tracking-tight text-[#fafafa]">Obsidian</span>
+    <nav class="hidden md:flex gap-6 items-center">
+      <%= link_to "Painel", dashboard_path, class: "text-[#a1a1aa] hover:text-[#fafafa] transition-colors font-body text-sm" if defined?(dashboard_path) %>
+      <a class="text-[#a78bfa] border-b-2 border-[#a78bfa] pb-1 font-body text-sm font-medium" href="#">Modo Simulado</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Exam Canvas Area -->
+<div class="flex-1 overflow-y-auto w-full p-4 md:p-8 flex justify-center items-start">
+  <div class="w-full max-w-4xl relative">
+    <%= turbo_frame_tag "exam_frame" do %>
+      <!-- Progress Header -->
+      <div class="mb-8 flex justify-between items-end pb-4 border-b border-[#27272a]">
+        <div>
+          <h2 class="text-xs font-semibold tracking-wider text-[#a1a1aa] uppercase mb-1"><%= @exam.subject.name %></h2>
+          <h1 class="text-2xl font-headline font-bold text-[#fafafa]">Questão <%= @current_index %> de <%= @total_questions %></h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <% progress = ((@current_index.to_f / @total_questions) * 100).to_i %>
+          <span class="text-sm font-medium text-[#a1a1aa]"><%= progress %>% Concluído</span>
+          <div class="w-32 h-2 bg-[#121215] rounded-full overflow-hidden">
+            <div class="h-full bg-[#a78bfa] transition-all duration-500 ease-out" style="width: <%= progress %>%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question Area -->
+      <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 md:p-8 mb-6 shadow-sm">
+        <div class="mb-6">
+          <p class="text-lg md:text-xl font-body text-[#fafafa] leading-relaxed">
+            <%= @exam_question.question.statement %>
+          </p>
+        </div>
+
+        <!-- Options Grid -->
+        <div class="grid grid-cols-1 gap-3" id="options-container">
+          <% letters = ('A'..'E').to_a %>
+          <% @exam_question.question.options.each_with_index do |option_text, index| %>
+            <% 
+              is_answered = @exam_question.chosen_index.present?
+              is_correct_option = (index == @exam_question.question.correct_index)
+              is_chosen_option = (index == @exam_question.chosen_index)
+              
+              button_classes = "group flex w-full text-left rounded-lg p-4 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-background"
+              
+              if !is_answered
+                button_classes += " bg-[#09090b] border border-[#27272a] hover:bg-[#18181b]"
+              elsif is_correct_option
+                button_classes += " bg-[#065f46]/10 border border-[#34d399] ring-1 ring-[#34d399]"
+              elsif is_chosen_option && !is_correct_option
+                button_classes += " bg-[#3b1111]/20 border border-[#ef4444] ring-1 ring-[#ef4444]"
+              else
+                button_classes += " bg-[#09090b] border border-[#27272a] opacity-70 cursor-not-allowed"
+              end
+            %>
+
+            <% if is_answered %>
+              <div class="<%= button_classes %>">
+                <div class="flex items-center gap-4 w-full">
+                  <div class="flex-shrink-0 w-8 h-8 rounded-md bg-[#18181b] border border-[#27272a] flex items-center justify-center font-bold text-sm text-[#a1a1aa] group-hover:text-[#fafafa]">
+                    <%= letters[index] %>
+                  </div>
+                  <span class="text-base text-[#fafafa] font-body text-left"><%= option_text %></span>
+                  
+                  <% if is_correct_option %>
+                    <span class="material-symbols-outlined ml-auto text-[#34d399]">check_circle</span>
+                  <% elsif is_chosen_option %>
+                    <span class="material-symbols-outlined ml-auto text-[#ef4444]">cancel</span>
+                  <% end %>
+                </div>
+              </div>
+            <% else %>
+              <%= button_to exam_question_path(@exam_question), method: :patch, params: { chosen_index: index }, class: button_classes, form_class: "w-full" do %>
+                <div class="flex items-center gap-4 w-full">
+                  <div class="flex-shrink-0 w-8 h-8 rounded-md bg-[#18181b] border border-[#27272a] flex items-center justify-center font-bold text-sm text-[#a1a1aa] group-hover:text-[#fafafa]">
+                    <%= letters[index] %>
+                  </div>
+                  <span class="text-base text-[#fafafa] font-body text-left"><%= option_text %></span>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @exam_question.chosen_index.present? %>
+        <!-- Explanations Area -->
+        <div class="flex flex-col gap-4 mb-8">
+          <div class="p-4 rounded-lg bg-[#065f46]/20 border border-[#34d399]/30">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-[#34d399] mt-0.5">info</span>
+              <div>
+                <h3 class="text-sm font-bold text-[#34d399] mb-1">
+                  <%= @exam_question.is_correct ? 'Correto!' : 'Incorreto' %>
+                </h3>
+                <p class="text-sm text-[#a1a1aa] leading-relaxed">
+                  <%= @exam_question.question.explanation.presence || 'A resposta correta é a Alternativa ' + letters[@exam_question.question.correct_index] %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Action Footer -->
+      <div class="flex justify-end items-center py-4 border-t border-[#27272a]">
+        <% if @exam_question.chosen_index.present? %>
+          <% if @next_question %>
+            <%= link_to exam_question_path(@next_question), class: "bg-[#a78bfa] hover:bg-[#ede9fe] text-[#0a0012] font-bold py-2.5 px-6 rounded-md transition-colors flex items-center gap-2", data: { turbo_frame: "exam_frame" } do %>
+              Próxima Questão
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            <% end %>
+          <% else %>
+            <%= link_to exam_path(@exam), class: "bg-[#34d399] hover:bg-[#6ee7b7] text-[#001a12] font-bold py-2.5 px-6 rounded-md transition-colors flex items-center gap-2", data: { turbo_frame: "_top" } do %>
+              Finalizar Simulado
+              <span class="material-symbols-outlined text-[18px]">done_all</span>
+            <% end %>
+          <% end %>
+        <% else %>
+          <button class="bg-[#a78bfa] text-[#0a0012] font-bold py-2.5 px-6 rounded-md transition-colors flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+            Próxima Questão
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<!-- Header & Search -->
+<header class="px-10 py-8 border-b border-[#27272a] bg-[#09090b] shrink-0 z-10">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <h2 class="text-3xl font-headline font-bold text-[#fafafa] tracking-tight mb-1">Banco de Questões</h2>
+        <p class="text-[#a1a1aa] text-sm">Revise e domine as questões geradas agrupadas por matéria.</p>
+      </div>
+      <div class="text-sm font-mono text-[#a1a1aa] bg-[#121215] px-3 py-1 rounded border border-[#27272a]">
+        Total: <%= @questions.size %>
+      </div>
+    </div>
+    <!-- Search/Filter Bar -->
+    <%= form_with url: questions_path, method: :get, class: "flex gap-4 items-center w-full", data: { turbo_frame: "questions_list", turbo_action: "advance" } do |f| %>
+      <div class="relative flex-1 group">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#a1a1aa] group-focus-within:text-[#a78bfa] transition-colors">search</span>
+        <%= f.text_field :query, value: params[:query], class: "w-full bg-[#0f0f12] border border-[#27272a] text-[#fafafa] text-sm rounded-lg pl-11 pr-4 py-2.5 focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all placeholder:text-[#a1a1aa]/50", placeholder: "Buscar questões, conceitos ou palavras-chave...", oninput: "clearTimeout(this.timer); this.timer = setTimeout(() => { this.form.requestSubmit() }, 500);" %>
+      </div>
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#a1a1aa] pointer-events-none text-[18px]">sort</span>
+        <%= f.collection_select :subject_id, current_user.subjects, :id, :name, { include_blank: "Todas as Matérias", selected: params[:subject_id] }, { class: "appearance-none bg-[#121215] border border-[#27272a] hover:bg-[#18181b] text-[#fafafa] pl-11 pr-10 py-2.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus:ring-1 focus:ring-[#a78bfa] outline-none", onchange: "this.form.requestSubmit()" } %>
+        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#a1a1aa] pointer-events-none text-[18px]">expand_more</span>
+      </div>
+    <% end %>
+  </div>
+</header>
+
+<%= turbo_frame_tag "questions_list", class: "flex-1 overflow-y-auto px-10 py-8 block" do %>
+  <div class="max-w-5xl mx-auto space-y-12">
+    
+    <% if @grouped_questions.empty? %>
+      <div class="text-center py-20">
+        <span class="material-symbols-outlined text-6xl text-[#27272a] mb-4">inventory_2</span>
+        <h3 class="text-xl font-headline text-[#fafafa] font-bold">Nenhuma questão encontrada</h3>
+        <p class="text-[#a1a1aa] mt-2">Tente ajustar seus filtros ou buscar por outros termos.</p>
+        <%= link_to new_summary_path, class: "inline-flex items-center gap-2 bg-[#a78bfa] text-[#0a0012] font-bold py-2.5 px-6 rounded-lg mt-6 hover:bg-[#c4b5fd] transition-colors", data: { turbo_frame: "_top" } do %>
+          <span class="material-symbols-outlined">add</span> Gerar Questões
+        <% end %>
+      </div>
+    <% end %>
+
+    <% @grouped_questions.each do |subject, questions| %>
+      <!-- Subject Group -->
+      <section>
+        <div class="flex items-center gap-3 border-b border-[#27272a] pb-3 mb-6">
+          <span class="material-symbols-outlined text-[#a78bfa]">folder_open</span>
+          <h3 class="text-xl font-headline font-semibold text-[#fafafa] tracking-tight"><%= subject.name %></h3>
+          <span class="ml-auto text-xs font-mono text-[#71717a] bg-[#121215] px-2 py-0.5 rounded"><%= questions.size %> Itens</span>
+        </div>
+
+        <div class="space-y-3">
+          <% questions.each_with_index do |question, idx| %>
+            <!-- Accordion Item -->
+            <div class="border border-[#27272a] rounded-lg bg-[#000000] overflow-hidden" data-controller="toggle">
+              <button aria-expanded="false" class="w-full flex items-start justify-between p-5 text-left hover:bg-[#121215]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] focus-visible:ring-inset" data-action="click->toggle#toggle">
+                <div class="pr-8">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs font-mono text-[#a1a1aa]">ID: <%= question.id %></span>
+                  </div>
+                  <p class="text-[#fafafa] font-medium leading-relaxed"><%= question.statement %></p>
+                </div>
+                <span class="material-symbols-outlined text-[#a1a1aa] mt-1 transition-transform duration-200" data-toggle-target="icon">expand_more</span>
+              </button>
+              
+              <div class="accordion-content bg-[#0f0f12]" data-toggle-target="content">
+                <div class="accordion-inner">
+                  <div class="p-5 space-y-4 border-t border-[#27272a]/50">
+                  <!-- Options List -->
+                  <div class="space-y-2">
+                    <% question.options.each_with_index do |option_text, opt_idx| %>
+                      <% is_correct = (opt_idx == question.correct_index) %>
+                      
+                      <% if is_correct %>
+                        <!-- Correct Option -->
+                        <div class="flex items-start gap-3 p-3 rounded border border-[#34d399]/40 bg-[#065f46]/10 relative overflow-hidden group">
+                          <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#34d399]"></div>
+                          <div class="w-6 h-6 rounded flex shrink-0 items-center justify-center bg-[#34d399] text-[#001a12] text-xs font-mono font-bold">
+                            <%= ('A'.ord + opt_idx).chr %>
+                          </div>
+                          <div class="flex-1">
+                            <p class="text-sm text-[#fafafa] pt-0.5"><%= option_text %></p>
+                          </div>
+                          <span class="material-symbols-outlined text-[#34d399] text-lg shrink-0 mt-0.5">check_circle</span>
+                        </div>
+                      <% else %>
+                        <!-- Incorrect Option -->
+                        <div class="flex items-start gap-3 p-3 rounded border border-[#27272a] bg-[#000000] hover:border-[#52525b] transition-colors cursor-default">
+                          <div class="w-6 h-6 rounded flex shrink-0 items-center justify-center border border-[#27272a] text-xs font-mono text-[#a1a1aa]">
+                            <%= ('A'.ord + opt_idx).chr %>
+                          </div>
+                          <p class="text-sm text-[#a1a1aa] pt-0.5"><%= option_text %></p>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  
+                  <!-- Explanation Area -->
+                  <% if question.explanation.present? %>
+                    <div class="mt-6 pt-4 border-t border-[#27272a]/50">
+                      <h4 class="text-xs font-bold text-[#fafafa] uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[16px] text-[#a78bfa]">lightbulb</span>
+                        Explicação
+                      </h4>
+                      <p class="text-sm text-[#a1a1aa] leading-relaxed">
+                        <%= question.explanation %>
+                      </p>
+                    </div>
+                  <% end %>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <!-- Spacer for scrolling -->
+    <div class="h-12"></div>
+  </div>
+<% end %>

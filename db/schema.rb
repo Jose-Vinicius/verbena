@@ -10,9 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_14_021723) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_14_031309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "exam_questions", force: :cascade do |t|
+    t.integer "chosen_index"
+    t.datetime "created_at", null: false
+    t.bigint "exam_id", null: false
+    t.boolean "is_correct"
+    t.bigint "question_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_questions_on_exam_id"
+    t.index ["question_id"], name: "index_exam_questions_on_question_id"
+  end
+
+  create_table "exams", force: :cascade do |t|
+    t.integer "correct_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "questions_count", null: false
+    t.integer "status", default: 0, null: false
+    t.bigint "subject_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["subject_id"], name: "index_exams_on_subject_id"
+    t.index ["user_id"], name: "index_exams_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "correct_index"
+    t.datetime "created_at", null: false
+    t.text "explanation"
+    t.jsonb "options"
+    t.text "statement"
+    t.bigint "subject_id", null: false
+    t.bigint "summary_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_questions_on_subject_id"
+    t.index ["summary_id"], name: "index_questions_on_summary_id"
+  end
 
   create_table "subjects", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -46,6 +82,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_021723) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "exam_questions", "exams"
+  add_foreign_key "exam_questions", "questions"
+  add_foreign_key "exams", "subjects"
+  add_foreign_key "exams", "users"
+  add_foreign_key "questions", "subjects"
+  add_foreign_key "questions", "summaries"
   add_foreign_key "subjects", "users"
   add_foreign_key "summaries", "subjects"
   add_foreign_key "summaries", "users"

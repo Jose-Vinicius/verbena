@@ -19,4 +19,16 @@
     color: #fafafa;
     font-family: var(--font-sans);
   }
+
+  .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.2s ease-out;
+  }
+  .accordion-content.open {
+    grid-template-rows: 1fr;
+  }
+  .accordion-inner {
+    overflow: hidden;
+  }
 }

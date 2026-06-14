@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "new_subject" do %>
+  <%= form_with model: @subject, class: "flex gap-2 w-full flex-wrap", data: { turbo: true } do |f| %>
+    <%= f.text_field :name, 
+          class: "flex-1 min-w-[200px] h-[48px] bg-[#121215] border border-[#a78bfa] rounded-lg px-4 text-sm text-[#fafafa] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a78bfa] transition-all", 
+          placeholder: "Nome da matéria...",
+          autofocus: true %>
+    <%= button_tag type: "submit", class: "bg-[#a78bfa] hover:bg-[#c4b5fd] text-[#0a0012] px-4 rounded-lg font-bold text-sm transition-colors duration-200 h-[48px]" do %>
+      Salvar
+    <% end %>
+    <%= link_to "Cancelar", new_summary_path, class: "text-xs text-[#a1a1aa] hover:text-[#fafafa] self-center ml-1" %>
+  <% end %>
+  <% if @subject.errors.any? %>
+    <p class="text-xs text-[#ef4444] mt-1"><%= @subject.errors.full_messages.to_sentence %></p>
+  <% end %>
+<% end %>

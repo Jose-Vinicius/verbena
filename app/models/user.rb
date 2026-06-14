@@ -5,5 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :subjects, dependent: :destroy
+  has_many :exams, dependent: :destroy
   has_many :summaries, dependent: :destroy
+  has_many :questions, through: :subjects
 end

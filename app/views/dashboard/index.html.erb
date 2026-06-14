@@ -1,157 +1,105 @@
 <!-- Page Header -->
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
   <div>
-    <h1 class="text-3xl font-headline font-black tracking-tighter text-[#fafafa] mb-2">Overview</h1>
-    <p class="text-sm text-[#a1a1aa] font-body">Track your study progress and recent performance metrics.</p>
+    <h1 class="text-3xl font-headline font-black tracking-tighter text-[#fafafa] mb-2">Visão Geral</h1>
+    <p class="text-sm text-[#a1a1aa] font-body">Acompanhe seu progresso de estudo e métricas recentes.</p>
   </div>
   <div class="flex items-center gap-2 text-sm text-[#71717a] border border-[#27272a] rounded-lg px-3 py-1.5 bg-[#09090b]">
     <span class="material-symbols-outlined text-[16px]">calendar_today</span>
-    <span>Last synced: Just now</span>
+    <span>Sincronizado: Agora mesmo</span>
   </div>
 </div>
 
 <!-- Subjects Grid -->
 <section class="mb-14">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-lg font-headline font-bold text-[#fafafa] tracking-tight">Active Subjects</h2>
-    <a class="text-sm font-medium text-[#a78bfa] hover:text-[#c4b5fd] transition-colors flex items-center gap-1" href="#">
-      View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+    <h2 class="text-lg font-headline font-bold text-[#fafafa] tracking-tight">Matérias Ativas</h2>
+    <a class="text-sm font-medium text-[#a78bfa] hover:text-[#c4b5fd] transition-colors flex items-center gap-1" href="<%= subjects_path %>">
+      Ver Todas <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
     </a>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Subject Card 1 -->
-    <div class="group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
-      <div class="flex justify-between items-start mb-8">
-        <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined icon-fill">schema</span>
-        </div>
-        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#1e1e22] text-[#a1a1aa]">
-          Core
-        </span>
+    <% if @subjects.empty? %>
+      <div class="col-span-full text-center py-12 bg-[#121215] border border-[#27272a] rounded-xl">
+        <span class="material-symbols-outlined text-4xl text-[#27272a] mb-2">folder_off</span>
+        <p class="text-[#a1a1aa]">Nenhuma matéria cadastrada.</p>
       </div>
-      <div class="mt-auto">
-        <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors">System Design</h3>
-        <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
-          <div class="flex flex-col">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Questions</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">342 available</span>
+    <% else %>
+      <% @subjects.each do |subject| %>
+        <div class="group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+          <div class="flex justify-between items-start mb-8">
+            <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined icon-fill">schema</span>
+            </div>
+            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#1e1e22] text-[#a1a1aa]">
+              Active
+            </span>
           </div>
-          <div class="flex flex-col text-right">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Last Studied</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">2h ago</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Subject Card 2 -->
-    <div class="group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
-      <div class="flex justify-between items-start mb-8">
-        <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined icon-fill">account_tree</span>
-        </div>
-        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#1e1e22] text-[#a1a1aa]">
-          Active
-        </span>
-      </div>
-      <div class="mt-auto">
-        <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors">Advanced Algorithms</h3>
-        <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
-          <div class="flex flex-col">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Questions</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">156 available</span>
-          </div>
-          <div class="flex flex-col text-right">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Last Studied</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">Yesterday</span>
+          <div class="mt-auto">
+            <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors"><%= subject.name %></h3>
+            <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
+              <div class="flex flex-col">
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Questões</span>
+                <span class="text-sm font-medium text-[#a1a1aa]"><%= subject.questions.size %> disponíveis</span>
+              </div>
+              <div class="flex flex-col text-right">
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Criada em</span>
+                <span class="text-sm font-medium text-[#a1a1aa]"><%= subject.created_at.strftime("%d/%m") %></span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    
-    <!-- Subject Card 3 -->
-    <div class="group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
-      <div class="flex justify-between items-start mb-8">
-        <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
-          <span class="material-symbols-outlined icon-fill">dns</span>
-        </div>
-        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#1e1e22] text-[#a1a1aa]">
-          Review
-        </span>
-      </div>
-      <div class="mt-auto">
-        <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors">Network Protocols</h3>
-        <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
-          <div class="flex flex-col">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Questions</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">89 available</span>
-          </div>
-          <div class="flex flex-col text-right">
-            <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Last Studied</span>
-            <span class="text-sm font-medium text-[#a1a1aa]">4d ago</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
   </div>
 </section>
 
 <!-- Recent Activity List -->
 <section>
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-lg font-headline font-bold text-[#fafafa] tracking-tight">Recent Mock Exams</h2>
+    <h2 class="text-lg font-headline font-bold text-[#fafafa] tracking-tight">Simulados Recentes</h2>
     <button class="w-8 h-8 rounded border border-[#27272a] flex items-center justify-center text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors">
       <span class="material-symbols-outlined text-[18px]">filter_list</span>
     </button>
   </div>
   
   <div class="flex flex-col gap-3">
-    <!-- Activity Item 1 (High Score) -->
-    <div class="group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded bg-[#065f46]/10 border border-[#065f46] flex items-center justify-center text-[#34d399]">
-          <span class="material-symbols-outlined text-[20px]">check_circle</span>
-        </div>
-        <div>
-          <h4 class="text-sm font-bold text-[#fafafa]">System Design Comprehensive</h4>
-          <p class="text-xs text-[#a1a1aa] mt-0.5">Completed Today at 10:45 AM</p>
-        </div>
+    <% if @recent_exams.empty? %>
+      <div class="text-center py-8 bg-[#09090b] border border-[#27272a] rounded-lg">
+        <p class="text-[#a1a1aa]">Nenhum simulado finalizado recentemente.</p>
       </div>
-      <div class="flex items-center gap-6">
-        <div class="text-right">
-          <span class="block text-sm font-bold text-[#34d399]">92%</span>
-          <span class="block text-xs text-[#71717a]">Score</span>
+    <% else %>
+      <% @recent_exams.each do |exam| %>
+        <% score = (exam.correct_count.to_f / exam.questions_count * 100).round %>
+        <div class="group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer">
+          <div class="flex items-center gap-4">
+            <% if score >= 70 %>
+              <div class="w-10 h-10 rounded bg-[#065f46]/10 border border-[#065f46] flex items-center justify-center text-[#34d399]">
+                <span class="material-symbols-outlined text-[20px]">check_circle</span>
+              </div>
+            <% else %>
+              <div class="w-10 h-10 rounded bg-[#18181b] border border-[#52525b] flex items-center justify-center text-[#a1a1aa]">
+                <span class="material-symbols-outlined text-[20px]">article</span>
+              </div>
+            <% end %>
+            <div>
+              <h4 class="text-sm font-bold text-[#fafafa]"><%= exam.subject.name %></h4>
+              <p class="text-xs text-[#a1a1aa] mt-0.5">Concluído <%= exam.updated_at.strftime("%d/%m às %H:%M") %></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-6">
+            <div class="text-right">
+              <span class="block text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= score %>%</span>
+              <span class="block text-xs text-[#71717a]">Pontuação</span>
+            </div>
+            <button class="opacity-0 group-hover:opacity-100 text-[#a78bfa] hover:text-[#c4b5fd] transition-all">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
         </div>
-        <button class="opacity-0 group-hover:opacity-100 text-[#a78bfa] hover:text-[#c4b5fd] transition-all">
-          <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Activity Item 2 -->
-    <div class="group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded bg-[#18181b] border border-[#52525b] flex items-center justify-center text-[#a1a1aa]">
-          <span class="material-symbols-outlined text-[20px]">article</span>
-        </div>
-        <div>
-          <h4 class="text-sm font-bold text-[#fafafa]">Algorithms: Dynamic Programming</h4>
-          <p class="text-xs text-[#a1a1aa] mt-0.5">Completed Yesterday</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-6">
-        <div class="text-right">
-          <span class="block text-sm font-bold text-[#fafafa]">78%</span>
-          <span class="block text-xs text-[#71717a]">Score</span>
-        </div>
-        <button class="opacity-0 group-hover:opacity-100 text-[#a78bfa] hover:text-[#c4b5fd] transition-all">
-          <span class="material-symbols-outlined">chevron_right</span>
-        </button>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
   </div>
 </section>
 

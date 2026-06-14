@@ -1,0 +1,118 @@
+<!-- Top App Bar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full h-16 px-6 bg-[#09090b] border-b border-[#27272a] sticky top-0 z-10">
+  <h1 class="text-lg font-headline font-bold text-[#fafafa] tracking-tighter">Obsidian</h1>
+</header>
+
+<div class="max-w-5xl mx-auto px-6 py-12 md:py-16 w-full">
+  <!-- Header Section -->
+  <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#121215] border border-[#27272a] text-[#a78bfa] text-xs font-bold uppercase tracking-wider mb-4">
+        <span class="material-symbols-outlined text-sm">task_alt</span>
+        Simulado Concluído
+      </div>
+      <h2 class="text-4xl md:text-5xl font-headline font-black tracking-tighter text-[#fafafa] mb-2"><%= @exam.subject.name %></h2>
+      <p class="text-[#a1a1aa] text-lg">Concluído em <%= @exam.updated_at.strftime("%d/%m/%Y") %></p>
+    </div>
+    <div class="flex gap-3">
+      <%= link_to dashboard_path, class: "px-5 py-2.5 rounded-lg bg-[#a78bfa] text-[#0a0012] font-bold hover:opacity-90 transition-opacity flex items-center gap-2 text-sm" do %>
+        <span class="material-symbols-outlined text-[20px]">dashboard</span>
+        Voltar ao Painel
+      <% end if defined?(dashboard_path) %>
+    </div>
+  </div>
+
+  <!-- Score Bento Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <!-- Main Score Card -->
+    <div class="md:col-span-2 bg-[#121215] rounded-xl border border-[#27272a] p-8 flex flex-col justify-center relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-[#a78bfa]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+      
+      <h3 class="text-[#a1a1aa] text-sm font-medium uppercase tracking-wider mb-2">Pontuação Final</h3>
+      <div class="flex items-baseline gap-4">
+        <span class="text-7xl font-black text-[#fafafa] tracking-tighter">
+          <%= @exam.correct_count %>
+          <span class="text-4xl text-[#a1a1aa] font-bold">/<%= @exam.questions_count %></span>
+        </span>
+        <% percentage = ((@exam.correct_count.to_f / @exam.questions_count) * 100).to_i %>
+        <span class="<%= percentage >= 70 ? 'text-[#34d399]' : (percentage >= 50 ? 'text-[#eab308]' : 'text-[#ef4444]') %> font-bold text-xl flex items-center gap-1">
+          <span class="material-symbols-outlined"><%= percentage >= 50 ? 'trending_up' : 'trending_down' %></span>
+          <%= percentage %>%
+        </span>
+      </div>
+    </div>
+
+    <!-- Stats Stack -->
+    <div class="flex flex-col gap-6">
+      <div class="bg-[#121215] rounded-xl border border-[#27272a] p-6 flex-1 flex flex-col justify-center">
+        <h3 class="text-[#a1a1aa] text-xs font-medium uppercase tracking-wider mb-1">Respostas Corretas</h3>
+        <div class="text-3xl font-bold text-[#34d399]"><%= @exam.correct_count %></div>
+      </div>
+      <div class="bg-[#121215] rounded-xl border border-[#27272a] p-6 flex-1 flex flex-col justify-center">
+        <h3 class="text-[#a1a1aa] text-xs font-medium uppercase tracking-wider mb-1">Respostas Incorretas</h3>
+        <div class="text-3xl font-bold text-[#ef4444]"><%= @exam.questions_count - @exam.correct_count %></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Results List -->
+  <div>
+    <h3 class="text-xl font-headline font-bold text-[#fafafa] mb-6 border-b border-[#27272a] pb-4">Desempenho Detalhado</h3>
+    <div class="space-y-4">
+      <% letters = ('A'..'E').to_a %>
+      <% @exam.exam_questions.includes(:question).each do |eq| %>
+        <% if eq.is_correct %>
+          <!-- Correct Question -->
+          <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 flex flex-col gap-4">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex gap-4">
+                <div class="w-8 h-8 rounded-full bg-[#065f46]/20 text-[#34d399] flex items-center justify-center shrink-0 border border-[#34d399]/30">
+                  <span class="material-symbols-outlined text-[18px]">check</span>
+                </div>
+                <div>
+                  <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-1"><%= eq.question.statement %></h4>
+                  <p class="text-[#a1a1aa] text-sm font-mono bg-[#09090b] px-2 py-1 rounded inline-block border border-[#27272a]">
+                    Alternativa <%= letters[eq.chosen_index] %>: <%= eq.question.options[eq.chosen_index] %>
+                  </p>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-[#34d399] uppercase tracking-wider bg-[#065f46]/20 px-2 py-1 rounded">Correto</span>
+            </div>
+          </div>
+        <% else %>
+          <!-- Incorrect Question -->
+          <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 flex flex-col gap-4">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex gap-4">
+                <div class="w-8 h-8 rounded-full bg-[#3b1111]/40 text-[#ef4444] flex items-center justify-center shrink-0 border border-[#ef4444]/30">
+                  <span class="material-symbols-outlined text-[18px]">close</span>
+                </div>
+                <div class="w-full">
+                  <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-3"><%= eq.question.statement %></h4>
+                  
+                  <div class="space-y-3 w-full">
+                    <div class="flex items-center gap-3">
+                      <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Sua Resposta</span>
+                      <div class="flex-1 p-3 rounded bg-[#3b1111]/20 border border-[#ef4444]/30 text-[#ef4444] font-medium text-sm flex items-center justify-between">
+                        <%= eq.chosen_index.nil? ? "Não respondida" : eq.question.options[eq.chosen_index] %>
+                        <span class="material-symbols-outlined text-[16px]">close</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Correta</span>
+                      <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between">
+                        <%= eq.question.options[eq.question.correct_index] %>
+                        <span class="material-symbols-outlined text-[16px]">check</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

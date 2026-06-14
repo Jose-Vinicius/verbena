@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "new_subject" do %>
+  <div class="relative flex-1">
+    <%= select_tag "summary[subject_id]", 
+          options_from_collection_for_select(current_user.subjects, :id, :name, selected_subject_id), 
+          prompt: "Selecione uma matéria...",
+          id: "summary_subject_id", 
+          class: "w-full h-full min-h-[48px] bg-[#121215] border border-[#27272a] rounded-lg pl-4 pr-10 text-sm text-[#fafafa] appearance-none focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all" %>
+    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-[#a1a1aa]">
+      <span class="material-symbols-outlined text-xl">expand_more</span>
+    </div>
+  </div>
+  <div class="mt-2 text-right">
+    <%= link_to "+ Criar Nova Matéria", new_subject_path, class: "text-xs font-medium text-[#a78bfa] hover:text-[#c4b5fd] transition-colors" %>
+  </div>
+<% end %>

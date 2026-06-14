@@ -1,0 +1,77 @@
+<%= turbo_frame_tag summary do %>
+  <div class="w-full max-w-2xl bg-[#121215] border border-[#27272a] rounded-xl p-8 sm:p-10 flex flex-col shadow-2xl shadow-black/50 relative z-10 backdrop-blur-sm min-h-[500px] max-h-[500px]" data-controller="progress" data-progress-total-value="<%= summary.questions_requested %>" data-progress-status-value="<%= summary.status %>">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 shrink-0 mb-8">
+      <div>
+        <% if summary.done? %>
+          <h2 class="text-2xl sm:text-3xl font-headline font-bold tracking-tight text-[#34d399] mb-2">Geração concluída</h2>
+          <p class="text-[#a1a1aa] text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#34d399] text-sm">check_circle</span> Pronto para revisar
+          </p>
+        <% elsif summary.error? %>
+          <h2 class="text-2xl sm:text-3xl font-headline font-bold tracking-tight text-[#ef4444] mb-2">Falha na geração</h2>
+          <p class="text-[#a1a1aa] text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#ef4444] text-sm">error</span> Ocorreu um erro
+          </p>
+        <% else %>
+          <h2 class="text-2xl sm:text-3xl font-headline font-bold tracking-tight text-[#fafafa] mb-2">Gerando questões</h2>
+          <p class="text-[#a1a1aa] text-sm flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-[#34d399] animate-pulse"></span>
+            Processando...
+          </p>
+        <% end %>
+      </div>
+      <div class="text-right">
+        <div class="text-4xl sm:text-5xl font-headline font-black text-[#a78bfa] tracking-tighter tabular-nums flex items-baseline justify-end gap-1">
+          <span data-progress-target="count">
+            <%= summary.done? ? summary.questions_requested : 0 %>
+          </span>
+          <span class="text-2xl text-[#a1a1aa] font-medium">/<%= summary.questions_requested %></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Precision Progress Bar -->
+    <div class="relative w-full shrink-0 mb-8">
+      <div class="w-full h-3 bg-[#09090b] rounded overflow-hidden border border-[#27272a] shadow-inner">
+        <div class="h-full <%= summary.done? ? 'bg-[#34d399]' : (summary.error? ? 'bg-[#ef4444]' : 'bg-[#a78bfa]') %> rounded transition-all duration-[800ms] ease-out relative" data-progress-target="fill" style="width: <%= summary.done? ? '100%' : (summary.error? ? '100%' : '5%') %>;">
+          <% unless summary.done? || summary.error? %>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[200%] -translate-x-full animate-shimmer"></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Developer Console Logs -->
+    <div class="bg-[#09090b] border border-[#27272a] rounded-lg p-5 font-mono text-xs sm:text-sm text-[#a1a1aa] flex-1 overflow-y-auto flex flex-col gap-2 shadow-inner relative group min-h-0" data-progress-target="console">
+      <% if summary.done? %>
+        <div class="flex gap-3 text-[#34d399] mt-2 font-bold">
+          <span class="opacity-50"><%= summary.updated_at.strftime("%H:%M:%S") %></span> <span>[SUCESSO] Compilação finalizada.</span>
+        </div>
+      <% elsif summary.error? %>
+        <div class="flex gap-3 text-[#ef4444] mt-2 font-bold">
+          <span class="opacity-50"><%= summary.updated_at.strftime("%H:%M:%S") %></span> <span>[ERRO] Processo abortado.</span>
+        </div>
+      <% else %>
+        <div class="flex gap-3 text-[#a78bfa] animate-pulse mt-1" data-progress-target="activeLog">
+          <span>&gt;</span> <span>Aguardando sinal de conclusão...</span>
+        </div>
+      <% end %>
+    </div>
+    
+    <!-- Action Area -->
+    <div class="h-12 mt-6 flex justify-end items-center relative shrink-0">
+      <% if summary.done? %>
+        <%= link_to questions_path, id: "view-questions-btn", data: { turbo_frame: "_top" }, class: "absolute right-0 bg-[#a78bfa] hover:bg-[#ede9fe] text-[#0a0012] py-2.5 px-6 rounded font-bold text-sm transition-all duration-500 ease-out flex items-center gap-2 shadow-[0_0_15px_rgba(167,139,250,0.3)]" do %>
+          Ver Questões
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        <% end %>
+      <% elsif summary.error? %>
+        <%= link_to new_summary_path, class: "absolute right-0 bg-[#27272a] hover:bg-[#52525b] text-[#fafafa] py-2.5 px-6 rounded font-bold text-sm transition-all duration-500 ease-out flex items-center gap-2" do %>
+          Tentar Novamente
+          <span class="material-symbols-outlined text-base">refresh</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

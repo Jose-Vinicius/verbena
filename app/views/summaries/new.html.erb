@@ -1,13 +1,13 @@
 <div class="max-w-3xl w-full mx-auto px-8 py-16 flex-1 flex flex-col justify-center">
   <header class="mb-10">
-    <h2 class="text-3xl font-headline font-bold tracking-tight text-[#fafafa] mb-2">Generate Questions</h2>
-    <p class="text-[#a1a1aa] text-sm">Paste your raw text or summary below to generate an interactive study set.</p>
+    <h2 class="text-3xl font-headline font-bold tracking-tight text-[#fafafa] mb-2">Gerar Questões</h2>
+    <p class="text-[#a1a1aa] text-sm">Cole seu texto bruto ou resumo abaixo para gerar um conjunto de estudos interativo.</p>
   </header>
 
   <%= form_with model: @summary, class: "flex flex-col gap-8", data: { turbo: true } do |f| %>
     <% if @summary.errors.any? %>
       <div class="p-4 bg-[#3b1111] border border-[#ef4444]/20 rounded-lg text-[#fca5a5]">
-        <h3 class="font-bold text-sm mb-2">Please fix the following errors:</h3>
+        <h3 class="font-bold text-sm mb-2">Por favor, corrija os seguintes erros:</h3>
         <ul class="list-disc pl-5 text-sm">
           <% @summary.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -19,12 +19,12 @@
     <!-- 1. Textarea -->
     <div class="space-y-2" data-controller="character-count">
       <div class="flex justify-between items-end">
-        <%= f.label :content, "Source Material", class: "text-sm font-medium text-[#fafafa]" %>
-        <span class="text-xs text-[#a1a1aa]" data-character-count-target="counter">0 / 10000 chars</span>
+        <%= f.label :content, "Material de Estudo", class: "text-sm font-medium text-[#fafafa]" %>
+        <span class="text-xs text-[#a1a1aa]" data-character-count-target="counter">0 / 10000 caract.</span>
       </div>
       <%= f.text_area :content, 
             class: "w-full bg-[#121215] border border-[#27272a] rounded-lg p-4 text-[#fafafa] placeholder:text-[#a1a1aa] focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all resize-y font-body text-sm leading-relaxed", 
-            placeholder: "Paste your notes, article, or summary here...", 
+            placeholder: "Cole suas anotações, artigo ou resumo aqui...", 
             rows: 10,
             data: { action: "input->character-count#update", character_count_target: "input" } %>
     </div>
@@ -32,21 +32,14 @@
     <!-- 2. Dropdown (Subject) & 3. Question Count Row -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Subject Selection -->
-      <div class="space-y-2 flex flex-col">
-        <%= f.label :subject_id, "Subject", class: "text-sm font-medium text-[#fafafa]" %>
-        <div class="relative flex-1">
-          <%= f.collection_select :subject_id, current_user.subjects, :id, :name, 
-                { prompt: "Select a subject..." }, 
-                { class: "w-full h-full min-h-[48px] bg-[#121215] border border-[#27272a] rounded-lg pl-4 pr-10 text-sm text-[#fafafa] appearance-none focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all" } %>
-          <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-[#a1a1aa]">
-            <span class="material-symbols-outlined text-xl">expand_more</span>
-          </div>
-        </div>
+      <div class="space-y-2 flex flex-col" id="subject-selection-area">
+        <label class="text-sm font-medium text-[#fafafa]" for="summary_subject_id">Matéria</label>
+        <%= render "subjects/select", selected_subject_id: @summary.subject_id %>
       </div>
 
       <!-- Question Count Pills -->
       <div class="space-y-2">
-        <label class="text-sm font-medium text-[#fafafa]">Question Count</label>
+        <label class="text-sm font-medium text-[#fafafa]">Quantidade de Questões</label>
         <div class="flex gap-3 h-[48px]">
           <% [10, 20, 30].each do |count| %>
             <label class="relative flex-1 cursor-pointer group">
@@ -64,7 +57,7 @@
     <div class="pt-6 border-t border-[#27272a] mt-2">
       <%= button_tag type: "submit", class: "w-full bg-[#a78bfa] hover:bg-[#c4b5fd] text-[#0a0012] py-4 rounded-lg font-bold text-lg transition-colors duration-200 flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(167,139,250,0.15)]" do %>
         <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
-        Generate Questions
+        Gerar Questões
       <% end %>
     </div>
   <% end %>
