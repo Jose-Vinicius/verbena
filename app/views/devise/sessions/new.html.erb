@@ -1,0 +1,86 @@
+<div class="min-h-screen flex items-center justify-center relative overflow-hidden font-body text-[#fafafa] bg-[#09090b]">
+  <!-- Subtle Background Pattern -->
+  <div class="absolute inset-0 hero-pattern z-0 pointer-events-none" style="background-image: radial-gradient(#27272a 1px, transparent 1px); background-size: 24px 24px; opacity: 0.3;"></div>
+  
+  <!-- Main Content Container -->
+  <main class="w-full max-w-md p-6 z-10 relative">
+    
+    <!-- Logo Header -->
+    <div class="text-center mb-10 flex flex-col items-center justify-center space-y-3">
+      <div class="h-12 w-12 bg-[#18181b] rounded-xl border border-[#27272a] flex items-center justify-center mb-2 shadow-sm">
+        <span class="material-symbols-outlined text-[#a78bfa] text-3xl" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+      </div>
+      <h1 class="text-3xl font-headline font-black tracking-tighter text-[#fafafa]">verbena Study</h1>
+      <p class="text-[#a1a1aa] text-sm font-medium">Precision learning platform</p>
+    </div>
+
+    <!-- Flash messages -->
+    <% flash.each do |key, message| %>
+      <div class="mb-4 p-4 rounded-lg text-sm font-medium <%= key == 'alert' ? 'bg-[#3b1111] text-[#fca5a5] border border-[#ef4444]/20' : 'bg-[#18181b] text-[#a78bfa] border border-[#a78bfa]/20' %>">
+        <%= message %>
+      </div>
+    <% end %>
+
+    <!-- Login Form Card -->
+    <div class="bg-[#18181b]/70 backdrop-blur-md border border-[#27272a] rounded-xl p-8 shadow-2xl relative overflow-hidden">
+      <!-- Decorative accent line -->
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a78bfa] to-transparent opacity-50"></div>
+      
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        
+        <!-- Email Field -->
+        <div>
+          <%= f.label :email, "Email Address", class: "block text-sm font-medium text-[#a1a1aa] mb-2" %>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-[#a1a1aa] text-lg" data-icon="mail">mail</span>
+            </div>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "block w-full pl-10 pr-3 py-3 border border-[#27272a] rounded-lg bg-[#18181b] text-[#fafafa] placeholder-[#a1a1aa]/50 focus:ring-2 focus:ring-[#a78bfa] focus:border-transparent transition-all duration-200", placeholder: "developer@verbena.io", required: true %>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <%= f.label :password, "Password", class: "block text-sm font-medium text-[#a1a1aa]" %>
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to "Forgot password?", new_password_path(resource_name), class: "text-xs text-[#a78bfa] hover:text-[#a78bfa]/80 transition-colors font-medium" %>
+            <% end %>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-[#a1a1aa] text-lg" data-icon="lock">lock</span>
+            </div>
+            <%= f.password_field :password, autocomplete: "current-password", class: "block w-full pl-10 pr-3 py-3 border border-[#27272a] rounded-lg bg-[#18181b] text-[#fafafa] placeholder-[#a1a1aa]/50 focus:ring-2 focus:ring-[#a78bfa] focus:border-transparent transition-all duration-200", placeholder: "••••••••", required: true %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.check_box :remember_me, class: "h-4 w-4 text-[#a78bfa] focus:ring-[#a78bfa] border-[#27272a] rounded bg-[#18181b]" %>
+            <%= f.label :remember_me, class: "ml-2 block text-sm text-[#a1a1aa]" %>
+          </div>
+        <% end %>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-[#09090b] bg-[#a78bfa] hover:bg-[#a78bfa]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a78bfa] focus:ring-offset-[#09090b] transition-all duration-200 group relative overflow-hidden">
+          <span class="relative z-10 flex items-center gap-2">
+            Sign In
+            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+          </span>
+          <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+        </button>
+      <% end %>
+      
+    </div>
+
+    <!-- Footer Links -->
+    <p class="mt-8 text-center text-sm text-[#a1a1aa]">
+      Don't have an account?
+      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+        <%= link_to "Create account", new_registration_path(resource_name), class: "font-medium text-[#a78bfa] hover:text-[#a78bfa]/80 transition-colors ml-1 border-b border-transparent hover:border-[#a78bfa]/80 pb-0.5" %>
+      <% end %>
+    </p>
+
+  </main>
+</div>

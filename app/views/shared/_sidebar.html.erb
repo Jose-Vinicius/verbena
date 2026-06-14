@@ -1,0 +1,58 @@
+<!-- Desktop Side Navigation -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-[#27272a] bg-[#0c0c0f] dark:bg-[#0c0c0f] py-6 px-4 flex-shrink-0 z-20">
+  <!-- Brand Header -->
+  <div class="flex items-center gap-3 mb-10 px-2">
+    <div class="w-10 h-10 rounded-lg bg-[#18181b] border border-[#27272a] flex items-center justify-center overflow-hidden">
+      <span class="material-symbols-outlined text-[#a78bfa] text-2xl" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+    </div>
+    <div class="flex flex-col">
+      <span class="text-xl font-headline font-black tracking-tighter text-[#fafafa] leading-tight">verbena</span>
+      <span class="text-xs text-[#71717a] font-label uppercase tracking-widest mt-0.5">Study Platform</span>
+    </div>
+  </div>
+
+  <!-- Navigation Links -->
+  <ul class="flex flex-col gap-1 flex-1">
+    <!-- Active Item: Dashboard -->
+    <li>
+      <%= link_to root_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{current_page?(root_path) || current_page?('/dashboard/index') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-all opacity-100" do %>
+        <span class="material-symbols-outlined <%= current_page?(root_path) || current_page?('/dashboard/index') ? 'icon-fill' : '' %> text-[20px]">dashboard</span>
+        <span class="text-sm">Dashboard</span>
+      <% end %>
+    </li>
+    <!-- Inactive Items (Placeholders) -->
+    <li>
+      <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
+        <span class="material-symbols-outlined text-[20px]">menu_book</span>
+        <span class="text-sm">Study</span>
+      </a>
+    </li>
+    <li>
+      <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
+        <span class="material-symbols-outlined text-[20px]">history</span>
+        <span class="text-sm">History</span>
+      </a>
+    </li>
+    <li>
+      <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        <span class="text-sm">Settings</span>
+      </a>
+    </li>
+    
+    <li class="mt-4">
+      <%= button_to destroy_user_session_path, method: :delete, class: "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fca5a5] hover:bg-[#121215] transition-colors duration-200" do %>
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+        <span class="text-sm">Logout</span>
+      <% end %>
+    </li>
+  </ul>
+
+  <!-- CTA Action -->
+  <div class="mt-auto pt-6 border-t border-[#27272a]">
+    <button class="w-full py-2.5 px-4 bg-[#a78bfa] text-[#0a0012] font-headline font-semibold text-sm rounded-lg hover:bg-[#c4b5fd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-[#09090b] flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+      Generate Questions
+    </button>
+  </div>
+</nav>
