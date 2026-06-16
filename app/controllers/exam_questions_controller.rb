@@ -14,8 +14,6 @@ class ExamQuestionsController < ApplicationController
   end
 
   def update
-    @exam = @exam_question.exam
-    
     # Only update if it hasn't been answered yet
     if @exam_question.chosen_index.nil?
       chosen = params[:chosen_index].to_i
@@ -27,15 +25,7 @@ class ExamQuestionsController < ApplicationController
       )
     end
 
-    @all_questions = @exam.exam_questions.order(:id)
-    @current_index = @all_questions.index(@exam_question) + 1
-    @total_questions = @exam.questions_count
-    @next_question = @all_questions[@current_index]
-
-    respond_to do |format|
-      format.html { render :show }
-      format.turbo_stream { render :show }
-    end
+    redirect_to exam_question_path(@exam_question)
   end
 
   private

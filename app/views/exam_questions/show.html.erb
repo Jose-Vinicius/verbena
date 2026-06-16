@@ -1,7 +1,6 @@
 <!-- TopNavBar Structure -->
 <header class="flex justify-between items-center w-full h-16 px-8 border-b border-[#27272a] bg-[#09090b] shrink-0 z-10">
   <div class="flex items-center gap-6">
-    <span class="text-lg font-headline font-bold tracking-tight text-[#fafafa]">Obsidian</span>
     <nav class="hidden md:flex gap-6 items-center">
       <%= link_to "Painel", dashboard_path, class: "text-[#a1a1aa] hover:text-[#fafafa] transition-colors font-body text-sm" if defined?(dashboard_path) %>
       <a class="text-[#a78bfa] border-b-2 border-[#a78bfa] pb-1 font-body text-sm font-medium" href="#">Modo Simulado</a>
