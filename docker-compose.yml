@@ -1,0 +1,35 @@
+services:
+  web:
+    build: .
+    image: ${DOCKER_IMAGE:-ghcr.io/jose-vinicius/verbena:latest}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      AI_API_KEY: ${AI_API_KEY}
+    ports:
+      - "8080:80"
+    networks:
+      - default
+      - azaleia_net
+  worker:
+    build: .
+    image: ${DOCKER_IMAGE:-ghcr.io/jose-vinicius/verbena:latest}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      AI_API_KEY: ${AI_API_KEY}
+    command: ["./bin/jobs"]
+    networks:
+      - default
+      - azaleia_net
+
+networks:
+  azaleia_net:
+    external: true
+    name: azaleia_default
