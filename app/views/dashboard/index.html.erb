@@ -72,7 +72,7 @@
     <% else %>
       <% @recent_exams.each do |exam| %>
         <% score = (exam.correct_count.to_f / exam.questions_count * 100).round %>
-        <div class="group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer">
+        <%= link_to exam_path(exam), class: "group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer block" do %>
           <div class="flex items-center gap-4">
             <% if score >= 70 %>
               <div class="w-10 h-10 rounded bg-[#065f46]/10 border border-[#065f46] flex items-center justify-center text-[#34d399]">
@@ -93,11 +93,11 @@
               <span class="block text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= score %>%</span>
               <span class="block text-xs text-[#71717a]">Pontuação</span>
             </div>
-            <button class="opacity-0 group-hover:opacity-100 text-[#a78bfa] hover:text-[#c4b5fd] transition-all">
+            <div class="opacity-0 group-hover:opacity-100 text-[#a78bfa] transition-all">
               <span class="material-symbols-outlined">chevron_right</span>
-            </button>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
