@@ -8,7 +8,7 @@ class CreateExamService
     count = questions_count.to_i
     return Result.new(false, nil, "A quantidade de questões deve ser maior que zero") if count <= 0
 
-    available_questions = subject.questions
+    available_questions = subject.questions.active
     if available_questions.count < count
       return Result.new(false, nil, "Não há questões suficientes nesta matéria. Solicitado #{count}, mas apenas #{available_questions.count} disponíveis.")
     end

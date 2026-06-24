@@ -54,8 +54,22 @@
             <div class="border border-[#27272a] rounded-lg bg-[#000000] overflow-hidden" data-controller="toggle">
               <button aria-expanded="false" class="w-full flex items-start justify-between p-5 text-left hover:bg-[#121215]/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] focus-visible:ring-inset" data-action="click->toggle#toggle">
                 <div class="pr-8">
-                  <div class="flex items-center gap-2 mb-2">
+                  <div class="flex items-center gap-4 mb-2">
                     <span class="text-xs font-mono text-[#a1a1aa]">ID: <%= question.id %></span>
+                    <div class="flex items-center gap-3">
+                      <% if question.times_answered > 0 %>
+                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-[#a78bfa]/10 text-[#a78bfa] border border-[#a78bfa]/20">
+                          Respondida <%= question.times_answered %> <%= question.times_answered == 1 ? 'vez' : 'vezes' %>
+                        </span>
+                        <span class="text-xs text-[#71717a]">
+                          Última em: <%= question.last_answered_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m/%y %H:%M") %>
+                        </span>
+                      <% else %>
+                        <span class="text-xs font-medium px-2 py-0.5 rounded bg-[#34d399]/10 text-[#34d399] border border-[#34d399]/20">
+                          Inédita
+                        </span>
+                      <% end %>
+                    </div>
                   </div>
                   <p class="text-[#fafafa] font-medium leading-relaxed"><%= question.statement %></p>
                 </div>
@@ -106,6 +120,16 @@
                       </p>
                     </div>
                   <% end %>
+
+                  <!-- Ações -->
+                  <div class="mt-6 pt-4 border-t border-[#27272a]/50 flex items-center justify-end gap-3">
+                    <%= link_to edit_question_path(question), data: { turbo: false }, class: "inline-flex items-center gap-2 text-sm font-medium text-[#a1a1aa] hover:text-[#fafafa] transition-colors bg-[#121215] border border-[#27272a] hover:border-[#52525b] px-3 py-1.5 rounded" do %>
+                      <span class="material-symbols-outlined text-[16px]">edit</span> Editar
+                    <% end %>
+                    <%= button_to question_path(question), method: :delete, form: { data: { turbo_confirm: 'Deseja realmente excluir esta questão? Ela não aparecerá mais nos próximos simulados.' } }, class: "inline-flex items-center gap-2 text-sm font-medium text-red-400/80 hover:text-red-400 transition-colors bg-[#121215] border border-[#27272a] hover:border-red-500/30 px-3 py-1.5 rounded" do %>
+                      <span class="material-symbols-outlined text-[16px]">delete</span> Excluir
+                    <% end %>
+                  </div>
                   
                   </div>
                 </div>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :summaries, only: [ :new, :create, :show ]
   resources :subjects, only: [ :index, :new, :create ]
-  resources :questions, only: [ :index ]
+  resources :questions, only: [ :index, :edit, :update, :destroy ]
   resources :exams, only: [ :new, :create, :show ]
   resources :exam_questions, only: [ :show, :update ]
 

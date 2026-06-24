@@ -9,6 +9,11 @@ class Question < ApplicationRecord
   validate :options_format
 
   scope :by_subject, ->(subject_id) { where(subject_id: subject_id) }
+  scope :active, -> { where(deleted_at: nil) }
+
+  def soft_delete!
+    update(deleted_at: Time.current)
+  end
 
   private
 

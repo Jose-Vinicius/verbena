@@ -1,0 +1,66 @@
+<div class="px-10 py-8 max-w-4xl mx-auto">
+  <div class="mb-8">
+    <%= link_to questions_path, class: "inline-flex items-center gap-2 text-[#a1a1aa] hover:text-[#fafafa] transition-colors text-sm font-medium mb-4" do %>
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> Voltar
+    <% end %>
+    <h1 class="text-3xl font-headline font-bold text-[#fafafa]">Editar Questão</h1>
+    <p class="text-[#a1a1aa] text-sm mt-1">Altere o texto ou a alternativa correta. A quantidade de alternativas não pode ser modificada.</p>
+  </div>
+
+  <%= form_with model: @question, class: "space-y-6" do |f| %>
+    <% if @question.errors.any? %>
+      <div class="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 mb-6">
+        <ul class="list-disc list-inside text-sm">
+          <% @question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="bg-[#121215] border border-[#27272a] rounded-xl p-6 space-y-6">
+      
+      <!-- Enunciado -->
+      <div>
+        <%= f.label :statement, "Enunciado", class: "block text-sm font-medium text-[#fafafa] mb-2" %>
+        <%= f.text_area :statement, rows: 6, class: "w-full bg-[#09090b] border border-[#27272a] text-[#fafafa] rounded-lg p-3 focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all whitespace-pre-wrap" %>
+      </div>
+
+      <hr class="border-[#27272a]">
+
+      <!-- Alternativas -->
+      <div>
+        <h3 class="text-sm font-medium text-[#fafafa] mb-4">Alternativas <span class="text-[#a1a1aa] text-xs font-normal ml-2">(Selecione a correta)</span></h3>
+        
+        <div class="space-y-3">
+          <% @question.options.each_with_index do |opt, idx| %>
+            <div class="flex items-start gap-3">
+              <div class="pt-3">
+                <%= f.radio_button :correct_index, idx, class: "w-4 h-4 text-[#a78bfa] bg-[#09090b] border-[#27272a] focus:ring-[#a78bfa] focus:ring-offset-[#121215] cursor-pointer" %>
+              </div>
+              <div class="flex-1 flex gap-3">
+                <div class="w-10 h-10 shrink-0 rounded bg-[#09090b] border border-[#27272a] flex items-center justify-center text-[#a1a1aa] font-mono text-sm font-bold mt-1">
+                  <%= ('A'.ord + idx).chr %>
+                </div>
+                <%= text_area_tag "question[options][]", opt, rows: 2, class: "w-full bg-[#09090b] border border-[#27272a] text-[#fafafa] text-sm rounded-lg p-3 focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all whitespace-pre-wrap" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <hr class="border-[#27272a]">
+
+      <!-- Explicação -->
+      <div>
+        <%= f.label :explanation, "Explicação", class: "block text-sm font-medium text-[#fafafa] mb-2" %>
+        <%= f.text_area :explanation, rows: 4, class: "w-full bg-[#09090b] border border-[#27272a] text-[#fafafa] rounded-lg p-3 focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all whitespace-pre-wrap" %>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end gap-4 pt-4">
+      <%= link_to "Cancelar", questions_path, class: "text-[#a1a1aa] hover:text-[#fafafa] font-medium text-sm transition-colors" %>
+      <%= f.submit "Salvar Questão", class: "bg-[#a78bfa] hover:bg-[#c4b5fd] text-[#0a0012] font-bold py-2.5 px-6 rounded-lg transition-colors cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
