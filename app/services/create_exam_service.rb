@@ -23,8 +23,10 @@ class CreateExamService
         status: :in_progress
       )
 
-      # Sorteia N perguntas aleatórias
-      selected_questions = available_questions.order("RANDOM()").limit(count)
+      # Seleciona N perguntas priorizando as menos respondidas e as respondidas há mais tempo
+      selected_questions = available_questions
+                             .order("times_answered ASC, last_answered_at ASC NULLS FIRST, RANDOM()")
+                             .limit(count)
       
       exam_questions = selected_questions.map do |q|
         { exam_id: exam.id, question_id: q.id, created_at: Time.current, updated_at: Time.current }

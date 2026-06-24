@@ -12,6 +12,11 @@ class CalculateExamResultService
       status: :finished
     )
 
+    question_ids = exam.exam_questions.pluck(:question_id)
+    Question.where(id: question_ids).update_all(
+      "times_answered = times_answered + 1, last_answered_at = CURRENT_TIMESTAMP"
+    )
+
     Result.new(true, exam, nil)
   rescue StandardError => e
     Result.new(false, exam, e.message)

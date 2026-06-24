@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_14_031309) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_24_010549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -41,10 +41,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_031309) do
     t.integer "correct_index"
     t.datetime "created_at", null: false
     t.text "explanation"
+    t.datetime "last_answered_at"
     t.jsonb "options"
     t.text "statement"
     t.bigint "subject_id", null: false
     t.bigint "summary_id", null: false
+    t.integer "times_answered", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["subject_id"], name: "index_questions_on_subject_id"
     t.index ["summary_id"], name: "index_questions_on_summary_id"
