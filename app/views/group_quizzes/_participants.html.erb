@@ -1,0 +1,55 @@
+<div class="bg-[#121215] border border-[#27272a] rounded-xl overflow-hidden">
+  <div class="px-6 py-4 border-b border-[#27272a] flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-[#a78bfa]">leaderboard</span>
+      <h3 class="text-sm font-bold text-[#fafafa] uppercase tracking-wider">Participantes</h3>
+    </div>
+    <span class="text-xs font-mono text-[#71717a] bg-[#09090b] px-2 py-0.5 rounded"><%= participants.size %></span>
+  </div>
+
+  <% if participants.empty? %>
+    <div class="text-center py-16 px-6">
+      <span class="material-symbols-outlined text-5xl text-[#27272a] mb-3">group_off</span>
+      <p class="text-[#a1a1aa] text-sm">Nenhum participante entrou ainda.</p>
+      <p class="text-[#71717a] text-xs mt-1">Compartilhe o link acima para convidar pessoas.</p>
+    </div>
+  <% else %>
+    <div class="divide-y divide-[#27272a]">
+      <% participants.each_with_index do |p, idx| %>
+        <div class="flex items-center justify-between px-6 py-4 hover:bg-[#18181b]/50 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
+              <% if idx == 0 && p.finished? %>
+                bg-[#a78bfa]/20 text-[#a78bfa] border border-[#a78bfa]/30
+              <% else %>
+                bg-[#18181b] text-[#a1a1aa] border border-[#27272a]
+              <% end %>
+            ">
+              <%= idx + 1 %>
+            </div>
+            <div>
+              <span class="text-sm font-medium text-[#fafafa]"><%= p.name %></span>
+              <% if p.finished? %>
+                <span class="ml-2 text-xs text-[#34d399]">Concluído</span>
+              <% else %>
+                <span class="ml-2 text-xs text-[#eab308]">
+                  <span class="inline-block w-1 h-1 rounded-full bg-[#eab308] animate-pulse mr-1"></span>
+                  Respondendo...
+                </span>
+              <% end %>
+            </div>
+          </div>
+          <% if p.finished? %>
+            <% score = ((p.correct_count.to_f / group_quiz.questions_count) * 100).round %>
+            <div class="text-right">
+              <span class="text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= p.correct_count %>/<%= group_quiz.questions_count %></span>
+              <span class="block text-xs text-[#71717a]"><%= score %>%</span>
+            </div>
+          <% else %>
+            <span class="text-xs text-[#71717a]">—</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

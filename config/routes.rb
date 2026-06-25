@@ -7,6 +7,20 @@ Rails.application.routes.draw do
   resources :questions, only: [ :index, :edit, :update, :destroy ]
   resources :exams, only: [ :new, :create, :show ]
   resources :exam_questions, only: [ :show, :update ]
+  resources :group_quizzes, only: [ :new, :create, :show, :update ] do
+    get :participants, on: :member
+  end
+
+  # Área pública — participantes do quiz em grupo
+  scope "/quiz" do
+    get ":token", to: "public_quiz#show", as: :public_quiz
+    post ":token/join", to: "public_quiz#join", as: :join_public_quiz
+    get ":token/q/:position", to: "public_quiz#question", as: :public_quiz_question
+    patch ":token/q/:position", to: "public_quiz#answer", as: :answer_public_quiz_question
+    post ":token/finish", to: "public_quiz#finish", as: :public_quiz_finish
+    get ":token/waiting", to: "public_quiz#waiting", as: :public_quiz_waiting
+    get ":token/result", to: "public_quiz#result", as: :public_quiz_result
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

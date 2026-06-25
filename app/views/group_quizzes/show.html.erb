@@ -1,0 +1,81 @@
+<div class="max-w-4xl mx-auto w-full py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <%= link_to root_path, class: "inline-flex items-center gap-2 text-[#a1a1aa] hover:text-[#fafafa] transition-colors text-sm font-medium mb-4" do %>
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> Voltar ao Painel
+    <% end %>
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-headline font-bold text-[#fafafa] tracking-tight"><%= @group_quiz.title %></h1>
+        <p class="text-[#a1a1aa] text-sm mt-1"><%= @group_quiz.subject.name %> · <%= @group_quiz.questions_count %> questões</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <% if @group_quiz.accessible? %>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#34d399]/10 text-[#34d399] text-xs font-bold border border-[#34d399]/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse"></span>
+            Aberta
+          </span>
+        <% elsif @group_quiz.expired? %>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ef4444]/10 text-[#ef4444] text-xs font-bold border border-[#ef4444]/20">
+            Expirada
+          </span>
+        <% else %>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#71717a]/10 text-[#71717a] text-xs font-bold border border-[#71717a]/20">
+            Encerrada
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Link Compartilhável -->
+  <div class="bg-[#121215] border border-[#27272a] rounded-xl p-6 mb-8">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="material-symbols-outlined text-[#a78bfa]">link</span>
+      <h3 class="text-sm font-bold text-[#fafafa] uppercase tracking-wider">Link Público</h3>
+    </div>
+
+    <% quiz_url = public_quiz_url(@group_quiz.token) %>
+    <div class="flex items-center gap-3" data-controller="clipboard">
+      <input type="text" value="<%= quiz_url %>" readonly
+        class="flex-1 bg-[#09090b] border border-[#27272a] rounded-lg py-3 px-4 text-[#fafafa] text-sm font-mono truncate"
+        data-clipboard-target="source">
+      <button data-action="click->clipboard#copy" class="shrink-0 bg-[#18181b] hover:bg-[#27272a] text-[#fafafa] font-bold py-3 px-5 rounded-lg transition-colors flex items-center gap-2 text-sm border border-[#27272a]">
+        <span class="material-symbols-outlined text-[18px]" data-clipboard-target="icon">content_copy</span>
+        <span data-clipboard-target="label">Copiar</span>
+      </button>
+      <%= link_to quiz_url, target: "_blank", rel: "noopener", class: "shrink-0 bg-[#a78bfa] hover:bg-[#c4b5fd] text-[#0a0012] font-bold py-3 px-5 rounded-lg transition-colors flex items-center gap-2 text-sm" do %>
+        <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+        Acessar
+      <% end %>
+    </div>
+
+    <% if @group_quiz.accessible? %>
+      <div class="mt-4 flex items-center gap-2 text-xs text-[#a1a1aa]">
+        <span class="material-symbols-outlined text-[16px]">schedule</span>
+        <% minutes_left = (@group_quiz.time_remaining / 60.0).ceil %>
+        Expira em <strong class="text-[#fafafa]"><%= minutes_left %> minuto<%= minutes_left == 1 ? '' : 's' %></strong>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Ação de Fechar -->
+  <% if @group_quiz.open? && !@group_quiz.expired? %>
+    <div class="mb-8 flex justify-end">
+      <%= button_to group_quiz_path(@group_quiz), method: :patch,
+        form: { data: { turbo_confirm: "Deseja encerrar a sala? Novos participantes não poderão entrar." } },
+        class: "inline-flex items-center gap-2 text-sm font-medium text-red-400/80 hover:text-red-400 transition-colors bg-[#121215] border border-[#27272a] hover:border-red-500/30 px-4 py-2 rounded-lg" do %>
+        <span class="material-symbols-outlined text-[18px]">lock</span> Encerrar Sala
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Ranking de Participantes (polling a cada 5s sem piscar) -->
+  <div data-controller="polling" data-polling-url-value="<%= participants_group_quiz_path(@group_quiz) %>" data-polling-interval-value="5000">
+    <div data-polling-target="content">
+      <%= render "participants", group_quiz: @group_quiz, participants: @participants %>
+    </div>
+  </div>
+</div>

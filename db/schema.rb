@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_24_012341) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_24_014330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,54 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_012341) do
     t.bigint "user_id", null: false
     t.index ["subject_id"], name: "index_exams_on_subject_id"
     t.index ["user_id"], name: "index_exams_on_user_id"
+  end
+
+  create_table "group_answers", force: :cascade do |t|
+    t.integer "chosen_index"
+    t.datetime "created_at", null: false
+    t.bigint "group_participant_id", null: false
+    t.boolean "is_correct"
+    t.bigint "question_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_participant_id"], name: "index_group_answers_on_group_participant_id"
+    t.index ["question_id"], name: "index_group_answers_on_question_id"
+  end
+
+  create_table "group_participants", force: :cascade do |t|
+    t.integer "correct_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.bigint "group_quiz_id", null: false
+    t.string "name", null: false
+    t.integer "status", default: 0, null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_quiz_id"], name: "index_group_participants_on_group_quiz_id"
+    t.index ["token"], name: "index_group_participants_on_token", unique: true
+  end
+
+  create_table "group_quiz_questions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "group_quiz_id", null: false
+    t.integer "position"
+    t.bigint "question_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_quiz_id"], name: "index_group_quiz_questions_on_group_quiz_id"
+    t.index ["question_id"], name: "index_group_quiz_questions_on_question_id"
+  end
+
+  create_table "group_quizzes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.integer "questions_count", null: false
+    t.integer "status", default: 0, null: false
+    t.bigint "subject_id", null: false
+    t.string "title", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["subject_id"], name: "index_group_quizzes_on_subject_id"
+    t.index ["token"], name: "index_group_quizzes_on_token", unique: true
+    t.index ["user_id"], name: "index_group_quizzes_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -89,6 +137,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_012341) do
   add_foreign_key "exam_questions", "questions"
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "users"
+  add_foreign_key "group_answers", "group_participants"
+  add_foreign_key "group_answers", "questions"
+  add_foreign_key "group_participants", "group_quizzes"
+  add_foreign_key "group_quiz_questions", "group_quizzes"
+  add_foreign_key "group_quiz_questions", "questions"
+  add_foreign_key "group_quizzes", "subjects"
+  add_foreign_key "group_quizzes", "users"
   add_foreign_key "questions", "subjects"
   add_foreign_key "questions", "summaries"
   add_foreign_key "subjects", "users"

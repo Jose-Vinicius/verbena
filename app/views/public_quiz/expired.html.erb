@@ -1,0 +1,19 @@
+<div class="flex-1 flex items-center justify-center p-6">
+  <div class="w-full max-w-md text-center">
+    <div class="bg-[#121215] border border-[#27272a] rounded-xl p-8 shadow-2xl shadow-black/50">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#3b1111]/40 border border-[#ef4444]/30 mb-6 text-[#ef4444]">
+        <span class="material-symbols-outlined text-3xl">timer_off</span>
+      </div>
+
+      <h1 class="text-2xl font-headline font-bold text-[#fafafa] mb-2">Sala Indisponível</h1>
+      <p class="text-[#a1a1aa] text-sm mb-2"><%= @group_quiz.title %></p>
+      <p class="text-[#71717a] text-xs">
+        <% if @group_quiz.expired? %>
+          O tempo de 90 minutos desta sala expirou.
+        <% else %>
+          Esta sala foi encerrada pelo organizador.
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

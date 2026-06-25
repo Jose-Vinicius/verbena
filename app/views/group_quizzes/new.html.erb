@@ -1,0 +1,69 @@
+<div class="flex-1 flex items-center justify-center p-4 md:p-8 relative w-full mt-10">
+  <div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+    <div class="w-[800px] h-[800px] bg-[#a78bfa]/5 rounded-full blur-[120px] opacity-50 mix-blend-screen"></div>
+  </div>
+
+  <div class="w-full max-w-lg bg-[#121215] border border-[#27272a] rounded-xl p-8 relative z-10 shadow-2xl shadow-black/50 backdrop-blur-sm">
+    <header class="mb-8 text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1e1e22] border border-[#27272a] mb-4 text-[#a78bfa]">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">group</span>
+      </div>
+      <h2 class="text-2xl font-headline font-bold tracking-tight mb-2 text-[#fafafa]">Criar Sala em Grupo</h2>
+      <p class="text-sm text-[#a1a1aa]">Gere um link público para que outros participantes respondam o mesmo simulado.</p>
+    </header>
+
+    <% if alert %>
+      <div class="mb-6 bg-[#3b1111] border border-[#ef4444]/30 text-[#fca5a5] px-4 py-3 rounded-lg text-sm flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#ef4444]">error</span>
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <%= form_with url: group_quizzes_path, method: :post, class: "space-y-6" do |f| %>
+      <!-- Título -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-[#a1a1aa]" for="title">Título da Sala</label>
+        <%= f.text_field :title, class: "w-full bg-[#09090b] border border-[#27272a] rounded-lg py-3 px-4 text-[#fafafa] text-sm focus:ring-2 focus:ring-[#a78bfa] focus:border-[#a78bfa] transition-colors hover:border-[#52525b] placeholder:text-[#a1a1aa]/50", placeholder: "Ex: Revisão de Biologia — Turma A" %>
+      </div>
+
+      <!-- Matéria -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-[#a1a1aa] flex justify-between" for="subject_id">
+          <span>Matéria</span>
+          <span class="text-xs text-[#a78bfa] opacity-80">Obrigatório</span>
+        </label>
+        <div class="relative">
+          <%= f.select :subject_id, options_from_collection_for_select(@subjects, :id, :name),
+            { prompt: "Selecione uma matéria..." },
+            { class: "w-full bg-[#09090b] border border-[#27272a] rounded-lg py-3 px-4 text-[#fafafa] text-sm focus:ring-2 focus:ring-[#a78bfa] focus:border-[#a78bfa] appearance-none hover:border-[#52525b] transition-colors cursor-pointer", required: true } %>
+          <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#a1a1aa]">
+            <span class="material-symbols-outlined text-xl">expand_more</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quantidade de Questões -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-[#a1a1aa]" for="questions_count">Quantidade de Questões</label>
+        <div class="relative group">
+          <%= f.number_field :questions_count, min: 1, value: 10, required: true,
+            class: "w-full bg-[#09090b] border border-[#27272a] rounded-lg py-3 px-4 text-[#fafafa] text-sm focus:ring-2 focus:ring-[#a78bfa] focus:border-[#a78bfa] transition-colors hover:border-[#52525b]",
+            placeholder: "ex: 10" %>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="bg-[#09090b] border border-[#27272a] rounded-lg p-4 flex items-start gap-3">
+        <span class="material-symbols-outlined text-[#a78bfa] text-lg mt-0.5">schedule</span>
+        <p class="text-xs text-[#a1a1aa] leading-relaxed">O link gerado terá validade de <strong class="text-[#fafafa]">90 minutos</strong>. Após esse período, novos participantes não poderão entrar.</p>
+      </div>
+
+      <div class="h-px w-full bg-[#27272a] my-6"></div>
+
+      <%= button_tag type: 'submit', class: "w-full bg-[#a78bfa] text-[#0a0012] font-bold rounded-lg py-4 px-6 text-sm flex items-center justify-center gap-2 hover:bg-[#ede9fe] transition-all duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(167,139,250,0.1)] hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]" do %>
+        <span class="material-symbols-outlined text-lg">link</span>
+        Criar Sala e Gerar Link
+      <% end %>
+    <% end %>
+  </div>
+</div>

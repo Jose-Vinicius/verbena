@@ -1,0 +1,35 @@
+<div class="flex-1 flex items-center justify-center p-6" data-controller="polling" data-polling-interval-value="5000">
+  <div class="w-full max-w-md text-center">
+    <div class="bg-[#121215] border border-[#27272a] rounded-xl p-8 shadow-2xl shadow-black/50">
+      <!-- Animated icon -->
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#a78bfa]/10 border border-[#a78bfa]/20 mb-6">
+        <span class="material-symbols-outlined text-4xl text-[#a78bfa] animate-pulse">hourglass_top</span>
+      </div>
+
+      <h1 class="text-2xl font-headline font-bold text-[#fafafa] mb-2">Aguarde os outros participantes</h1>
+      <p class="text-[#a1a1aa] text-sm mb-6">Você já finalizou! O resultado será exibido quando todos terminarem.</p>
+
+      <!-- Progress -->
+      <div class="bg-[#09090b] border border-[#27272a] rounded-lg p-4 mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-[#a1a1aa] uppercase tracking-wider">Progresso da Sala</span>
+          <span class="text-sm font-bold text-[#a78bfa]"><%= @finished_count %>/<%= @total_participants %></span>
+        </div>
+        <div class="w-full h-2 bg-[#18181b] rounded-full overflow-hidden">
+          <% progress = ((@finished_count.to_f / @total_participants) * 100).to_i %>
+          <div class="h-full bg-[#a78bfa] transition-all duration-500 ease-out rounded-full" style="width: <%= progress %>%;"></div>
+        </div>
+        <p class="text-xs text-[#71717a] mt-2">
+          <%= @total_participants - @finished_count %> participante<%= (@total_participants - @finished_count) == 1 ? '' : 's' %> ainda respondendo...
+        </p>
+      </div>
+
+      <!-- Dots animation -->
+      <div class="flex items-center justify-center gap-1.5">
+        <div class="w-2 h-2 rounded-full bg-[#a78bfa] animate-bounce" style="animation-delay: 0ms;"></div>
+        <div class="w-2 h-2 rounded-full bg-[#a78bfa] animate-bounce" style="animation-delay: 150ms;"></div>
+        <div class="w-2 h-2 rounded-full bg-[#a78bfa] animate-bounce" style="animation-delay: 300ms;"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,6 +46,12 @@
       <% end %>
     </li>
     <li>
+      <%= link_to new_group_quiz_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/group_quizzes') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= request.path.starts_with?('/group_quizzes') ? 'icon-fill' : '' %> text-[20px]">group</span>
+        <span class="text-sm">Salas em Grupo</span>
+      <% end %>
+    </li>
+    <li>
       <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
         <span class="material-symbols-outlined text-[20px]">history</span>
         <span class="text-sm">Histórico</span>
