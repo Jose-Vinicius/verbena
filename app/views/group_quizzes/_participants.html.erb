@@ -39,15 +39,24 @@
               <% end %>
             </div>
           </div>
-          <% if p.finished? %>
-            <% score = ((p.correct_count.to_f / group_quiz.questions_count) * 100).round %>
-            <div class="text-right">
-              <span class="text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= p.correct_count %>/<%= group_quiz.questions_count %></span>
-              <span class="block text-xs text-[#71717a]"><%= score %>%</span>
-            </div>
-          <% else %>
-            <span class="text-xs text-[#71717a]">—</span>
-          <% end %>
+          <div class="flex items-center gap-4">
+            <% if p.finished? %>
+              <% score = ((p.correct_count.to_f / group_quiz.questions_count) * 100).round %>
+              <div class="text-right">
+                <span class="text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= p.correct_count %>/<%= group_quiz.questions_count %></span>
+                <span class="block text-xs text-[#71717a]"><%= score %>%</span>
+              </div>
+            <% else %>
+              <span class="text-xs text-[#71717a]">—</span>
+            <% end %>
+            
+            <%= button_to group_participant_path(p), method: :delete,
+              form: { data: { turbo_confirm: "Remover #{p.name} da sala?" } },
+              class: "text-[#71717a] hover:text-[#ef4444] transition-colors p-1 rounded-md hover:bg-[#3b1111]/30 hover:cursor-pointer",
+              title: "Remover participante" do %>
+              <span class="material-symbols-outlined text-[18px]">person_remove</span>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

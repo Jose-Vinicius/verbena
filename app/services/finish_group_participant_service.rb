@@ -11,6 +11,11 @@ class FinishGroupParticipantService
       status: :finished
     )
 
+    question_ids = participant.group_answers.pluck(:question_id)
+    Question.where(id: question_ids).update_all(
+      "times_answered = times_answered + 1, last_answered_at = CURRENT_TIMESTAMP"
+    )
+
     Result.new(true, participant, nil)
   rescue StandardError => e
     Result.new(false, participant, e.message)
