@@ -28,7 +28,11 @@
               <%= idx + 1 %>
             </div>
             <div>
-              <span class="text-sm font-medium text-[#fafafa]"><%= p.name %></span>
+              <% if p.finished? %>
+                <%= link_to p.name, group_participant_path(p), class: "text-sm font-medium text-[#fafafa] hover:text-[#a78bfa] transition-colors hover:underline" %>
+              <% else %>
+                <span class="text-sm font-medium text-[#fafafa]"><%= p.name %></span>
+              <% end %>
               <% if p.finished? %>
                 <span class="ml-2 text-xs text-[#34d399]">Concluído</span>
               <% else %>
@@ -50,11 +54,13 @@
               <span class="text-xs text-[#71717a]">—</span>
             <% end %>
             
-            <%= button_to group_participant_path(p), method: :delete,
-              form: { data: { turbo_confirm: "Remover #{p.name} da sala?" } },
-              class: "text-[#71717a] hover:text-[#ef4444] transition-colors p-1 rounded-md hover:bg-[#3b1111]/30 hover:cursor-pointer",
-              title: "Remover participante" do %>
-              <span class="material-symbols-outlined text-[18px]">person_remove</span>
+            <% if !p.finished? && group_quiz.accessible? %>
+              <%= button_to group_participant_path(p), method: :delete,
+                form: { data: { turbo_confirm: "Remover #{p.name} da sala?" } },
+                class: "text-[#71717a] hover:text-[#ef4444] transition-colors p-1 rounded-md hover:bg-[#3b1111]/30 hover:cursor-pointer",
+                title: "Remover participante" do %>
+                <span class="material-symbols-outlined text-[18px]">person_remove</span>
+              <% end %>
             <% end %>
           </div>
         </div>

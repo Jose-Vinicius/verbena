@@ -1,0 +1,105 @@
+<!-- Header -->
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <%= link_to group_quiz_path(@group_quiz), class: "inline-flex items-center gap-2 text-sm font-medium text-[#a1a1aa] hover:text-[#fafafa] mb-4 transition-colors" do %>
+      <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+      Voltar para Sala
+    <% end %>
+    <h1 class="text-3xl font-headline font-black tracking-tighter text-[#fafafa] mb-2">Desempenho: <%= @participant.name %></h1>
+    <p class="text-[#a1a1aa] font-body"><%= @group_quiz.title %> (<%= @group_quiz.subject.name %>)</p>
+  </div>
+</div>
+
+<!-- Score Card -->
+<div class="bg-[#121215] border border-[#27272a] rounded-xl p-8 mb-8 flex flex-col md:flex-row items-center justify-between">
+  <div>
+    <h3 class="text-[#a1a1aa] text-sm font-medium uppercase tracking-wider mb-2">Pontuação</h3>
+    <div class="flex items-baseline gap-4">
+      <span class="text-5xl font-black text-[#fafafa] tracking-tighter">
+        <%= @participant.correct_count %>
+        <span class="text-2xl text-[#a1a1aa] font-bold">/<%= @group_quiz.questions_count %></span>
+      </span>
+      <% percentage = ((@participant.correct_count.to_f / @group_quiz.questions_count) * 100).to_i %>
+      <span class="<%= percentage >= 70 ? 'text-[#34d399]' : (percentage >= 50 ? 'text-[#eab308]' : 'text-[#ef4444]') %> font-bold text-xl flex items-center gap-1">
+        <span class="material-symbols-outlined"><%= percentage >= 50 ? 'trending_up' : 'trending_down' %></span>
+        <%= percentage %>%
+      </span>
+    </div>
+  </div>
+  
+  <div class="flex gap-8 mt-6 md:mt-0 md:pl-8 md:border-l border-[#27272a]">
+    <div class="text-center">
+      <span class="block text-2xl font-bold text-[#34d399]"><%= @participant.correct_count %></span>
+      <span class="text-xs text-[#a1a1aa] uppercase tracking-wider">Corretas</span>
+    </div>
+    <div class="text-center">
+      <span class="block text-2xl font-bold text-[#ef4444]"><%= @group_quiz.questions_count - @participant.correct_count %></span>
+      <span class="text-xs text-[#a1a1aa] uppercase tracking-wider">Incorretas</span>
+    </div>
+  </div>
+</div>
+
+<!-- Review Answers -->
+<div>
+  <h3 class="text-xl font-headline font-bold text-[#fafafa] mb-6 border-b border-[#27272a] pb-4">Revisão das Respostas</h3>
+  <div class="space-y-4">
+    <% @answers.each do |answer| %>
+      <% if answer.is_correct %>
+        <!-- Correct -->
+        <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 flex flex-col gap-4">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-[#065f46]/20 text-[#34d399] flex items-center justify-center shrink-0 border border-[#34d399]/30">
+                <span class="material-symbols-outlined text-[18px]">check</span>
+              </div>
+              <div class="w-full">
+                <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-3 whitespace-pre-wrap"><%= answer.question.statement %></h4>
+                <div class="space-y-3 w-full">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Resposta</span>
+                    <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between">
+                      <%= answer.question.options[answer.chosen_index] %>
+                      <span class="material-symbols-outlined text-[16px]">check</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#34d399] uppercase tracking-wider bg-[#065f46]/20 px-2 py-1 rounded shrink-0">Correto</span>
+          </div>
+        </div>
+      <% else %>
+        <!-- Incorrect -->
+        <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 flex flex-col gap-4">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex gap-4">
+              <div class="w-8 h-8 rounded-full bg-[#3b1111]/40 text-[#ef4444] flex items-center justify-center shrink-0 border border-[#ef4444]/30">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+              </div>
+              <div class="w-full">
+                <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-3 whitespace-pre-wrap"><%= answer.question.statement %></h4>
+                <div class="space-y-3 w-full">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Resposta</span>
+                    <div class="flex-1 p-3 rounded bg-[#3b1111]/20 border border-[#ef4444]/30 text-[#ef4444] font-medium text-sm flex items-center justify-between">
+                      <%= answer.question.options[answer.chosen_index] %>
+                      <span class="material-symbols-outlined text-[16px]">close</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Correta</span>
+                    <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between">
+                      <%= answer.question.options[answer.question.correct_index] %>
+                      <span class="material-symbols-outlined text-[16px]">check</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#ef4444] uppercase tracking-wider bg-[#3b1111]/20 px-2 py-1 rounded shrink-0">Incorreto</span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

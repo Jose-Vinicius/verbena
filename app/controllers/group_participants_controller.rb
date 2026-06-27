@@ -1,6 +1,12 @@
 class GroupParticipantsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @participant = GroupParticipant.joins(group_quiz: :user).where(group_quizzes: { user_id: current_user.id }).find(params[:id])
+    @group_quiz = @participant.group_quiz
+    @answers = @participant.group_answers.includes(:question).order('group_answers.id ASC')
+  end
+
   def destroy
     # Garante que o participante pertence a um quiz do usuário atual
     @group_quiz = current_user.group_quizzes.joins(:group_participants).where(group_participants: { id: params[:id] }).first!

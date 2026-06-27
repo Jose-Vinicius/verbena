@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :group_quizzes, only: [ :new, :create, :show, :update ] do
     get :participants, on: :member
   end
-  resources :group_participants, only: [ :destroy ]
+  resources :group_participants, only: [ :show, :destroy ]
 
   # Área pública — participantes do quiz em grupo
   scope "/quiz" do

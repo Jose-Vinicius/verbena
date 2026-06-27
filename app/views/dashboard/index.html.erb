@@ -65,38 +65,61 @@
   </div>
   
   <div class="flex flex-col gap-3">
-    <% if @recent_exams.empty? %>
+    <% if @recent_activities.empty? %>
       <div class="text-center py-8 bg-[#09090b] border border-[#27272a] rounded-lg">
-        <p class="text-[#a1a1aa]">Nenhum simulado finalizado recentemente.</p>
+        <p class="text-[#a1a1aa]">Nenhuma atividade recente.</p>
       </div>
     <% else %>
-      <% @recent_exams.each do |exam| %>
-        <% score = (exam.correct_count.to_f / exam.questions_count * 100).round %>
-        <%= link_to exam_path(exam), class: "group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer block" do %>
-          <div class="flex items-center gap-4">
-            <% if score >= 70 %>
-              <div class="w-10 h-10 rounded bg-[#065f46]/10 border border-[#065f46] flex items-center justify-center text-[#34d399]">
-                <span class="material-symbols-outlined text-[20px]">check_circle</span>
+      <% @recent_activities.each do |activity| %>
+        <% if activity.is_a?(Exam) %>
+          <% score = (activity.correct_count.to_f / activity.questions_count * 100).round %>
+          <%= link_to exam_path(activity), class: "group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer block" do %>
+            <div class="flex items-center gap-4">
+              <% if score >= 70 %>
+                <div class="w-10 h-10 rounded bg-[#065f46]/10 border border-[#065f46] flex items-center justify-center text-[#34d399]">
+                  <span class="material-symbols-outlined text-[20px]">check_circle</span>
+                </div>
+              <% else %>
+                <div class="w-10 h-10 rounded bg-[#18181b] border border-[#52525b] flex items-center justify-center text-[#a1a1aa]">
+                  <span class="material-symbols-outlined text-[20px]">article</span>
+                </div>
+              <% end %>
+              <div>
+                <h4 class="text-sm font-bold text-[#fafafa]"><%= activity.subject.name %></h4>
+                <p class="text-xs text-[#a1a1aa] mt-0.5">Simulado · <%= activity.updated_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m às %H:%M") %></p>
               </div>
-            <% else %>
-              <div class="w-10 h-10 rounded bg-[#18181b] border border-[#52525b] flex items-center justify-center text-[#a1a1aa]">
-                <span class="material-symbols-outlined text-[20px]">article</span>
+            </div>
+            <div class="flex items-center gap-6">
+              <div class="text-right">
+                <span class="block text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= score %>%</span>
+                <span class="block text-xs text-[#71717a]">Pontuação</span>
               </div>
-            <% end %>
-            <div>
-              <h4 class="text-sm font-bold text-[#fafafa]"><%= exam.subject.name %></h4>
-              <p class="text-xs text-[#a1a1aa] mt-0.5">Concluído <%= exam.updated_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m às %H:%M") %></p>
+              <div class="opacity-0 group-hover:opacity-100 text-[#a78bfa] transition-all">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </div>
             </div>
-          </div>
-          <div class="flex items-center gap-6">
-            <div class="text-right">
-              <span class="block text-sm font-bold <%= score >= 70 ? 'text-[#34d399]' : 'text-[#fafafa]' %>"><%= score %>%</span>
-              <span class="block text-xs text-[#71717a]">Pontuação</span>
+          <% end %>
+        <% else %>
+          <%= link_to group_quiz_path(activity), class: "group flex items-center justify-between p-4 bg-[#09090b] border border-[#27272a] rounded-lg hover:bg-[#121215] transition-colors cursor-pointer block" do %>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded bg-[#a78bfa]/10 border border-[#a78bfa]/30 flex items-center justify-center text-[#a78bfa]">
+                <span class="material-symbols-outlined text-[20px]">group</span>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-[#fafafa]"><%= activity.title.presence || activity.subject.name %></h4>
+                <p class="text-xs text-[#a1a1aa] mt-0.5">Sala em Grupo · <%= activity.updated_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m às %H:%M") %></p>
+              </div>
             </div>
-            <div class="opacity-0 group-hover:opacity-100 text-[#a78bfa] transition-all">
-              <span class="material-symbols-outlined">chevron_right</span>
+            <div class="flex items-center gap-6">
+              <div class="text-right">
+                <span class="block text-sm font-bold text-[#fafafa]"><%= activity.group_participants.count %></span>
+                <span class="block text-xs text-[#71717a]">Participantes</span>
+              </div>
+              <div class="opacity-0 group-hover:opacity-100 text-[#a78bfa] transition-all">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
