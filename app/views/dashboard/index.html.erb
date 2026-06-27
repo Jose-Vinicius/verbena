@@ -27,17 +27,21 @@
     <% else %>
       <% @subjects.each do |subject| %>
         <%= link_to questions_path(subject_id: subject.id), class: "group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full block" do %>
-          <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-10 transition-opacity rounded-xl pointer-events-none" style="--tw-gradient-from: <%= subject.color || '#a78bfa' %>; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent);"></div>
           <div class="flex justify-between items-start mb-4">
-            <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
-              <span class="material-symbols-outlined icon-fill">schema</span>
+            <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#27272a] flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm" style="color: <%= subject.color || '#a78bfa' %>;">
+              <% if subject.icon.present? && subject.icon.length <= 2 %>
+                <span class="text-2xl"><%= subject.icon %></span>
+              <% else %>
+                <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;"><%= subject.icon.presence || 'schema' %></span>
+              <% end %>
             </div>
             <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#1e1e22] text-[#a1a1aa]">
               Active
             </span>
           </div>
           <div class="mt-auto">
-            <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors"><%= subject.name %></h3>
+            <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 transition-colors" style="--tw-group-hover-color: <%= subject.color || '#c4b5fd' %>;"><span class="group-hover:!text-[var(--tw-group-hover-color)] transition-colors"><%= subject.name %></span></h3>
             <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
               <div class="flex flex-col">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Novas</span>

@@ -1,0 +1,123 @@
+<div class="flex-1 flex flex-col items-center justify-center p-4 relative w-full h-full">
+  <!-- Subtle background accent for focus -->
+  <div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+    <div class="w-[600px] h-[600px] bg-[<%= @subject.color || '#a78bfa' %>]/10 rounded-full blur-[100px] opacity-40 mix-blend-screen" id="bg-glow"></div>
+  </div>
+
+  <div class="w-full max-w-md bg-[#121215] border border-[#27272a] rounded-xl p-6 relative z-10 shadow-2xl shadow-black/50 backdrop-blur-sm">
+    <header class="mb-6 text-center">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1e1e22] border border-[#27272a] mb-4 text-[#a78bfa]" id="header-icon-container" style="color: <%= @subject.color || '#a78bfa' %>;">
+        <% if @subject.icon.present? && @subject.icon.length <= 2 %>
+          <span class="text-2xl" id="header-icon"><%= @subject.icon %></span>
+        <% else %>
+          <span class="material-symbols-outlined text-2xl" id="header-icon" style="font-variation-settings: 'FILL' 1;"><%= @subject.icon.presence || 'schema' %></span>
+        <% end %>
+      </div>
+      <h2 class="text-2xl font-headline font-bold tracking-tight mb-1 text-[#fafafa]">Editar Matéria</h2>
+      <p class="text-sm text-[#a1a1aa]">Personalize a cor e o ícone para identificar melhor seus estudos.</p>
+    </header>
+
+    <%= form_with model: @subject, class: "space-y-5" do |f| %>
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-[#a1a1aa]">Nome da Matéria</label>
+        <%= f.text_field :name, class: "w-full bg-[#09090b] border border-[#27272a] rounded-lg py-2.5 px-4 text-[#fafafa] text-sm focus:ring-2 focus:ring-[#a78bfa] focus:border-[#a78bfa] transition-colors hover:border-[#52525b]", required: true %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#a1a1aa]">Ícone / Emoji</label>
+          <div class="relative">
+            <%= f.hidden_field :icon, id: "subject_icon" %>
+            <button type="button" class="w-full bg-[#09090b] border border-[#27272a] hover:bg-[#18181b] hover:border-[#52525b] rounded-lg py-2.5 px-4 flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa]" onclick="document.getElementById('emoji-modal').classList.remove('hidden')">
+              <% if @subject.icon.present? && @subject.icon.length <= 2 %>
+                <span class="text-lg" id="btn-icon"><%= @subject.icon %></span>
+              <% else %>
+                <span class="material-symbols-outlined text-lg" id="btn-icon"><%= @subject.icon.presence || 'schema' %></span>
+              <% end %>
+              <span class="text-sm text-[#a1a1aa]">Alterar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-[#a1a1aa]">Cor</label>
+          <div class="relative flex items-center">
+            <%= f.color_field :color, class: "w-10 h-10 rounded cursor-pointer border-0 p-0 bg-transparent absolute opacity-0 inset-0 w-full h-full", oninput: "updateColor(this.value)" %>
+            <div class="w-full bg-[#09090b] border border-[#27272a] rounded-lg py-2.5 px-4 flex items-center gap-2 pointer-events-none">
+              <div class="w-5 h-5 rounded-full border border-black/20" id="color-preview" style="background-color: <%= @subject.color || '#a78bfa' %>;"></div>
+              <span class="text-sm text-[#a1a1aa] uppercase font-mono" id="color-hex"><%= @subject.color || '#a78bfa' %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-[#27272a] my-5"></div>
+
+      <div class="flex gap-3">
+        <%= link_to "Cancelar", subjects_path, class: "flex-1 bg-[#18181b] text-[#fafafa] font-bold rounded-lg py-3 px-6 text-sm flex items-center justify-center hover:bg-[#27272a] transition-all border border-[#27272a]" %>
+        <%= button_tag type: 'submit', class: "flex-1 bg-[#a78bfa] text-[#0a0012] font-bold rounded-lg py-3 px-6 text-sm flex items-center justify-center hover:bg-[#ede9fe] transition-all shadow-[0_0_15px_rgba(167,139,250,0.1)] hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]" do %>
+          Salvar
+        <% end %>
+      </div>
+    <% end %>
+    
+    <div class="mt-4 pt-4 border-t border-[#27272a] text-center">
+      <%= button_to "Excluir Matéria", subject_path(@subject), method: :delete, form: { data: { turbo_confirm: "Tem certeza que deseja excluir esta matéria e todas as suas questões?" } }, class: "text-sm text-[#ef4444] hover:text-[#fca5a5] font-medium transition-colors" %>
+    </div>
+  </div>
+</div>
+
+<!-- Emoji Picker Modal -->
+<div id="emoji-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+  <div class="bg-[#121215] border border-[#27272a] rounded-xl shadow-2xl overflow-hidden flex flex-col max-w-sm w-full" data-controller="click-outside">
+    <div class="p-4 border-b border-[#27272a] flex justify-between items-center bg-[#09090b]">
+      <h3 class="text-fafafa font-bold text-sm">Escolher Ícone</h3>
+      <button onclick="document.getElementById('emoji-modal').classList.add('hidden')" class="text-[#a1a1aa] hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <div class="p-0 bg-[#09090b] flex justify-center custom-emoji-picker">
+      <emoji-picker class="light"></emoji-picker>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js';
+  
+  document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
+    const emoji = event.detail.unicode;
+    document.getElementById('subject_icon').value = emoji;
+    document.getElementById('btn-icon').textContent = emoji;
+    document.getElementById('btn-icon').className = 'text-lg'; // Remove material classes
+    document.getElementById('header-icon').textContent = emoji;
+    document.getElementById('header-icon').className = 'text-2xl';
+    document.getElementById('emoji-modal').classList.add('hidden');
+  });
+</script>
+
+<script>
+  function updateColor(color) {
+    document.getElementById('color-preview').style.backgroundColor = color;
+    document.getElementById('color-hex').textContent = color;
+    document.getElementById('header-icon-container').style.color = color;
+    document.getElementById('bg-glow').style.backgroundColor = color;
+  }
+</script>
+
+<style>
+  /* Customize emoji picker slightly for dark mode matching */
+  emoji-picker {
+    --background: #09090b;
+    --border-color: #27272a;
+    --indicator-color: #a78bfa;
+    --outline-color: #a78bfa;
+    --input-border-color: #27272a;
+    --input-font-color: #fafafa;
+    --category-font-color: #a1a1aa;
+    --button-hover-background: #18181b;
+    --button-active-background: #27272a;
+    width: 100%;
+    border: none;
+  }
+</style>

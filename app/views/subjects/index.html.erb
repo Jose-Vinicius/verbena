@@ -35,19 +35,28 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <% @subjects.each do |subject| %>
           <%= link_to questions_path(subject_id: subject.id), class: "group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 flex flex-col justify-between hover:border-[#52525b] hover:bg-[#18181b] transition-all duration-300 cursor-pointer block" do %>
-            <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-10 transition-opacity rounded-xl pointer-events-none" style="--tw-gradient-from: <%= subject.color || '#a78bfa' %>; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent);"></div>
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="material-symbols-outlined text-[#a78bfa] group-hover:scale-110 transition-transform">folder_open</span>
-                <span class="text-xs font-mono text-[#a1a1aa] bg-[#09090b] px-2 py-1 rounded border border-[#27272a]">
-                  <%= subject.questions.size %> Questões
-                </span>
+                <div class="w-10 h-10 rounded bg-[#09090b] border border-[#27272a] flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm" style="color: <%= subject.color || '#a78bfa' %>;">
+                  <% if subject.icon.present? && subject.icon.length <= 2 %>
+                    <span class="text-xl"><%= subject.icon %></span>
+                  <% else %>
+                    <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;"><%= subject.icon.presence || 'folder_open' %></span>
+                  <% end %>
+                </div>
+                <div class="flex gap-2">
+                  <object><a href="<%= edit_subject_path(subject) %>" class="w-8 h-8 flex items-center justify-center rounded-lg bg-[#09090b] border border-[#27272a] text-[#a1a1aa] hover:text-[#fafafa] hover:border-[#52525b] transition-colors relative z-20 pointer-events-auto" title="Editar Matéria"><span class="material-symbols-outlined text-sm">edit</span></a></object>
+                  <span class="text-xs font-mono text-[#a1a1aa] bg-[#09090b] px-2 py-1.5 rounded border border-[#27272a] flex items-center">
+                    <%= subject.questions.size %> Questões
+                  </span>
+                </div>
               </div>
-              <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors"><%= subject.name %></h3>
+              <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 transition-colors" style="--tw-group-hover-color: <%= subject.color || '#c4b5fd' %>;"><span class="group-hover:!text-[var(--tw-group-hover-color)] transition-colors"><%= subject.name %></span></h3>
             </div>
             <div class="mt-4 pt-4 border-t border-[#27272a] flex justify-between items-center relative z-10">
               <span class="text-xs text-[#71717a]">Criado em <%= subject.created_at.strftime("%d/%m/%Y") %></span>
-              <span class="material-symbols-outlined text-[#a78bfa] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-sm">arrow_forward</span>
+              <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-sm" style="color: <%= subject.color || '#a78bfa' %>;">arrow_forward</span>
             </div>
           <% end %>
         <% end %>

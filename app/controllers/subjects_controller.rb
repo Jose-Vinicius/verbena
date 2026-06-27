@@ -1,5 +1,6 @@
 class SubjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_subject, only: %i[edit update destroy]
 
   def index
     @subjects = current_user.subjects.order(created_at: :desc)
@@ -7,6 +8,9 @@ class SubjectsController < ApplicationController
 
   def new
     @subject = current_user.subjects.new
+  end
+
+  def edit
   end
 
   def create
@@ -22,9 +26,26 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def update
+    if @subject.update(subject_params)
+      redirect_to subjects_path, notice: "Matéria atualizada com sucesso."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @subject.destroy
+    redirect_to subjects_path, notice: "Matéria excluída com sucesso."
+  end
+
   private
 
+  def set_subject
+    @subject = current_user.subjects.find(params[:id])
+  end
+
   def subject_params
-    params.require(:subject).permit(:name)
+    params.require(:subject).permit(:name, :color, :icon)
   end
 end

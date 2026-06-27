@@ -43,7 +43,13 @@
       <!-- Subject Group -->
       <section>
         <div class="flex items-center gap-3 border-b border-[#27272a] pb-3 mb-6">
-          <span class="material-symbols-outlined text-[#a78bfa]">folder_open</span>
+          <div class="flex items-center justify-center" style="color: <%= subject.color || '#a78bfa' %>;">
+            <% if subject.icon.present? && subject.icon.length <= 2 %>
+              <span class="text-xl"><%= subject.icon %></span>
+            <% else %>
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;"><%= subject.icon.presence || 'folder_open' %></span>
+            <% end %>
+          </div>
           <h3 class="text-xl font-headline font-semibold text-[#fafafa] tracking-tight"><%= subject.name %></h3>
           <span class="ml-auto text-xs font-mono text-[#71717a] bg-[#121215] px-2 py-0.5 rounded"><%= questions.size %> Itens</span>
         </div>
