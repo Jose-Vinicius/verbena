@@ -1,10 +1,10 @@
-<div class="max-w-3xl w-full mx-auto px-8 py-16 flex-1 flex flex-col justify-center">
-  <header class="mb-10">
+<div class="max-w-3xl w-full mx-auto px-8 py-8 flex-1 flex flex-col justify-center">
+  <header class="mb-6">
     <h2 class="text-3xl font-headline font-bold tracking-tight text-[#fafafa] mb-2">Gerar Questões</h2>
     <p class="text-[#a1a1aa] text-sm">Cole seu texto bruto ou resumo abaixo para gerar um conjunto de estudos interativo.</p>
   </header>
 
-  <%= form_with model: @summary, class: "flex flex-col gap-8", data: { turbo: true } do |f| %>
+  <%= form_with model: @summary, class: "flex flex-col gap-6", data: { turbo: true } do |f| %>
     <% if @summary.errors.any? %>
       <div class="p-4 bg-[#3b1111] border border-[#ef4444]/20 rounded-lg text-[#fca5a5]">
         <h3 class="font-bold text-sm mb-2">Por favor, corrija os seguintes erros:</h3>
@@ -25,12 +25,12 @@
       <%= f.text_area :content, 
             class: "w-full bg-[#121215] border border-[#27272a] rounded-lg p-4 text-[#fafafa] placeholder:text-[#a1a1aa] focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all resize-y font-body text-sm leading-relaxed", 
             placeholder: "Cole suas anotações, artigo ou resumo aqui...", 
-            rows: 10,
+            rows: 6,
             data: { action: "input->character-count#update", character_count_target: "input" } %>
     </div>
 
     <!-- 2. Dropdown (Subject) & 3. Question Count Row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Subject Selection -->
       <div class="space-y-2 flex flex-col" id="subject-selection-area">
         <label class="text-sm font-medium text-[#fafafa]" for="summary_subject_id">Matéria</label>

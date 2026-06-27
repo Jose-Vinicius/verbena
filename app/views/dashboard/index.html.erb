@@ -1,5 +1,5 @@
 <!-- Page Header -->
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
   <div>
     <h1 class="text-3xl font-headline font-black tracking-tighter text-[#fafafa] mb-2">Visão Geral</h1>
     <p class="text-sm text-[#a1a1aa] font-body">Acompanhe seu progresso de estudo e métricas recentes.</p>
@@ -11,7 +11,7 @@
 </div>
 
 <!-- Subjects Grid -->
-<section class="mb-14">
+<section class="mb-8">
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-lg font-headline font-bold text-[#fafafa] tracking-tight">Matérias Ativas</h2>
     <a class="text-sm font-medium text-[#a78bfa] hover:text-[#c4b5fd] transition-colors flex items-center gap-1" href="<%= subjects_path %>">
@@ -28,7 +28,7 @@
       <% @subjects.each do |subject| %>
         <%= link_to questions_path(subject_id: subject.id), class: "group relative bg-[#121215] border border-[#27272a] rounded-xl p-6 hover:bg-[#18181b] hover:border-[#52525b] transition-all duration-300 cursor-pointer flex flex-col h-full block" do %>
           <div class="absolute inset-0 bg-gradient-to-br from-[#a78bfa]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
-          <div class="flex justify-between items-start mb-8">
+          <div class="flex justify-between items-start mb-4">
             <div class="w-12 h-12 rounded-lg bg-[#09090b] border border-[#52525b] flex items-center justify-center text-[#a78bfa] group-hover:scale-105 transition-transform">
               <span class="material-symbols-outlined icon-fill">schema</span>
             </div>
@@ -40,12 +40,27 @@
             <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 group-hover:text-[#c4b5fd] transition-colors"><%= subject.name %></h3>
             <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
               <div class="flex flex-col">
-                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Questões</span>
-                <span class="text-sm font-medium text-[#a1a1aa]"><%= subject.questions.size %> disponíveis</span>
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Novas</span>
+                <span class="text-sm font-bold text-[#fafafa]"><%= subject.questions.count { |q| q.times_answered == 0 } %></span>
+              </div>
+              <div class="flex flex-col text-center">
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Respondidas</span>
+                <span class="text-sm font-bold text-[#fafafa]"><%= subject.questions.count { |q| q.times_answered > 0 } %></span>
               </div>
               <div class="flex flex-col text-right">
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Total</span>
+                <span class="text-sm font-bold text-[#a1a1aa]"><%= subject.questions.size %></span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
+              <div class="flex flex-col">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Criada em</span>
-                <span class="text-sm font-medium text-[#a1a1aa]"><%= subject.created_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m") %></span>
+                <span class="text-sm font-medium text-[#a1a1aa]"><%= subject.created_at.in_time_zone('America/Sao_Paulo').strftime("%d/%m/%y") %></span>
+              </div>
+              <div class="flex flex-col text-right">
+                <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Estudada pela ultima vez:</span>
+                <% last_answered = subject.questions.map(&:last_answered_at).compact.max %>
+                <span class="text-sm font-medium text-[#a1a1aa]"><%= last_answered ? last_answered.in_time_zone('America/Sao_Paulo').strftime("%d/%m/%y às %H:%M") : "Nunca" %></span>
               </div>
             </div>
           </div>
@@ -126,4 +141,4 @@
   </div>
 </section>
 
-<div class="h-12 w-full"></div>
+<div class="h-4 w-full"></div>

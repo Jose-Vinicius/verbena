@@ -24,7 +24,7 @@
     <li>
       <%= link_to new_summary_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{request.path.starts_with?('/summaries') ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
         <span class="material-symbols-outlined <%= request.path.starts_with?('/summaries') ? 'icon-fill' : '' %> text-[20px]">menu_book</span>
-        <span class="text-sm">Estudar</span>
+        <span class="text-sm">Gerar Questões</span>
       <% end %>
     </li>
     <li>
@@ -52,17 +52,17 @@
       <% end %>
     </li>
     <li>
-      <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
-        <span class="material-symbols-outlined text-[20px]">history</span>
+      <%= link_to history_path, class: "flex items-center gap-3 px-3 py-2.5 rounded-lg #{current_page?(history_path) ? 'text-[#a78bfa] font-bold bg-[#18181b]' : 'text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215]'} transition-colors duration-200" do %>
+        <span class="material-symbols-outlined <%= current_page?(history_path) ? 'icon-fill' : '' %> text-[20px]">history</span>
         <span class="text-sm">Histórico</span>
-      </a>
+      <% end %>
     </li>
-    <li>
+    <%# <li>
       <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fafafa] hover:bg-[#121215] transition-colors duration-200" href="#">
         <span class="material-symbols-outlined text-[20px]">settings</span>
         <span class="text-sm">Configurações</span>
       </a>
-    </li>
+    </li> %>
     
     <li class="mt-4">
       <%= button_to destroy_user_session_path, method: :delete, class: "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#a1a1aa] hover:text-[#fca5a5] hover:bg-[#121215] transition-colors duration-200" do %>

@@ -1,4 +1,4 @@
-<div class="flex-1 flex items-center justify-center p-4 md:p-8 relative w-full mt-10">
+<div class="flex-1 flex items-center justify-center p-4 relative w-full mt-2">
   <!-- Subtle background accent for focus -->
   <div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
     <div class="w-[800px] h-[800px] bg-[#a78bfa]/5 rounded-full blur-[120px] opacity-50 mix-blend-screen"></div>
@@ -6,7 +6,7 @@
 
   <!-- Configuration Card -->
   <div class="w-full max-w-lg bg-[#121215] border border-[#27272a] rounded-xl p-8 relative z-10 shadow-2xl shadow-black/50 backdrop-blur-sm">
-    <header class="mb-8 text-center">
+    <header class="mb-6 text-center">
       <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1e1e22] border border-[#27272a] mb-4 text-[#a78bfa]">
         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
       </div>
@@ -21,7 +21,7 @@
       </div>
     <% end %>
 
-    <%= form_with url: exams_path, method: :post, class: "space-y-6" do |f| %>
+    <%= form_with url: exams_path, method: :post, class: "space-y-5" do |f| %>
       <!-- Subject Selection -->
       <div class="space-y-2">
         <label class="block text-sm font-medium text-[#a1a1aa] flex justify-between" for="subject_id">
@@ -51,8 +51,7 @@
         <p class="text-xs text-[#a1a1aa]/70 pt-1">Selecione pelo menos 1 questão.</p>
       </div>
 
-      <!-- Divider -->
-      <div class="h-px w-full bg-[#27272a] my-6"></div>
+      <div class="h-px w-full bg-[#27272a] my-5"></div>
 
       <!-- Action Button -->
       <%= button_tag type: 'submit', class: "w-full bg-[#a78bfa] text-[#0a0012] font-bold rounded-lg py-4 px-6 text-sm flex items-center justify-center gap-2 hover:bg-[#ede9fe] transition-all duration-200 active:scale-[0.98] shadow-[0_0_15px_rgba(167,139,250,0.1)] hover:shadow-[0_0_20px_rgba(167,139,250,0.2)]" do %>

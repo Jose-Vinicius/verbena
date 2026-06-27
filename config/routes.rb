@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get :participants, on: :member
   end
   resources :group_participants, only: [ :show, :destroy ]
+  
+  get "history", to: "history#index", as: :history
 
   # Área pública — participantes do quiz em grupo
   scope "/quiz" do

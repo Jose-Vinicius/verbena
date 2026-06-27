@@ -1,19 +1,9 @@
-<!-- TopNavBar Structure -->
-<header class="flex justify-between items-center w-full h-16 px-8 border-b border-[#27272a] bg-[#09090b] shrink-0 z-10">
-  <div class="flex items-center gap-6">
-    <nav class="hidden md:flex gap-6 items-center">
-      <%= link_to "Painel", dashboard_path, class: "text-[#a1a1aa] hover:text-[#fafafa] transition-colors font-body text-sm" if defined?(dashboard_path) %>
-      <a class="text-[#a78bfa] border-b-2 border-[#a78bfa] pb-1 font-body text-sm font-medium" href="#">Modo Simulado</a>
-    </nav>
-  </div>
-</header>
-
 <!-- Exam Canvas Area -->
-<div class="flex-1 overflow-y-auto w-full p-4 md:p-8 flex justify-center items-start">
+<div class="flex-1 overflow-y-auto w-full p-4 md:p-6 flex justify-center items-start">
   <div class="w-full max-w-4xl relative">
     <%= turbo_frame_tag "exam_frame" do %>
       <!-- Progress Header -->
-      <div class="mb-8 flex justify-between items-end pb-4 border-b border-[#27272a]">
+      <div class="mb-6 flex justify-between items-end pb-4 border-b border-[#27272a]">
         <div>
           <h2 class="text-xs font-semibold tracking-wider text-[#a1a1aa] uppercase mb-1"><%= @exam.subject.name %></h2>
           <h1 class="text-2xl font-headline font-bold text-[#fafafa]">Questão <%= @current_index %> de <%= @total_questions %></h1>
@@ -28,9 +18,9 @@
       </div>
 
       <!-- Question Area -->
-      <div class="bg-[#121215] rounded-lg border border-[#27272a] p-6 md:p-8 mb-6 shadow-sm">
-        <div class="mb-6">
-          <p class="text-lg md:text-xl font-body text-[#fafafa] leading-relaxed whitespace-pre-wrap">
+      <div class="bg-[#121215] rounded-lg border border-[#27272a] p-5 md:p-6 mb-4 shadow-sm">
+        <div class="mb-5">
+          <p class="text-lg md:text-xl font-body text-[#fafafa] leading-relaxed">
             <%= @exam_question.question.statement %>
           </p>
         </div>
@@ -44,7 +34,7 @@
               is_correct_option = (index == @exam_question.question.correct_index)
               is_chosen_option = (index == @exam_question.chosen_index)
               
-              button_classes = "group flex w-full text-left rounded-lg p-4 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-background"
+              button_classes = "group flex w-full text-left rounded-lg py-3 px-4 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a78bfa] focus:ring-offset-2 focus:ring-offset-background"
               
               if !is_answered
                 button_classes += " bg-[#09090b] border border-[#27272a] hover:bg-[#18181b]"
@@ -88,17 +78,17 @@
 
       <% if @exam_question.chosen_index.present? %>
         <!-- Explanations Area -->
-        <div class="flex flex-col gap-4 mb-8">
-          <% bg_border_class = @exam_question.is_correct ? "bg-[#065f46]/20 border-[#34d399]/30" : "bg-[#3b1111]/20 border-[#ef4444]/30" %>
-          <% text_icon_class = @exam_question.is_correct ? "text-[#34d399]" : "text-[#ef4444]" %>
-          <div class="p-4 rounded-lg border <%= bg_border_class %>">
+        <div class="flex flex-col gap-4 mb-4">
+          <div class="p-3 rounded-lg bg-[#065f46]/20 border border-[#34d399]/30">
             <div class="flex items-start gap-3">
-              <span class="material-symbols-outlined <%= text_icon_class %> mt-0.5">info</span>
+              <span class="material-symbols-outlined text-[#34d399] mt-0.5">info</span>
               <div>
-                <h3 class="text-sm font-bold <%= text_icon_class %> mb-1">
+                <h3 class="text-sm font-bold text-[#34d399] mb-1">
                   <%= @exam_question.is_correct ? 'Correto!' : 'Incorreto' %>
                 </h3>
-                <p class="text-sm text-[#a1a1aa] leading-relaxed whitespace-pre-wrap"><%= @exam_question.question.explanation.presence || 'A resposta correta é a Alternativa ' + letters[@exam_question.question.correct_index] %></p>
+                <p class="text-sm text-[#a1a1aa] leading-relaxed">
+                  <%= @exam_question.question.explanation.presence || 'A resposta correta é a Alternativa ' + letters[@exam_question.question.correct_index] %>
+                </p>
               </div>
             </div>
           </div>
@@ -106,7 +96,7 @@
       <% end %>
 
       <!-- Action Footer -->
-      <div class="flex justify-end items-center py-4 border-t border-[#27272a]">
+      <div class="sticky bottom-0 bg-[#09090b]/95 backdrop-blur-md flex justify-end items-center py-4 border-t border-[#27272a] z-10 mt-4">
         <% if @exam_question.chosen_index.present? %>
           <% if @next_question %>
             <%= link_to exam_question_path(@next_question), class: "bg-[#a78bfa] hover:bg-[#ede9fe] text-[#0a0012] font-bold py-2.5 px-6 rounded-md transition-colors flex items-center gap-2", data: { turbo_frame: "exam_frame" } do %>
