@@ -11,6 +11,12 @@
 
     <%= yield :head %>
 
+    <%# PWA manifest %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
     <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -84,5 +90,11 @@
         <%= yield %>
       </div>
     <% end %>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("<%= pwa_service_worker_path %>", { scope: "/" });
+      }
+    </script>
   </body>
 </html>
