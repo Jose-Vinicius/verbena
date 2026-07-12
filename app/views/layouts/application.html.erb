@@ -13,9 +13,8 @@
 
     <%# PWA manifest %>
     <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <%= favicon_link_tag 'icon.ico' %>
+    <%= favicon_link_tag 'icon.ico', rel: 'apple-touch-icon', type: 'image/x-icon' %>
 
     <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
