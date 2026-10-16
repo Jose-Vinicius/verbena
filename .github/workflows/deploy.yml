@@ -16,7 +16,7 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Converter repositório para minúsculas
         id: repo
@@ -42,7 +42,7 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       
       - name: Converter repositório para minúsculas
         id: repo
