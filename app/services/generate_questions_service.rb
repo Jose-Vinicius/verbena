@@ -11,12 +11,14 @@ class GenerateQuestionsService
     @summary.update!(status: :processing)
 
     begin
-      prompt = File.read(Rails.root.join("lib", "prompts", "generate_questions.txt"))
-      
+      prompt = @summary.user&.effective_prompt || GeminiClient.default_prompt
+      preferred_model = @summary.user&.effective_gemini_model || GeminiClient::DEFAULT_MODEL
+
       questions_data = GeminiClient.generate_questions(
         prompt: prompt,
         content: @summary.content,
-        count: @summary.questions_requested
+        count: @summary.questions_requested,
+        default_model: preferred_model
       )
 
       ActiveRecord::Base.transaction do

@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :group_participants, only: [ :show, :destroy ]
   
   get "history", to: "history#index", as: :history
+  resource :settings, only: [ :show, :update ] do
+    post :restore_default_prompt, on: :member
+  end
 
   # Área pública — participantes do quiz em grupo
   scope "/quiz" do

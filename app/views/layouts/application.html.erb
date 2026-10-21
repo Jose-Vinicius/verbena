@@ -64,6 +64,10 @@
                 <div class="px-4 py-2 border-b border-[#27272a] mb-1">
                   <p class="text-sm font-medium text-[#fafafa] truncate"><%= current_user.email %></p>
                 </div>
+                <%= link_to settings_path, class: "w-full text-left px-4 py-2 text-sm text-[#fafafa] hover:bg-[#18181b] transition-colors flex items-center gap-2" do %>
+                  <span class="material-symbols-outlined text-[18px]">settings</span>
+                  Configurações
+                <% end %>
                 <%= button_to destroy_user_session_path, method: :delete, class: "w-full text-left px-4 py-2 text-sm text-[#fca5a5] hover:bg-[#18181b] transition-colors flex items-center gap-2" do %>
                   <span class="material-symbols-outlined text-[18px]">logout</span>
                   Sair do sistema
