@@ -17,10 +17,10 @@
     <% end %>
 
     <!-- 1. Textarea -->
-    <div class="space-y-2" data-controller="character-count">
+    <div class="space-y-2" data-controller="character-count" data-character-count-max-value="100000">
       <div class="flex justify-between items-end">
         <%= f.label :content, "Material de Estudo", class: "text-sm font-medium text-[#fafafa]" %>
-        <span class="text-xs text-[#a1a1aa]" data-character-count-target="counter">0 / 10000 caract.</span>
+        <span class="text-xs text-[#a1a1aa]" data-character-count-target="counter">0 / 100000 caract.</span>
       </div>
       <%= f.text_area :content, 
             class: "w-full bg-[#121215] border border-[#27272a] rounded-lg p-4 text-[#fafafa] placeholder:text-[#a1a1aa] focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa] transition-all resize-y font-body text-sm leading-relaxed", 

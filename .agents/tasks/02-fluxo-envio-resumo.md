@@ -1,6 +1,6 @@
 # Fluxo de Envio de Resumo
 
-**Resumo do Escopo:** Recebimento de notas e resumos textuais (até 10.000 caracteres), armazenamento em banco (Models Subject e Summary), integração da estrutura de fila com Solid Queue e polling de progresso visual (Turbo Streams).
+**Resumo do Escopo:** Recebimento de notas e resumos textuais (até 100.000 caracteres), armazenamento em banco (Models Subject e Summary), integração da estrutura de fila com Solid Queue e polling de progresso visual (Turbo Streams).
 
 ## 1 — Subject & Summary Models (TDD)
 
@@ -14,7 +14,7 @@ Criar specs para validar associações e campos e em seguida gerar os models de 
 **Detalhes técnicos:**
 - **Teste Primeiro:** Escrever `subject_spec.rb` e `summary_spec.rb`.
 - `Subject`: pertence ao User, tem name e validação de presença.
-- `Summary`: pertence ao User e Subject, possui `content` (limite 10.000 chars), `questions_requested` (10, 20 ou 30), e `status` (pending, processing, done, error).
+- `Summary`: pertence ao User e Subject, possui `content` (limite 100.000 chars), `questions_requested` (10, 20 ou 30), e `status` (pending, processing, done, error).
 - Criar scope `Summary.pending` e `Summary.processing` (evitar lógica nos controllers).
 
 **Critério de conclusão:**
@@ -50,7 +50,7 @@ Construir o formulário de envio e integração com Turbo Streams para tratament
 - Implementar a tela referenciando `/verbena/.agents/design/enviar_resumo/`.
 - O formulário usa helper nativo `form_with`.
 - Exibir mensagens de validação via Turbo Streams para falhas de formulário (422) ou render clássico.
-- Criar controller Stimulus `character_count_controller.js` simples apenas para limitar e mostrar os 10.000 caracteres (pois Turbo não resolve feedback interativo de digitação em tempo real).
+- Criar controller Stimulus `character_count_controller.js` simples apenas para limitar e mostrar os 100.000 caracteres (pois Turbo não resolve feedback interativo de digitação em tempo real).
 
 **Critério de conclusão:**
 Usuário acessa a página, consegue colar seu texto, escolhe a quantidade de questões e a matéria, e ao submeter vê as validações corretamente ou prossegue.

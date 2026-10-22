@@ -19,7 +19,7 @@ Traditional study methods often lack immediate feedback and structured retrieval
 - User dashboard showing study progress and recent metrics.
 
 ### 4.2 Content Generation Engine
-- **Source Input:** Text area for pasting notes or summaries (up to 10000 characters).
+- **Source Input:** Text area for pasting notes or summaries (up to 100000 characters).
 - **Subject Management:** Users can assign content to existing subjects or create new ones.
 - **Batch Processing:** AI generates questions in batches (10, 20, or 30).
 - **Progress Tracking:** Real-time polling with a progress bar and engine logs.

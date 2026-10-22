@@ -20,8 +20,13 @@ RSpec.describe 'Summary', type: :model do
     expect(summary).not_to be_valid
   end
 
-  it 'is not valid with content over 10000 characters' do
-    summary = Summary.new(user: user, subject: subject_model, content: 'A' * 10001, questions_requested: 10)
+  it 'is valid with content up to 100000 characters' do
+    summary = Summary.new(user: user, subject: subject_model, content: 'A' * 100_000, questions_requested: 10)
+    expect(summary).to be_valid
+  end
+
+  it 'is not valid with content over 100000 characters' do
+    summary = Summary.new(user: user, subject: subject_model, content: 'A' * 100_001, questions_requested: 10)
     expect(summary).not_to be_valid
   end
 
