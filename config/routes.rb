@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :summaries, only: [ :new, :create, :show ]
-  resources :subjects, only: [ :index, :new, :create, :edit, :update, :destroy ]
+  resources :subjects, only: [ :index, :show, :new, :create, :edit, :update, :destroy ] do
+    resources :study_sources, only: [ :create, :destroy ], shallow: true do
+      patch :toggle, on: :member
+    end
+  end
   resources :questions, only: [ :index, :edit, :update, :destroy ]
   resources :exams, only: [ :new, :create, :show ]
   resources :exam_questions, only: [ :show, :update ]

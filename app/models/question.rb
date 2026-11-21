@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :summary
   belongs_to :subject
   has_many :exam_questions, dependent: :destroy
@@ -9,11 +11,6 @@ class Question < ApplicationRecord
   validate :options_format
 
   scope :by_subject, ->(subject_id) { where(subject_id: subject_id) }
-  scope :active, -> { where(deleted_at: nil) }
-
-  def soft_delete!
-    update(deleted_at: Time.current)
-  end
 
   private
 

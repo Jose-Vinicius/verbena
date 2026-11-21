@@ -1,4 +1,6 @@
 class GroupQuiz < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :user
   belongs_to :subject
   has_many :group_quiz_questions, dependent: :destroy
@@ -14,7 +16,7 @@ class GroupQuiz < ApplicationRecord
   before_validation :generate_token, on: :create
   before_validation :set_expires_at, on: :create
 
-  scope :active, -> { where(status: :open).where("expires_at > ?", Time.current) }
+  scope :active, -> { kept.where(status: :open).where("expires_at > ?", Time.current) }
 
   def expired?
     expires_at < Time.current

@@ -2,7 +2,7 @@ class GroupQuizzesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @subjects = current_user.subjects.includes(:questions)
+    @subjects = current_user.subjects.active.includes(:questions)
   end
 
   def create
@@ -21,18 +21,18 @@ class GroupQuizzesController < ApplicationController
   end
 
   def show
-    @group_quiz = current_user.group_quizzes.find(params[:id])
-    @participants = @group_quiz.group_participants.order(correct_count: :desc, updated_at: :asc)
+    @group_quiz = current_user.group_quizzes.kept.find(params[:id])
+    @participants = @group_quiz.group_participants.kept.order(correct_count: :desc, updated_at: :asc)
   end
 
   def participants
-    @group_quiz = current_user.group_quizzes.find(params[:id])
-    @participants = @group_quiz.group_participants.order(correct_count: :desc, updated_at: :asc)
+    @group_quiz = current_user.group_quizzes.kept.find(params[:id])
+    @participants = @group_quiz.group_participants.kept.order(correct_count: :desc, updated_at: :asc)
     render partial: "participants", locals: { group_quiz: @group_quiz, participants: @participants }, layout: false
   end
 
   def update
-    @group_quiz = current_user.group_quizzes.find(params[:id])
+    @group_quiz = current_user.group_quizzes.kept.find(params[:id])
     @group_quiz.update!(status: :closed)
     redirect_to group_quiz_path(@group_quiz), notice: "Sala encerrada."
   end

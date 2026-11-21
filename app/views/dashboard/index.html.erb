@@ -42,18 +42,19 @@
           </div>
           <div class="mt-auto">
             <h3 class="text-lg font-headline font-bold text-[#fafafa] mb-1 transition-colors" style="--tw-group-hover-color: <%= subject.color || '#c4b5fd' %>;"><span class="group-hover:!text-[var(--tw-group-hover-color)] transition-colors"><%= subject.name %></span></h3>
+            <% active_questions = subject.questions.select(&:active?) %>
             <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
               <div class="flex flex-col">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Novas</span>
-                <span class="text-sm font-bold text-[#fafafa]"><%= subject.questions.count { |q| q.times_answered == 0 } %></span>
+                <span class="text-sm font-bold text-[#fafafa]"><%= active_questions.count { |q| q.times_answered == 0 } %></span>
               </div>
               <div class="flex flex-col text-center">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Respondidas</span>
-                <span class="text-sm font-bold text-[#fafafa]"><%= subject.questions.count { |q| q.times_answered > 0 } %></span>
+                <span class="text-sm font-bold text-[#fafafa]"><%= active_questions.count { |q| q.times_answered > 0 } %></span>
               </div>
               <div class="flex flex-col text-right">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Total</span>
-                <span class="text-sm font-bold text-[#a1a1aa]"><%= subject.questions.size %></span>
+                <span class="text-sm font-bold text-[#a1a1aa]"><%= active_questions.size %></span>
               </div>
             </div>
             <div class="flex items-center justify-between mt-4 border-t border-[#27272a] pt-4">
@@ -63,7 +64,7 @@
               </div>
               <div class="flex flex-col text-right">
                 <span class="text-xs font-label text-[#71717a] uppercase tracking-wider mb-0.5">Estudada pela ultima vez:</span>
-                <% last_answered = subject.questions.map(&:last_answered_at).compact.max %>
+                <% last_answered = active_questions.map(&:last_answered_at).compact.max %>
                 <span class="text-sm font-medium text-[#a1a1aa]"><%= last_answered ? last_answered.in_time_zone('America/Sao_Paulo').strftime("%d/%m/%y às %H:%M") : "Nunca" %></span>
               </div>
             </div>

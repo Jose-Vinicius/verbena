@@ -78,3 +78,5 @@ gem "shoulda-matchers", "~> 8.0", group: :test
 
 gem "rails-i18n", "~> 8.1"
 gem "devise-i18n", "~> 1.16"
+gem "pdf-reader", "~> 2.12"
+gem "rubyzip", "~> 3.0"

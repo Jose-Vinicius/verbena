@@ -1,4 +1,6 @@
 class ExamQuestion < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :exam
   belongs_to :question
 

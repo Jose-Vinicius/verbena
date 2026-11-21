@@ -2,7 +2,7 @@ class CreateGroupQuizService
   Result = Struct.new(:success?, :group_quiz, :error_message)
 
   def self.call(user:, subject_id:, questions_count:, title:)
-    subject = user.subjects.find_by(id: subject_id)
+    subject = user.subjects.active.find_by(id: subject_id)
     return Result.new(false, nil, "Matéria não encontrada") unless subject
 
     count = questions_count.to_i

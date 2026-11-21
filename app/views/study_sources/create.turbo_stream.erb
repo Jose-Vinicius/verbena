@@ -1,0 +1,11 @@
+<%= turbo_stream.remove "study_sources_empty" %>
+
+<%= turbo_stream.update "study_sources_list" do %>
+  <%= render @study_sources %>
+<% end %>
+
+<%= turbo_stream.update "sources-count-badge", "#{@study_sources.size} fontes" %>
+
+<%= turbo_stream.replace "generator_panel" do %>
+  <%= render "study_sources/generator_panel", subject: @subject, study_sources: @study_sources, summary: current_user.summaries.new(subject: @subject), user: current_user %>
+<% end %>

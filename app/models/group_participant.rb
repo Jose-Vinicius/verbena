@@ -1,4 +1,6 @@
 class GroupParticipant < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :group_quiz
   has_many :group_answers, dependent: :destroy
 
@@ -8,6 +10,13 @@ class GroupParticipant < ApplicationRecord
   validates :token, presence: true, uniqueness: true
 
   before_validation :generate_token, on: :create
+
+  def soft_delete!(timestamp = Time.current)
+    transaction do
+      update!(deleted_at: timestamp)
+      group_answers.kept.update_all(deleted_at: timestamp, updated_at: timestamp)
+    end
+  end
 
   private
 

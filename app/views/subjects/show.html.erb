@@ -1,0 +1,104 @@
+<%= turbo_stream_from [ current_user, "subject_#{@subject.id}_sources" ] %>
+
+<div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+  <!-- Header -->
+  <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-[#27272a]">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-xl bg-[#121215] border border-[#27272a] flex items-center justify-center shrink-0" style="color: <%= @subject.color || '#a78bfa' %>;">
+        <% if @subject.icon.present? && @subject.icon.length <= 2 %>
+          <span class="text-2xl"><%= @subject.icon %></span>
+        <% else %>
+          <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;"><%= @subject.icon.presence || 'folder_open' %></span>
+        <% end %>
+      </div>
+      <div>
+        <div class="flex items-center gap-2 text-xs text-[#71717a] mb-0.5">
+          <%= link_to "Matérias", subjects_path, class: "hover:text-[#fafafa] transition-colors" %>
+          <span>/</span>
+          <span>Caderno de Fontes</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-headline font-bold text-[#fafafa] tracking-tight"><%= @subject.name %></h1>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2.5">
+      <%= link_to questions_path(subject_id: @subject.id), class: "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#121215] border border-[#27272a] hover:border-[#52525b] text-xs font-medium text-[#fafafa] transition-colors" do %>
+        <span class="material-symbols-outlined text-[16px] text-[#a78bfa]">inventory_2</span>
+        Banco (<%= @subject.questions.active.count %>)
+      <% end %>
+      <%= link_to new_exam_path, class: "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#121215] border border-[#27272a] hover:border-[#52525b] text-xs font-medium text-[#fafafa] transition-colors" do %>
+        <span class="material-symbols-outlined text-[16px] text-[#34d399]">assignment</span>
+        Novo Simulado
+      <% end %>
+      <%= link_to edit_subject_path(@subject), class: "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#121215] border border-[#27272a] hover:border-[#52525b] text-xs font-medium text-[#a1a1aa] hover:text-[#fafafa] transition-colors" do %>
+        <span class="material-symbols-outlined text-[16px]">edit</span>
+        Editar
+      <% end %>
+    </div>
+  </header>
+
+  <!-- 2-Column NotebookLM Workspace -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Left Column: Sources -->
+    <section class="lg:col-span-5 bg-[#121215] border border-[#27272a] rounded-xl p-5 flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-base font-headline font-bold text-[#fafafa] flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#a78bfa] text-[20px]">library_books</span>
+            Fontes de Estudo
+          </h2>
+          <p class="text-xs text-[#a1a1aa] mt-0.5">PDF, PPTX, DOCX, TXT/MD ou texto colado.</p>
+        </div>
+        <span class="text-xs font-mono text-[#a1a1aa] bg-[#09090b] px-2.5 py-1 rounded border border-[#27272a]" id="sources-count-badge">
+          <%= @study_sources.size %> fontes
+        </span>
+      </div>
+
+      <!-- Add Source Form (Files or Text) -->
+      <div class="bg-[#09090b] border border-[#27272a] rounded-lg p-4" data-controller="toggle">
+        <%= form_with url: subject_study_sources_path(@subject), method: :post, multipart: true, class: "space-y-3", id: "new-study-source-form" do |f| %>
+          <div>
+            <label class="block text-xs font-medium text-[#a1a1aa] mb-1.5">Enviar arquivos (múltiplos permitidos)</label>
+            <%= file_field_tag "files[]",
+                  multiple: true,
+                  accept: ".pdf,.pptx,.docx,.txt,.md",
+                  class: "block w-full text-xs text-[#a1a1aa] file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border file:border-[#27272a] file:text-xs file:font-semibold file:bg-[#18181b] file:text-[#fafafa] hover:file:bg-[#27272a] cursor-pointer" %>
+          </div>
+
+          <button type="button" data-action="click->toggle#toggle" class="text-xs text-[#a78bfa] hover:text-[#c4b5fd] font-medium flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[15px]">notes</span>
+            Ou adicionar texto/anotação colada
+          </button>
+
+          <div data-toggle-target="content" class="hidden space-y-2.5 pt-2 border-t border-[#27272a]">
+            <%= text_field_tag :title, nil, placeholder: "Título da anotação (opcional)", class: "w-full bg-[#121215] border border-[#27272a] rounded-lg px-3 py-2 text-xs text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-[#a78bfa]" %>
+            <%= text_area_tag :raw_text, nil, rows: 4, placeholder: "Cole aqui um resumo, artigo ou trecho...", class: "w-full bg-[#121215] border border-[#27272a] rounded-lg px-3 py-2 text-xs text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-[#a78bfa] resize-y" %>
+          </div>
+
+          <%= button_tag type: "submit", class: "w-full py-2.5 px-4 rounded-lg bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#a78bfa]/50 text-[#fafafa] text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer" do %>
+            <span class="material-symbols-outlined text-[16px] text-[#a78bfa]">upload_file</span>
+            Adicionar Fontes
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Sources List -->
+      <div id="study_sources_list" class="space-y-2.5 max-h-[520px] overflow-y-auto pr-1">
+        <% if @study_sources.empty? %>
+          <div id="study_sources_empty" class="text-center py-8 px-4 border border-dashed border-[#27272a] rounded-lg">
+            <span class="material-symbols-outlined text-3xl text-[#27272a] mb-2">source</span>
+            <p class="text-xs text-[#a1a1aa]">Nenhuma fonte adicionada ainda.</p>
+            <p class="text-[11px] text-[#71717a] mt-1">Envie PDFs ou slides PPTX acima para começar.</p>
+          </div>
+        <% else %>
+          <%= render @study_sources %>
+        <% end %>
+      </div>
+    </section>
+
+    <!-- Right Column: Question Generator -->
+    <section class="lg:col-span-7 bg-[#121215] border border-[#27272a] rounded-xl p-6">
+      <%= render "study_sources/generator_panel", subject: @subject, study_sources: @study_sources, summary: @summary, user: current_user %>
+    </section>
+  </div>
+</div>

@@ -2,7 +2,7 @@ class ExamsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @subjects = current_user.subjects.includes(:questions)
+    @subjects = current_user.subjects.active.includes(:questions)
   end
 
   def create
@@ -21,7 +21,7 @@ class ExamsController < ApplicationController
   end
 
   def show
-    @exam = current_user.exams.find(params[:id])
+    @exam = current_user.exams.kept.find(params[:id])
     
     # If finishing the exam here
     if @exam.in_progress?

@@ -69,7 +69,7 @@ class PublicQuizController < ApplicationController
   def finish
     FinishGroupParticipantService.call(participant: @participant) unless @participant.finished?
 
-    all_finished = @group_quiz.group_participants.where(status: :in_progress).none?
+    all_finished = @group_quiz.group_participants.kept.where(status: :in_progress).none?
     if all_finished
       redirect_to public_quiz_result_path(@group_quiz.token)
     else
@@ -78,13 +78,13 @@ class PublicQuizController < ApplicationController
   end
 
   def waiting
-    all_finished = @group_quiz.group_participants.where(status: :in_progress).none?
+    all_finished = @group_quiz.group_participants.kept.where(status: :in_progress).none?
     if all_finished
       redirect_to public_quiz_result_path(@group_quiz.token) and return
     end
 
-    @total_participants = @group_quiz.group_participants.count
-    @finished_count = @group_quiz.group_participants.where(status: :finished).count
+    @total_participants = @group_quiz.group_participants.kept.count
+    @finished_count = @group_quiz.group_participants.kept.where(status: :finished).count
   end
 
   def result
@@ -92,19 +92,19 @@ class PublicQuizController < ApplicationController
       redirect_to public_quiz_path(@group_quiz.token) and return
     end
 
-    all_finished = @group_quiz.group_participants.where(status: :in_progress).none?
+    all_finished = @group_quiz.group_participants.kept.where(status: :in_progress).none?
     unless all_finished
       redirect_to public_quiz_waiting_path(@group_quiz.token) and return
     end
 
-    @participants = @group_quiz.group_participants.where(status: :finished).order(correct_count: :desc, updated_at: :asc)
-    @answers = @participant.group_answers.includes(:question)
+    @participants = @group_quiz.group_participants.kept.where(status: :finished).order(correct_count: :desc, updated_at: :asc)
+    @answers = @participant.group_answers.kept.includes(:question)
   end
 
   private
 
   def set_group_quiz
-    @group_quiz = GroupQuiz.find_by!(token: params[:token])
+    @group_quiz = GroupQuiz.kept.find_by!(token: params[:token])
   rescue ActiveRecord::RecordNotFound
     render plain: "Sala não encontrada", status: :not_found
   end
@@ -125,7 +125,7 @@ class PublicQuizController < ApplicationController
   def find_participant_from_cookie
     token = cookies.signed[:participant_token]
     return nil unless token
-    @group_quiz.group_participants.find_by(token: token)
+    @group_quiz.group_participants.kept.find_by(token: token)
   end
 
   def redirect_to_next_question(participant)

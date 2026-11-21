@@ -1,0 +1,61 @@
+<div id="<%= dom_id(study_source) %>" class="flex items-start gap-3 p-3 rounded-lg bg-[#09090b] border <%= study_source.selected? && study_source.ready? ? 'border-[#a78bfa]/40' : 'border-[#27272a]' %> transition-colors">
+  <!-- Selection toggle -->
+  <div class="pt-0.5 shrink-0">
+    <%= button_to toggle_study_source_path(study_source), method: :patch,
+          class: "w-5 h-5 rounded border flex items-center justify-center transition-colors cursor-pointer #{study_source.selected? ? 'bg-[#a78bfa] border-[#a78bfa] text-[#0a0012]' : 'bg-[#121215] border-[#52525b] text-transparent hover:border-[#a78bfa]'}",
+          title: study_source.selected? ? "Desmarcar fonte" : "Selecionar fonte" do %>
+      <span class="material-symbols-outlined text-[14px] font-bold">check</span>
+    <% end %>
+  </div>
+
+  <!-- File Type Icon -->
+  <div class="w-8 h-8 rounded bg-[#121215] border border-[#27272a] flex items-center justify-center shrink-0 text-[#a78bfa]">
+    <% icon_name = case study_source.source_type
+                   when "pdf" then "picture_as_pdf"
+                   when "pptx" then "slideshow"
+                   when "docx" then "description"
+                   else "notes"
+                   end %>
+    <span class="material-symbols-outlined text-[18px]"><%= icon_name %></span>
+  </div>
+
+  <!-- Info & Status -->
+  <div class="flex-1 min-w-0">
+    <p class="text-xs font-semibold text-[#fafafa] truncate" title="<%= study_source.title %>"><%= study_source.title %></p>
+    <div class="mt-1 flex flex-wrap items-center gap-2">
+      <% case study_source.status %>
+      <% when "pending", "processing" %>
+        <span class="inline-flex items-center gap-1 text-[11px] text-[#a78bfa]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-pulse"></span>
+          Extraindo texto...
+        </span>
+      <% when "ready" %>
+        <span class="inline-flex items-center gap-1 text-[11px] text-[#34d399]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#34d399]"></span>
+          Pronto
+        </span>
+        <span class="text-[11px] text-[#71717a] font-mono">
+          <%= study_source.pages_count %> <%= study_source.pptx? ? "slides" : "pág/seg" %> · <%= study_source.chunks_count %> trechos
+        </span>
+      <% when "error" %>
+        <span class="inline-flex items-center gap-1 text-[11px] text-[#ef4444]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#ef4444]"></span>
+          Erro na extração
+        </span>
+      <% end %>
+    </div>
+    <% if study_source.error? && study_source.error_message.present? %>
+      <p class="mt-1 text-[11px] text-[#fca5a5]/90 leading-snug"><%= study_source.error_message %></p>
+    <% end %>
+  </div>
+
+  <!-- Soft delete -->
+  <div class="shrink-0">
+    <%= button_to study_source_path(study_source), method: :delete,
+          form: { data: { turbo_confirm: "Deseja inativar a fonte \"#{study_source.title}\"? Os trechos indexados deixarão de ser usados nas próximas gerações.", turbo_confirm_title: "Inativar Fonte", turbo_confirm_button: "Sim, inativar" } },
+          class: "w-7 h-7 rounded flex items-center justify-center text-[#71717a] hover:text-[#ef4444] hover:bg-[#18181b] transition-colors cursor-pointer",
+          title: "Inativar fonte" do %>
+      <span class="material-symbols-outlined text-[16px]">delete</span>
+    <% end %>
+  </div>
+</div>

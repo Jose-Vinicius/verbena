@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include SoftDeletable
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -8,6 +10,7 @@ class User < ApplicationRecord
   has_many :exams, dependent: :destroy
   has_many :summaries, dependent: :destroy
   has_many :group_quizzes, dependent: :destroy
+  has_many :study_sources, dependent: :destroy
   has_many :questions, through: :subjects
 
   validates :gemini_model, inclusion: { in: GeminiClient::MODELS }, allow_blank: true
@@ -19,5 +22,9 @@ class User < ApplicationRecord
 
   def effective_prompt
     custom_prompt.presence || GeminiClient.default_prompt
+  end
+
+  def active_for_authentication?
+    super && active?
   end
 end

@@ -62,7 +62,7 @@
     <% end %>
     
     <div class="mt-4 pt-4 border-t border-[#27272a] text-center">
-      <%= button_to "Excluir Matéria", subject_path(@subject), method: :delete, form: { data: { turbo_confirm: "Tem certeza que deseja excluir esta matéria e todas as suas questões?" } }, class: "text-sm text-[#ef4444] hover:text-[#fca5a5] font-medium transition-colors" %>
+      <%= button_to "Inativar Matéria", subject_path(@subject), method: :delete, form: { data: { turbo_confirm: "Tem certeza que deseja inativar esta matéria e todas as suas questões vinculadas?", turbo_confirm_title: "Inativar Matéria", turbo_confirm_button: "Sim, inativar" } }, class: "text-sm text-[#ef4444] hover:text-[#fca5a5] font-medium transition-colors cursor-pointer" %>
     </div>
   </div>
 </div>

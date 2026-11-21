@@ -1,4 +1,6 @@
 class Exam < ApplicationRecord
+  include SoftDeletable
+
   belongs_to :user
   belongs_to :subject
   has_many :exam_questions, dependent: :destroy

@@ -1,0 +1,90 @@
+<div id="generator_panel">
+  <% ready_selected = study_sources.select { |s| s.ready? && s.selected? } %>
+  <% effective_user = local_assigns[:user] || current_user %>
+
+  <header class="mb-5 pb-4 border-b border-[#27272a]">
+    <h2 class="text-lg font-headline font-bold text-[#fafafa] flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#a78bfa] text-[22px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+      Gerar Questões com base nas Fontes
+    </h2>
+    <p class="text-xs text-[#a1a1aa] mt-1">
+      O sistema seleciona automaticamente os trechos mais relevantes (ou distribui entre as fontes marcadas) sem sobrecarregar a IA.
+    </p>
+  </header>
+
+  <%= form_with model: summary, url: summaries_path, class: "space-y-5", data: { turbo: true } do |f| %>
+    <%= f.hidden_field :subject_id, value: subject.id %>
+    <% ready_selected.each do |src| %>
+      <%= hidden_field_tag "summary[study_source_ids][]", src.id %>
+    <% end %>
+
+    <!-- Selected Sources Summary -->
+    <div class="bg-[#09090b] border border-[#27272a] rounded-lg p-3.5">
+      <div class="flex items-center justify-between text-xs mb-2">
+        <span class="font-medium text-[#fafafa]">Fontes selecionadas</span>
+        <span class="font-mono <%= ready_selected.any? ? 'text-[#34d399]' : 'text-[#a1a1aa]' %>">
+          <%= ready_selected.size %> pronta(s)
+        </span>
+      </div>
+      <% if ready_selected.any? %>
+        <div class="flex flex-wrap gap-1.5">
+          <% ready_selected.each do |src| %>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#18181b] border border-[#27272a] text-[11px] text-[#fafafa] max-w-[200px] truncate">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#a78bfa] shrink-0"></span>
+              <span class="truncate"><%= src.title %></span>
+            </span>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-xs text-[#71717a]">Adicione e marque pelo menos uma fonte pronta ao lado para habilitar a geração.</p>
+      <% end %>
+    </div>
+
+    <!-- Optional Focus Topic -->
+    <div class="space-y-2">
+      <div class="flex items-center justify-between">
+        <%= f.label :focus_query, "Foco ou Tópico Específico (opcional)", class: "text-sm font-medium text-[#fafafa]" %>
+        <span class="text-[11px] text-[#71717a]">Busca inteligente nos trechos</span>
+      </div>
+      <%= f.text_field :focus_query,
+            placeholder: "Ex: Farmacocinética, Ciclo de Krebs, Artigo 5º... (vazio = cobrir todo o material)",
+            class: "w-full bg-[#09090b] border border-[#27272a] rounded-lg px-4 py-2.5 text-sm text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-[#a78bfa] focus:ring-1 focus:ring-[#a78bfa]" %>
+    </div>
+
+    <!-- Question Count Pills -->
+    <div class="space-y-2">
+      <label class="text-sm font-medium text-[#fafafa]">Quantidade de Questões</label>
+      <div class="flex gap-3 h-[46px]">
+        <% [10, 20, 30].each do |count| %>
+          <label class="relative flex-1 cursor-pointer group">
+            <%= f.radio_button :questions_requested, count, class: "peer sr-only", checked: count == 10 %>
+            <div class="w-full h-full flex items-center justify-center rounded-lg border border-[#27272a] bg-[#09090b] text-[#a1a1aa] text-sm font-medium transition-all group-hover:border-[#52525b] peer-checked:bg-[#c4b5fd]/10 peer-checked:border-[#a78bfa] peer-checked:text-[#a78bfa]">
+              <%= count %>
+            </div>
+          </label>
+        <% end %>
+      </div>
+      <p class="text-[11px] text-[#71717a]">Quantidades maiores (20 ou 30) são divididas em lotes automáticos para maior cobertura.</p>
+    </div>
+
+    <div class="pt-4 border-t border-[#27272a] flex flex-col gap-3">
+      <%= button_tag type: "submit",
+            disabled: ready_selected.empty?,
+            class: "w-full bg-[#a78bfa] hover:bg-[#c4b5fd] disabled:opacity-40 disabled:cursor-not-allowed text-[#0a0012] py-3.5 rounded-lg font-bold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer" do %>
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+        Gerar Questões das Fontes
+      <% end %>
+
+      <div class="flex items-center justify-between text-xs text-[#71717a]">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#34d399]"></span>
+          Modelo: <strong class="text-[#a1a1aa] font-medium"><%= effective_user.effective_gemini_model %></strong>
+        </span>
+        <%= link_to settings_path, class: "text-[#a78bfa] hover:text-[#c4b5fd] transition-colors flex items-center gap-1" do %>
+          <span class="material-symbols-outlined text-[14px]">tune</span>
+          Configurar IA
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

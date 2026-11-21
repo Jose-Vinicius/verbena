@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @questions = current_user.questions.active.includes(:subject)
+    @questions = current_user.questions.active.joins(:subject).merge(Subject.active).includes(:subject)
 
     if params[:subject_id].present?
       @questions = @questions.where(subject_id: params[:subject_id])
@@ -17,11 +17,11 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = current_user.questions.active.find(params[:id])
+    @question = current_user.questions.active.joins(:subject).merge(Subject.active).find(params[:id])
   end
 
   def update
-    @question = current_user.questions.active.find(params[:id])
+    @question = current_user.questions.active.joins(:subject).merge(Subject.active).find(params[:id])
     
     q_params = params.require(:question).permit(:statement, :explanation, :correct_index, options: [])
     options = q_params[:options] || []
@@ -44,8 +44,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = current_user.questions.active.find(params[:id])
+    @question = current_user.questions.active.joins(:subject).merge(Subject.active).find(params[:id])
     @question.soft_delete!
-    redirect_to questions_path, notice: "Questão excluída com sucesso."
+    redirect_to questions_path, notice: "Questão inativada com sucesso."
   end
 end

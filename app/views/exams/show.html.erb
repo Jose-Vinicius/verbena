@@ -70,14 +70,14 @@
                   <span class="material-symbols-outlined text-[18px]">check</span>
                 </div>
                 <div class="w-full">
-                  <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-3"><%= eq.question.statement %></h4>
+                  <%= render_markdown(eq.question.statement, class: "text-[#fafafa] font-medium text-lg leading-snug mb-3") %>
                   
                   <div class="space-y-3 w-full">
                     <div class="flex items-center gap-3">
                       <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Sua Resposta</span>
-                      <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between">
-                        <%= eq.question.options[eq.chosen_index] %>
-                        <span class="material-symbols-outlined text-[16px]">check</span>
+                      <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between gap-2">
+                        <%= render_markdown(eq.question.options[eq.chosen_index], inline: true, tag: :span) %>
+                        <span class="material-symbols-outlined text-[16px] shrink-0">check</span>
                       </div>
                     </div>
                   </div>
@@ -95,22 +95,22 @@
                   <span class="material-symbols-outlined text-[18px]">close</span>
                 </div>
                 <div class="w-full">
-                  <h4 class="text-[#fafafa] font-medium text-lg leading-snug mb-3"><%= eq.question.statement %></h4>
+                  <%= render_markdown(eq.question.statement, class: "text-[#fafafa] font-medium text-lg leading-snug mb-3") %>
                   
                   <div class="space-y-3 w-full">
                     <div class="flex items-center gap-3">
                       <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Sua Resposta</span>
-                      <div class="flex-1 p-3 rounded bg-[#3b1111]/20 border border-[#ef4444]/30 text-[#ef4444] font-medium text-sm flex items-center justify-between">
-                        <%= eq.chosen_index.nil? ? "Não respondida" : eq.question.options[eq.chosen_index] %>
-                        <span class="material-symbols-outlined text-[16px]">close</span>
+                      <div class="flex-1 p-3 rounded bg-[#3b1111]/20 border border-[#ef4444]/30 text-[#ef4444] font-medium text-sm flex items-center justify-between gap-2">
+                        <%= eq.chosen_index.nil? ? "Não respondida" : render_markdown(eq.question.options[eq.chosen_index], inline: true, tag: :span) %>
+                        <span class="material-symbols-outlined text-[16px] shrink-0">close</span>
                       </div>
                     </div>
 
                     <div class="flex items-center gap-3">
                       <span class="text-xs text-[#a1a1aa] w-16 uppercase tracking-wider">Correta</span>
-                      <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between">
-                        <%= eq.question.options[eq.question.correct_index] %>
-                        <span class="material-symbols-outlined text-[16px]">check</span>
+                      <div class="flex-1 p-3 rounded bg-[#065f46]/10 border border-[#34d399]/30 text-[#34d399] font-medium text-sm flex items-center justify-between gap-2">
+                        <%= render_markdown(eq.question.options[eq.question.correct_index], inline: true, tag: :span) %>
+                        <span class="material-symbols-outlined text-[16px] shrink-0">check</span>
                       </div>
                     </div>
                   </div>

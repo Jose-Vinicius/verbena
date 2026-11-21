@@ -20,9 +20,7 @@
       <!-- Question Area -->
       <div class="bg-[#121215] rounded-lg border border-[#27272a] p-5 md:p-6 mb-4 shadow-sm">
         <div class="mb-5">
-          <p class="text-lg md:text-xl font-body text-[#fafafa] leading-relaxed">
-            <%= @exam_question.question.statement %>
-          </p>
+          <%= render_markdown(@exam_question.question.statement, class: "text-lg md:text-xl font-body text-[#fafafa] leading-relaxed") %>
         </div>
 
         <!-- Options Grid -->
@@ -53,7 +51,7 @@
                   <div class="flex-shrink-0 w-8 h-8 rounded-md bg-[#18181b] border border-[#27272a] flex items-center justify-center font-bold text-sm text-[#a1a1aa] group-hover:text-[#fafafa]">
                     <%= letters[index] %>
                   </div>
-                  <span class="text-base text-[#fafafa] font-body text-left"><%= option_text %></span>
+                  <%= render_markdown(option_text, inline: true, tag: :span, class: "text-base text-[#fafafa] font-body text-left") %>
                   
                   <% if is_correct_option %>
                     <span class="material-symbols-outlined ml-auto text-[#34d399]">check_circle</span>
@@ -68,7 +66,7 @@
                   <div class="flex-shrink-0 w-8 h-8 rounded-md bg-[#18181b] border border-[#27272a] flex items-center justify-center font-bold text-sm text-[#a1a1aa] group-hover:text-[#fafafa]">
                     <%= letters[index] %>
                   </div>
-                  <span class="text-base text-[#fafafa] font-body text-left"><%= option_text %></span>
+                  <%= render_markdown(option_text, inline: true, tag: :span, class: "text-base text-[#fafafa] font-body text-left") %>
                 </div>
               <% end %>
             <% end %>
@@ -86,9 +84,7 @@
                 <h3 class="text-sm font-bold text-[#34d399] mb-1">
                   <%= @exam_question.is_correct ? 'Correto!' : 'Incorreto' %>
                 </h3>
-                <p class="text-sm text-[#a1a1aa] leading-relaxed">
-                  <%= @exam_question.question.explanation.presence || 'A resposta correta é a Alternativa ' + letters[@exam_question.question.correct_index] %>
-                </p>
+                <%= render_markdown(@exam_question.question.explanation.presence || 'A resposta correta é a Alternativa ' + letters[@exam_question.question.correct_index], class: "text-sm text-[#a1a1aa] leading-relaxed") %>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <div class="max-w-3xl w-full mx-auto px-8 py-8 flex-1 flex flex-col justify-center">
   <header class="mb-6">
     <h2 class="text-3xl font-headline font-bold tracking-tight text-[#fafafa] mb-2">Gerar Questões</h2>
-    <p class="text-[#a1a1aa] text-sm">Cole seu texto bruto ou resumo abaixo para gerar um conjunto de estudos interativo.</p>
+    <p class="text-[#a1a1aa] text-sm">Cole seu texto bruto abaixo ou use o <strong class="text-[#fafafa]">Caderno de Fontes</strong> em <%= link_to "Matérias", subjects_path, class: "text-[#a78bfa] hover:text-[#c4b5fd] underline" %> para enviar PDFs, PPTX e DOCX.</p>
   </header>
 
   <%= form_with model: @summary, class: "flex flex-col gap-6", data: { turbo: true } do |f| %>
